@@ -1,0 +1,6 @@
+[submodule "crfsuite"]
+	path = crfsuite
+	url = https://github.com/chokkan/crfsuite.git
+[submodule "liblbfgs"]
+	path = liblbfgs
+	url = https://github.com/chokkan/liblbfgs.git
