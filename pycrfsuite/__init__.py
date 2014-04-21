@@ -3,7 +3,7 @@ CRFsuite scikit-learn API.
 """
 import itertools
 from sklearn.base import BaseEstimator
-from ._crfsuite import PyTrainer, PyTagger, PyAttribute
+from .pycrfsuite import PyTrainer, PyTagger, PyAttribute
 
 class CRFSuite(BaseEstimator):
 

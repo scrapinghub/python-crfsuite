@@ -12,6 +12,21 @@ Why make another python binding for CRFsuite_ even crfsuite has its own SWIG pyt
 * can't dump the model (with `crfsuite dump`) trained by the crfsuite's SWIG python package_.
 * wrapping a library with cython is fun and easy to extend.
 
+Installation
+============
+
+Prepare `crfsuite` and `liblbfgs`::
+
+    git submodule init && git submodule update
+
+and then::
+
+    python setup.py install
+
+if you modify the `pycrfsuite.pyx`, make sure run::
+
+    update_cpp.sh
+
 Usage
 =====
 
