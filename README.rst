@@ -19,7 +19,7 @@ Prepare `crfsuite` and `liblbfgs`::
 
     git submodule init && git submodule update
 
-and then::
+and then ::
 
     python setup.py install
 
@@ -62,7 +62,7 @@ Train a model::
     clf.fit(X, y)
 
 Authors
-======
+=======
 Terry Peng <pengtaoo@gmail.com>
 
 License
