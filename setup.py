@@ -17,7 +17,8 @@ sources += glob.glob('liblbfgs/lib/*.c')
 
 includes = [
     'crfsuite/include/',
-    'crfsuite/lib/cqdb/include'
+    'crfsuite/lib/cqdb/include',
+    'liblbfgs/include/lbfgs.h'
 ]
 
 ext_modules = [Extension('pycrfsuite/pycrfsuite',
