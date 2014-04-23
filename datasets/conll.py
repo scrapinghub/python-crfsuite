@@ -22,7 +22,7 @@ def load_conll(fname, features):
             obs, lbl = zip(*(ln.rsplit(None, 1) for ln in group))
 
             for i in xrange(len(obs)):
-                xseq.append(dict.fromkeys(features(obs, i), 1))
+                xseq.append(list(features(obs, i)))
                 yseq.append(lbl[i])
 
             if xseq and yseq:
@@ -36,7 +36,7 @@ def features(words, i):
     yield "word:{}".format(word.lower())
 
     if word[0].isupper():
-        yield "CAP"
+        yield {"CAP": '1'}
 
     if i > 0:
         yield "word-1:{}".format(words[i - 1].lower())
