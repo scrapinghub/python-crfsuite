@@ -4,14 +4,6 @@ PyCRFsuite
 
 PyCRFsuite is a python binding of CRFsuite_ and mimic scikit-learn_ to provide a similar API.
 
-Why
-===
-Why make another python binding for CRFsuite_ even crfsuite has its own SWIG python package_? Some of the reasons are:
-
-* crfsuite SWIG package is not easy to build . There are some openning issues reported on crfsuite e.g. issue6_, issue19_
-* can't dump the model (with `crfsuite dump`) trained by the crfsuite's SWIG python package_.
-* wrapping a library with cython is fun and easy to extend.
-
 Installation
 ============
 
@@ -70,7 +62,4 @@ License
 Licensed under MIT license.
 
 .. _CRFsuite: https://github.com/chokkan/crfsuite
-.. _package: https://github.com/chokkan/crfsuite/swig/python
 .. _scikit-learn: http://scikit-learn.org/
-.. _issue6: https://github.com/chokkan/crfsuite/issues/6
-.. _issue19: https://github.com/chokkan/crfsuite/issues/19

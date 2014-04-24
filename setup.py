@@ -21,7 +21,7 @@ includes = [
     'liblbfgs/include'
 ]
 
-ext_modules = [Extension('pycrfsuite/pycrfsuite',
+ext_modules = [Extension('pycrfsuite.pycrfsuite',
     include_dirs=includes,
     language='c++',
     sources=sources
