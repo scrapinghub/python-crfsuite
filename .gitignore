@@ -1,3 +1,7 @@
 *.pyc
 *.so
-
+*.html
+.tox
+dist
+build
+MANIFEST
