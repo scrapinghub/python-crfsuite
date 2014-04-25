@@ -1,1 +1,1 @@
-cython pycrfsuite/pycrfsuite.pyx --cplus
+cython pycrfsuite/pycrfsuite.pyx --cplus -a
