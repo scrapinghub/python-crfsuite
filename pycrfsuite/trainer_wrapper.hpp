@@ -10,7 +10,7 @@ typedef _object PyObject;
 namespace CRFSuiteWrapper
 {
 
-typedef PyObject* (*messagefunc)(void *self, std::string message);
+typedef PyObject* (*messagefunc)(PyObject *self, std::string message);
 
 /**
 * A wrapper around CRFSuite::Trainer that allows overriding
