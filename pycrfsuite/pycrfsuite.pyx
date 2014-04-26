@@ -75,7 +75,7 @@ cdef crfsuite_api.ItemSequence stringlists_to_seq(seq) except+:
     return c_seq
 
 
-cdef class Trainer:
+cdef class Trainer(object):
     cdef crfsuite_api.Trainer c_trainer
 
     def __cinit__(self):
@@ -259,6 +259,10 @@ cdef class Trainer:
             The description (help message) of the parameter.
 
         """
+        if name not in self.params():
+            # c_trainer.help(name) segfaults without this workaround;
+            # see https://github.com/chokkan/crfsuite/pull/21
+            raise ValueError("Parameter not found: %s" % name)
         return self.c_trainer.help(name)
 
     def clear(self):

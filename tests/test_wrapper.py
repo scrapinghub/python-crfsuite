@@ -82,16 +82,25 @@ def test_params_and_help():
     assert 'c1' in trainer.params()
     assert 'c2' in trainer.params()
     assert 'num_memories' in trainer.params()
+    assert 'L1' in trainer.help('c1')
 
     trainer.select('l2sgd')
     assert 'c2' in trainer.params()
     assert 'c1' not in trainer.params()
-
     assert 'L2' in trainer.help('c2')
 
-    # This segfaults; see https://github.com/chokkan/crfsuite/pull/21
-    # with pytest.raises(ValueError):
-    #     trainer.help('c1')
+
+def test_help_invalid_parameter():
+    trainer = Trainer()
+    trainer.select('l2sgd')
+
+    # This segfaults without a workaround;
+    # see https://github.com/chokkan/crfsuite/pull/21
+    with pytest.raises(ValueError):
+        trainer.help('foo')
+
+    with pytest.raises(ValueError):
+        trainer.help('c1')
 
 
 def test_version():
