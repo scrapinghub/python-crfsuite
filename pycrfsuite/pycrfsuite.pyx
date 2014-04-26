@@ -3,6 +3,8 @@ from __future__ import print_function
 cimport crfsuite_api
 from libcpp.string cimport string
 
+import warnings
+import traceback
 import logging
 logger = logging.getLogger('pycrfsuite')
 
@@ -114,7 +116,12 @@ cdef class Trainer(object):
 
     cdef _on_message(self, string message):
         cdef bytes b_string = message
-        self.on_message(b_string.decode('utf8'))
+        try:
+            self.on_message(b_string.decode('utf8'))
+        except:
+            # catch all errors to avoid segfaults
+            warnings.warn("\n\n** Exception in on_message handler is ignored:\n" +
+                          traceback.format_exc())
 
     def on_message(self, message):
         """

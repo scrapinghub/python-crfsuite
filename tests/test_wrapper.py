@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
 import os
+import warnings
 import pytest
 
 from pycrfsuite.pycrfsuite import Trainer
@@ -67,6 +68,20 @@ def test_training_messages():
     assert trainer.messages
     assert 'type: CRF1d\n' in trainer.messages
     # print("".join(trainer.messages))
+
+
+def test_training_messages_exception():
+    class BadTrainer(Trainer):
+        def on_message(self, message):
+            raise Exception("error")
+
+    trainer = BadTrainer()
+    trainer.select('lbfgs')
+    trainer.append_dicts(XSEQ, YSEQ)
+
+    with warnings.catch_warnings(record=True) as w:
+        trainer.train('model.crfsuite')
+    assert len(w) > 0
 
 
 def test_trainer_select_raises_error():
