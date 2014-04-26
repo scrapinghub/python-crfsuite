@@ -56,7 +56,7 @@ def test_training_messages():
         def __init__(self):
             self.messages = []
 
-        def on_message(self, message):
+        def message(self, message):
             self.messages.append(message)
 
     trainer = CapturingTrainer()
@@ -71,7 +71,7 @@ def test_training_messages():
 
 def test_training_messages_exception():
     class BadTrainer(Trainer):
-        def on_message(self, message):
+        def message(self, message):
             raise Exception("error")
 
     trainer = BadTrainer()

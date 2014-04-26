@@ -124,13 +124,13 @@ cdef class Trainer(object):
     cdef _on_message(self, string message):
         cdef bytes b_string = message
         try:
-            self.on_message(b_string.decode('utf8'))
+            self.message(b_string.decode('utf8'))
         except:
             # catch all errors to avoid segfaults
             warnings.warn("\n\n** Exception in on_message handler is ignored:\n" +
                           traceback.format_exc())
 
-    def on_message(self, message):
+    def message(self, message):
         """
         Receive messages from the training algorithm.
         Override this method to receive messages of the training
