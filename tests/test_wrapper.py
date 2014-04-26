@@ -4,7 +4,7 @@ import os
 import warnings
 import pytest
 
-from pycrfsuite.pycrfsuite import Trainer
+from pycrfsuite.pycrfsuite import Trainer, Tagger
 
 
 XSEQ = [
@@ -133,3 +133,51 @@ def test_set_parameters_in_constructor():
 def test_version():
     from pycrfsuite.pycrfsuite import __version__
     assert bool(__version__), __version__
+
+
+def test_tagger_open_close_labels():
+    trainer = Trainer('lbfgs')
+    trainer.append_dicts(XSEQ, YSEQ)
+    trainer.train('model.crfsuite')
+
+    tagger = Tagger()
+
+    with pytest.raises(ValueError):
+        # tagger should be closed, so labels() method should fail here
+        labels = tagger.labels()
+
+    with tagger.open('model.crfsuite'):
+        labels = tagger.labels()
+    assert set(labels) == set(YSEQ)
+
+    with pytest.raises(ValueError):
+        # tagger should be closed, so labels() method should fail here
+        labels = tagger.labels()
+
+
+def test_tagger_open_non_existing():
+    tagger = Tagger()
+    with pytest.raises(IOError):
+        tagger.open('foo')
+
+
+def test_tagger_open_invalid():
+    tagger = Tagger()
+    with pytest.raises(ValueError):
+        tagger.open(__file__)
+
+
+def test_tagger_open_small():
+    with open('tmp.txt', 'wb') as f:
+        f.write(b"foo")
+    tagger = Tagger()
+    with pytest.raises(ValueError):
+        tagger.open('tmp.txt')
+
+
+def test_tagger_open_small2():
+    with open('tmp.txt', 'wb') as f:
+        f.write(b"lCRFfoo")
+    tagger = Tagger()
+    with pytest.raises(ValueError):
+        tagger.open('tmp.txt')

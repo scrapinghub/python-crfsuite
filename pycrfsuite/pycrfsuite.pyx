@@ -3,9 +3,11 @@ from __future__ import print_function
 cimport crfsuite_api
 from libcpp.string cimport string
 
+import os
 import warnings
 import traceback
 import logging
+import contextlib
 logger = logging.getLogger('pycrfsuite')
 
 __version__ = crfsuite_api.version()
@@ -78,6 +80,12 @@ cdef crfsuite_api.ItemSequence stringlists_to_seq(seq) except+:
 
 
 cdef class Trainer(object):
+    """
+    The trainer class.
+
+    This class maintains a data set for training, and provides an interface
+    to various training algorithms.
+    """
     cdef crfsuite_api.Trainer c_trainer
 
     PARAMETER_TYPES = {
@@ -316,24 +324,68 @@ cdef class Trainer(object):
         return value
 
 
-# cdef class PyTagger:
-#     cdef crfsuite_api.Tagger* p_this
-#
-#     def __cinit__(self):
-#         self.p_this = new crfsuite_api.Tagger()
-#
-#     def __dealloc__(self):
-#         del self.p_this
-#
-#     def open(self, name):
-#         return self.p_this.open(name)
-#
-#     def close(self):
-#         self.p_this.close()
-#
-#     def labels(self):
-#         return self.p_this.labels()
-#
+cdef class Tagger(object):
+    """
+    The tagger class.
+
+    This class provides the functionality for predicting label sequences for
+    input sequences using a model.
+    """
+    cdef crfsuite_api.Tagger c_tagger
+
+    def open(self, name):
+        """
+        Open a model file.
+
+        Parameters
+        ----------
+        name : string
+            The file name of the model file.
+
+        """
+        # We need to do some basic checks ourselves because crfsuite
+        # may segfault if the file is invalid.
+        # See https://github.com/chokkan/crfsuite/pull/24
+        self._check_model(name)
+        if not self.c_tagger.open(name):
+            raise IOError("Error opening model file %r" % name)
+        return contextlib.closing(self)
+
+    def close(self):
+        """
+        Close the model.
+        """
+        self.c_tagger.close()
+
+    def labels(self):
+        """
+        Obtain the list of labels.
+
+        Returns
+        -------
+        list of strings
+            The list of labels in the model.
+        """
+        return self.c_tagger.labels()
+
+    def _check_model(self, name):
+        # See https://github.com/chokkan/crfsuite/pull/24
+        # 1. Check that the file can be opened.
+        with open(name, 'rb') as f:
+
+            # 2. Check that file magic is correct.
+            magic = f.read(4)
+            if magic != b'lCRF':
+                raise ValueError("Invalid model file %r" % name)
+
+            # 3. Make sure crfsuite won't read past allocated memory
+            # in case of incomplete header.
+            f.seek(0, os.SEEK_END)
+            size = f.tell()
+            if size <= 48:  # header size
+                raise ValueError("Model file %r doesn't have a complete header" % name)
+
+
 #     def tag(self, xseq):
 #         cxseq = _alloc_citem_seq(xseq)
 #         labels = self._tag(cxseq)
