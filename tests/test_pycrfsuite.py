@@ -167,7 +167,7 @@ def test_tagger_open_invalid():
         tagger.open(__file__)
 
 
-def test_tagger_open_small():
+def test_tagger_open_invalid_small():
     with open('tmp.txt', 'wb') as f:
         f.write(b"foo")
     tagger = Tagger()
@@ -175,9 +175,18 @@ def test_tagger_open_small():
         tagger.open('tmp.txt')
 
 
-def test_tagger_open_small2():
+def test_tagger_open_invalid_small_with_correct_signature():
     with open('tmp.txt', 'wb') as f:
         f.write(b"lCRFfoo")
+    tagger = Tagger()
+    with pytest.raises(ValueError):
+        tagger.open('tmp.txt')
+
+
+@pytest.mark.skipif(True, reason="this test segfaults, see https://github.com/chokkan/crfsuite/pull/24")
+def test_tagger_open_invalid_with_correct_signature():
+    with open('tmp.txt', 'wb') as f:
+        f.write(b"lCRFfoo"*100)
     tagger = Tagger()
     with pytest.raises(ValueError):
         tagger.open('tmp.txt')
