@@ -108,15 +108,44 @@ cdef class Trainer:
 
     def append_dicts(self, xseq, yseq, group=0):
         """
-        Append an instance to the data set.
-        ``xseq`` should be a sequence of {'key': weight} dicts.
+        Append an instance (item/label sequence) to the data set.
+
+        Parameters
+        ----------
+        xseq : a sequence of {string: float} dicts
+            The item sequence of the instance. Each dict should
+            be a string -> float mapping where keys are observed features
+            and values are their weights.
+
+        yseq : a sequence of strings
+            The label sequence of the instance. The number
+            of elements in yseq must be identical to that
+            in xseq.
+
+        group : int, optional
+            The group number of the instance. Group numbers are used to
+            select subset of data for heldout evaluation.
         """
         self.c_trainer.append(dicts_to_seq(xseq), yseq, group)
 
     def append_stringlists(self, xseq, yseq, group=0):
         """
-        Append an instance to the data set.
-        ``xseq`` should be a sequence of ``[key1, key2, ...]`` lists.
+        Append an instance (item/label sequence) to the data set.
+
+        Parameters
+        ----------
+        xseq : a sequence of lists of strings
+            The item sequence of the instance. Each list should
+            contain observed features (as strings).
+
+        yseq : a sequence of strings
+            The label sequence of the instance. The number
+            of elements in yseq must be identical to that
+            in xseq.
+
+        group : int, optional
+            The group number of the instance. Group numbers are used to
+            select subset of data for heldout evaluation.
         """
         self.c_trainer.append(stringlists_to_seq(xseq), yseq, group)
 
