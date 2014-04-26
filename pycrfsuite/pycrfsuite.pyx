@@ -154,7 +154,7 @@ cdef class Trainer(object):
         """
         logger.info(message)
 
-    def append_dicts(self, xseq, yseq, group=0):
+    def append_dicts(self, xseq, yseq, int group=0):
         """
         Append an instance (item/label sequence) to the data set.
 
@@ -176,7 +176,7 @@ cdef class Trainer(object):
         """
         self.c_trainer.append(dicts_to_seq(xseq), yseq, group)
 
-    def append_stringlists(self, xseq, yseq, group=0):
+    def append_stringlists(self, xseq, yseq, int group=0):
         """
         Append an instance (item/label sequence) to the data set.
 
@@ -220,7 +220,7 @@ cdef class Trainer(object):
                 "Bad arguments: algorithm=%r, type=%r" % (algorithm, type)
             )
 
-    def train(self, model, holdout=-1):
+    def train(self, model, int holdout=-1):
         """
         Run the training algorithm.
         This function starts the training algorithm with the data set given
@@ -332,6 +332,11 @@ cdef class Tagger(object):
     input sequences using a model.
     """
     cdef crfsuite_api.Tagger c_tagger
+    cdef str default_feature_format
+
+    def __init__(self, feature_format='stringlist'):
+        self._check_feature_format(feature_format)
+        self.default_feature_format = feature_format
 
     def open(self, name):
         """
@@ -368,6 +373,138 @@ cdef class Tagger(object):
         """
         return self.c_tagger.labels()
 
+    def tag(self, xseq=None, feature_format=None):
+        """
+        Predict the label sequence for the item sequence.
+
+        Parameters
+        ----------
+        xseq : item sequence, optional
+            The sequence of features. If omitted, the current sequence is used
+            (e.g. a sequence set using :meth:`set` method).
+
+        feature_format : {'stringlist', 'dict'}, optional
+            Item sequence data format.
+
+            * 'stringlist' means that ``xseq`` must be a sequence
+              of lists of strings, where each list contains observed
+              features (all weights are assumed to be 1.0).
+            * 'dict' means that ``xseq`` must be a sequence
+              of {string: float} dicts, where each dict is has observed
+              features as keys and their weights as values.
+
+            By default, ``feature_format`` passed to :class:`Tagger`
+            constructor is used, or 'stringlist' if no ``feature_format``
+            is passed to :class:`Tagger` constructor.
+
+        Returns
+        -------
+        list of strings
+            The label sequence predicted.
+        """
+        if xseq is None and feature_format is not None:
+            raise ValueError("Can't change feature format of an already loaded sequence")
+
+        if xseq is not None:
+            self.set(xseq, feature_format)
+
+        return self.c_tagger.viterbi()
+
+    def probability(self, yseq, xseq=None, feature_format=None):
+        """
+        Compute the probability of the label sequence.
+
+        Parameters
+        ----------
+        yseq : list of strings
+            The label sequence.
+
+        xseq : item sequence, optional
+            The sequence of features. If omitted, the current sequence is used,
+            i.e. a sequence set using :meth:`set` method or used in a previous
+            :meth:`tag` call.
+
+        feature_format : {'stringlist', 'dict'}, optional
+            Item sequence data format.
+
+        Returns
+        -------
+        float
+            The probability ``P(yseq|xseq)``.
+        """
+        if xseq is None and feature_format is not None:
+            raise ValueError("Can't change feature format of an already loaded sequence")
+
+        if xseq is not None:
+            self.set(xseq, feature_format)
+
+        return self.c_tagger.probability(yseq)
+
+    def marginal(self, y, pos):
+        return self.c_tagger.marginal(y, pos)
+
+    cpdef set(self, xseq, feature_format=None):
+        """
+        Set an instance (item sequence) for future calls of
+        viterbi(), probability(), and marginal() functions.
+
+        Parameters
+        ----------
+        xseq : item sequence
+            The sequence of features.
+
+        feature_format : {'stringlist', 'dict'}, optional
+            Item sequence data format.
+
+            * 'stringlist' means that ``xseq`` must be a sequence
+              of lists of strings, where each list contains observed
+              features (all weights are assumed to be 1.0).
+            * 'dict' means that ``xseq`` must be a sequence
+              of {string: float} dicts, where each dict is has observed
+              features as keys and their weights as values.
+
+            By default, ``feature_format`` passed to :class:`Tagger`
+            constructor is used, or 'stringlist' if no ``feature_format``
+            is passed to :class:`Tagger` constructor.
+        """
+        feature_format = feature_format or self.default_feature_format
+        self._check_feature_format(feature_format)
+        if feature_format == 'stringlists':
+            self.set_stringlists(xseq)
+        else:
+            self.set_dicts(xseq)
+
+    cpdef set_dicts(self, xseq):
+        """
+        Set an instance (item sequence) for future calls of
+        viterbi(), probability(), and marginal() functions.
+
+        Parameters
+        ----------
+        xseq : a sequence of {string: float} dicts
+            The sequence of feature dicts to be tagged. Each dict should
+            be a string -> float mapping where keys are observed features
+            and values are their weights.
+        """
+        self.c_tagger.set(dicts_to_seq(xseq))
+
+    cpdef set_stringlists(self, xseq):
+        """
+        Set an instance (item sequence) for future calls of
+        viterbi(), probability(), and marginal() functions.
+
+        Parameters
+        ----------
+        xseq : a sequence of lists of strings
+            The sequence of feature lists. Each list should
+            contain observed features (as strings).
+        """
+        self.c_tagger.set(stringlists_to_seq(xseq))
+
+    cpdef _check_feature_format(self, instance_type) except +:
+        if instance_type not in ('dict', 'stringlist'):
+            raise ValueError("Invalid instance_type value %r" % instance_type)
+
     def _check_model(self, name):
         # See https://github.com/chokkan/crfsuite/pull/24
         # 1. Check that the file can be opened.
@@ -384,30 +521,3 @@ cdef class Tagger(object):
             size = f.tell()
             if size <= 48:  # header size
                 raise ValueError("Model file %r doesn't have a complete header" % name)
-
-
-#     def tag(self, xseq):
-#         cxseq = _alloc_citem_seq(xseq)
-#         labels = self._tag(cxseq)
-#         _free_citem_seq(cxseq)
-#         return labels
-#
-#     cdef _tag(self, crfsuite_api.ItemSequence xseq):
-#         return self.p_this.tag(xseq)
-#
-#     def set(self, xseq):
-#         cxseq = _alloc_citem_seq(xseq)
-#         self._set(cxseq)
-#         _free_citem_seq(cxseq)
-#
-#     cdef _set(self, crfsuite_api.ItemSequence xseq):
-#         self.p_this.set(xseq)
-#
-#     def viterbi(self):
-#         return self.p_this.viterbi()
-#
-#     def probability(self, yseq):
-#         return self.p_this.probability(yseq)
-#
-#     def marginal(self, y, pos):
-#         return self.p_this.marginal(y, pos)
