@@ -13,7 +13,7 @@ logger = logging.getLogger('pycrfsuite')
 __version__ = crfsuite_api.version()
 
 
-class CRFSuiteTrainError(Exception):
+class CRFSuiteError(Exception):
 
     _messages = {
         crfsuite_api.CRFSUITEERR_UNKNOWN: "Unknown error occurred",
@@ -241,7 +241,7 @@ cdef class Trainer(object):
         """
         status_code = self.c_trainer.train(model, holdout)
         if status_code != crfsuite_api.CRFSUITE_SUCCESS:
-            raise CRFSuiteTrainError(status_code)
+            raise CRFSuiteError(status_code)
 
     def params(self):
         """
