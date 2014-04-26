@@ -78,6 +78,32 @@ cdef crfsuite_api.ItemSequence stringlists_to_seq(seq) except+:
 cdef class Trainer(object):
     cdef crfsuite_api.Trainer c_trainer
 
+    PARAMETER_TYPES = {
+        'feature.minfreq': int,
+        'feature.possible_states': int, # bool
+        'feature.possible_transitions': int,  # bool
+        'c1': float,
+        'c2': float,
+        'max_iterations': int,
+        'num_memories': int,
+        'epsilon': float,
+        'period': int,  # XXX: is it called 'stop' in docs?
+        'delta': float,
+        'linesearch': str,
+        'max_linesearch': int,
+        'calibration.eta': float,
+        'calibration.rate': float,
+        'calibration.samples': float,
+        'calibration.candidates': int,
+        'calibration.max_trials': int,
+        'type': int,
+        'c': float,
+        'error_sensitive': int,  # bool
+        'averaging': int,  # bool
+        'variance': float,
+        'gamma': float,
+    }
+
     def __cinit__(self):
         # setup message handler
         self.c_trainer.set_handler(self, <crfsuite_api.messagefunc>self._on_message)
@@ -225,7 +251,9 @@ cdef class Trainer(object):
             The value of the parameter.
 
         """
-        self.c_trainer.set(name, value)
+        if isinstance(value, bool):
+            value = int(value)
+        self.c_trainer.set(name, str(value))
 
     def get(self, name):
         """
@@ -237,9 +265,8 @@ cdef class Trainer(object):
         ----------
         name : string
             The parameter name.
-
         """
-        return self.c_trainer.get(name)
+        return self._cast_parameter(name, self.c_trainer.get(name))
 
     def help(self, name):
         """
@@ -269,7 +296,10 @@ cdef class Trainer(object):
         """ Remove all instances in the data set. """
         self.c_trainer.clear()
 
-
+    def _cast_parameter(self, name, value):
+        if name in self.PARAMETER_TYPES:
+            return self.PARAMETER_TYPES[name](value)
+        return value
 
 
 # cdef class PyTagger:

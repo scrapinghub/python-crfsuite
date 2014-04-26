@@ -103,6 +103,14 @@ def test_help_invalid_parameter():
         trainer.help('c1')
 
 
+def test_get_parameter():
+    trainer = Trainer()
+    trainer.select('l2sgd')
+    assert abs(trainer.get('c2') - 0.1) > 1e-6
+    trainer.set('c2', 0.1)
+    assert abs(trainer.get('c2') - 0.1) < 1e-6
+
+
 def test_version():
     from pycrfsuite.pycrfsuite import __version__
     assert bool(__version__), __version__
