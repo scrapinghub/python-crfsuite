@@ -1,9 +1,10 @@
 # cython: embedsignature=True
 from __future__ import print_function
 cimport crfsuite_api
-
 from libcpp.string cimport string
 
+import logging
+logger = logging.getLogger('pycrfsuite')
 
 __version__ = crfsuite_api.version()
 
@@ -85,23 +86,25 @@ cdef class Trainer:
         self.c_trainer.select("lbfgs", "crf1d")
         self.c_trainer._init_hack()
 
-
-    cdef _on_message(self, string message) except +:
+    cdef _on_message(self, string message):
         cdef bytes b_string = message
-        self.message(b_string.decode('utf8'))
+        self.on_message(b_string.decode('utf8'))
 
-    def message(self, message):
+    def on_message(self, message):
         """
         Receive messages from the training algorithm.
-        Override this member function to receive messages of the training
+        Override this method to receive messages of the training
         process.
+
+        By default, this method uses Python logging subsystem to
+        output the messages (logger name is 'pycrfsuite').
 
         Parameters
         ----------
         message : string
             The message
         """
-        pass
+        logger.info(message)
 
     def append_dicts(self, xseq, yseq, group=0):
         """

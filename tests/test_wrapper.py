@@ -52,23 +52,21 @@ def test_trainer_noselect_noappend():
 
 def test_training_messages():
 
-    class LoggingTrainer(Trainer):
+    class CapturingTrainer(Trainer):
         def __init__(self):
             self.messages = []
 
-        def message(self, message):
+        def on_message(self, message):
             self.messages.append(message)
 
-    trainer = LoggingTrainer()
+    trainer = CapturingTrainer()
     trainer.select('lbfgs')
     trainer.append_dicts(XSEQ, YSEQ)
     assert not trainer.messages
     trainer.train('model.crfsuite')
     assert trainer.messages
     assert 'type: CRF1d\n' in trainer.messages
-
     # print("".join(trainer.messages))
-
 
 
 def test_trainer_select_raises_error():
