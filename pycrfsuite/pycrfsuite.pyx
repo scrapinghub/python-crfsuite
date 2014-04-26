@@ -348,7 +348,7 @@ cdef class Tagger(object):
         # See https://github.com/chokkan/crfsuite/pull/24
         self._check_model(name)
         if not self.c_tagger.open(name):
-            raise IOError("Error opening model file %r" % name)
+            raise ValueError("Error opening model file %r" % name)
         return contextlib.closing(self)
 
     def close(self):
