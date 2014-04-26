@@ -106,6 +106,13 @@ cdef class Trainer(object):
         'gamma': float,
     }
 
+    def __init__(self, algorithm=None, **kwargs):
+        if algorithm is not None:
+            self.select(algorithm)
+
+        for key, value in kwargs.items():
+            self.set(key, value)
+
     def __cinit__(self):
         # setup message handler
         self.c_trainer.set_handler(self, <crfsuite_api.messagefunc>self._on_message)

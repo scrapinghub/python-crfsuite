@@ -22,9 +22,8 @@ YSEQ = ['sunny', 'sunny', 'sunny', 'rainy', 'rainy', 'rainy', 'sunny', 'sunny', 
 
 
 def test_trainer():
-    trainer = Trainer()
+    trainer = Trainer('lbfgs')
     trainer.append_dicts(XSEQ, YSEQ)
-    trainer.select('lbfgs')
 
     assert not os.path.isfile('model.crfsuite')
     trainer.train('model.crfsuite')
@@ -124,6 +123,11 @@ def test_get_parameter():
     assert abs(trainer.get('c2') - 0.1) > 1e-6
     trainer.set('c2', 0.1)
     assert abs(trainer.get('c2') - 0.1) < 1e-6
+
+
+def test_set_parameters_in_constructor():
+    trainer = Trainer(c2=100)
+    assert abs(trainer.get('c2') - 100) < 1e-6
 
 
 def test_version():
