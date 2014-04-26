@@ -26,17 +26,6 @@ cdef extern from "../crfsuite/include/crfsuite_api.hpp" namespace "CRFSuite":
     ctypedef vector[Item] ItemSequence
     ctypedef vector[string] StringList
 
-    cdef cppclass Trainer:
-        Trainer() except +
-        void clear() except +
-        void append(ItemSequence, StringList, int) except +
-        bint select(string, string) except +
-        int train(string, int) except+
-        StringList params() except +
-        void set(string, string) except +
-        string get(string) except +
-        string help(string) except +
-
     cdef cppclass Tagger:
         Tagger() except +
         int open(string) except +
@@ -47,3 +36,24 @@ cdef extern from "../crfsuite/include/crfsuite_api.hpp" namespace "CRFSuite":
         StringList viterbi() except +
         double probability(StringList) except +
         double marginal(string, int) except +
+
+    cdef string version()
+
+
+cdef extern from "trainer_wrapper.hpp" namespace "CRFSuiteWrapper":
+
+    ctypedef object (*messagefunc)(object self, string message)
+
+    cdef cppclass Trainer:
+        Trainer() except +
+        void set_handler(object, messagefunc) except +
+        void clear() except +
+        void append(ItemSequence, StringList, int) except +
+        bint select(string, string) except +
+        int train(string, int) except +
+        StringList params() except +
+        void set(string, string) except +
+        string get(string) except +
+        string help(string) except +
+        void _init_hack() except +
+

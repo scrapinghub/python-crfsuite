@@ -1,8 +1,11 @@
 # cython: embedsignature=True
+from __future__ import print_function
 cimport crfsuite_api
 
-from libcpp.vector cimport vector
 from libcpp.string cimport string
+
+
+__version__ = crfsuite_api.version()
 
 
 class CRFSuiteTrainError(Exception):
@@ -73,6 +76,32 @@ cdef crfsuite_api.ItemSequence stringlists_to_seq(seq) except+:
 
 cdef class Trainer:
     cdef crfsuite_api.Trainer c_trainer
+
+    def __cinit__(self):
+        # setup message handler
+        self.c_trainer.set_handler(self, <crfsuite_api.messagefunc>self._on_message)
+
+        # fix segfaults, see https://github.com/chokkan/crfsuite/pull/21
+        self.c_trainer.select("lbfgs", "crf1d")
+        self.c_trainer._init_hack()
+
+
+    cdef _on_message(self, string message) except +:
+        cdef bytes b_string = message
+        self.message(b_string.decode('utf8'))
+
+    def message(self, message):
+        """
+        Receive messages from the training algorithm.
+        Override this member function to receive messages of the training
+        process.
+
+        Parameters
+        ----------
+        message : string
+            The message
+        """
+        pass
 
     def append_dicts(self, xseq, yseq, group=0):
         """

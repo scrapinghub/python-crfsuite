@@ -2,29 +2,73 @@
 from __future__ import absolute_import
 import os
 import pytest
+
 from pycrfsuite.pycrfsuite import Trainer
+
+
+XSEQ = [
+    {'walk': 1, 'shop': 0.5},
+    {'walk': 1},
+    {'walk': 1, 'clean': 0.5},
+    {'shop': 0.5, 'clean': 0.5},
+    {'walk': 0.5, 'clean': 1},
+    {'clean': 1, 'shop': 0.1},
+    {'walk': 1, 'shop': 0.5},
+    {},
+    {'clean': 1},
+]
+YSEQ = ['sunny', 'sunny', 'sunny', 'rainy', 'rainy', 'rainy', 'sunny', 'sunny', 'rainy']
+
 
 def test_trainer():
     trainer = Trainer()
-
-    xseq = [
-        {'walk': 1, 'shop': 0.5},
-        {'walk': 1},
-        {'walk': 1, 'clean': 0.5},
-        {'shop': 0.5, 'clean': 0.5},
-        {'walk': 0.5, 'clean': 1},
-        {'clean': 1, 'shop': 0.1},
-        {'walk': 1, 'shop': 0.5},
-        {},
-        {'clean': 1},
-    ]
-    yseq = ['sunny', 'sunny', 'sunny', 'rainy', 'rainy', 'rainy', 'sunny', 'sunny', 'rainy']
-    trainer.append_dicts(xseq, yseq)
+    trainer.append_dicts(XSEQ, YSEQ)
     trainer.select('lbfgs')
 
     assert not os.path.isfile('model.crfsuite')
     trainer.train('model.crfsuite')
     assert os.path.isfile('model.crfsuite')
+
+
+def test_trainer_noselect():
+    # This shouldn't segfault; see https://github.com/chokkan/crfsuite/pull/21
+    trainer = Trainer()
+    trainer.append_dicts(XSEQ, YSEQ)
+    trainer.train('model.crfsuite')
+
+
+def test_trainer_noappend():
+    # This shouldn't segfault; see https://github.com/chokkan/crfsuite/pull/21
+    trainer = Trainer()
+    trainer.select('lbfgs')
+    trainer.train('model.crfsuite')
+
+
+def test_trainer_noselect_noappend():
+    # This shouldn't segfault; see https://github.com/chokkan/crfsuite/pull/21
+    trainer = Trainer()
+    trainer.train('model.crfsuite')
+
+
+def test_training_messages():
+
+    class LoggingTrainer(Trainer):
+        def __init__(self):
+            self.messages = []
+
+        def message(self, message):
+            self.messages.append(message)
+
+    trainer = LoggingTrainer()
+    trainer.select('lbfgs')
+    trainer.append_dicts(XSEQ, YSEQ)
+    assert not trainer.messages
+    trainer.train('model.crfsuite')
+    assert trainer.messages
+    assert 'type: CRF1d\n' in trainer.messages
+
+    # print("".join(trainer.messages))
+
 
 
 def test_trainer_select_raises_error():
@@ -50,3 +94,8 @@ def test_params_and_help():
     # This segfaults; see https://github.com/chokkan/crfsuite/pull/21
     # with pytest.raises(ValueError):
     #     trainer.help('c1')
+
+
+def test_version():
+    from pycrfsuite.pycrfsuite import __version__
+    assert bool(__version__), __version__
