@@ -224,7 +224,8 @@ cdef class Trainer(object):
         """
         Run the training algorithm.
         This function starts the training algorithm with the data set given
-        by append_... methods.
+        by :meth:`Trainer.append_dicts` or :meth:`Trainer.append_stringlists`
+        methods.
 
         Parameters
         ----------
@@ -248,7 +249,8 @@ cdef class Trainer(object):
         Obtain the list of parameters.
 
         This function returns the list of parameter names available for the
-        graphical model and training algorithm specified by select() function.
+        graphical model and training algorithm specified by
+        :meth:`Trainer.select` method.
 
         Returns
         -------
@@ -263,7 +265,7 @@ cdef class Trainer(object):
         """
         Set a training parameter.
         This function sets a parameter value for the graphical model and
-        training algorithm specified by select() function.
+        training algorithm specified by :meth:`Trainer.select` method.
 
         Parameters
         ----------
@@ -281,7 +283,7 @@ cdef class Trainer(object):
         """
         Get the value of a training parameter.
         This function gets a parameter value for the graphical model and
-        training algorithm specified by select() function.
+        training algorithm specified by :meth:`Trainer.select` method.
 
         Parameters
         ----------
@@ -295,7 +297,7 @@ cdef class Trainer(object):
         Get the description of a training parameter.
         This function obtains the help message for the parameter specified
         by the name. The graphical model and training algorithm must be
-        selected by select() function before calling this function.
+        selected by :meth:`Trainer.select` method before calling this method.
 
         Parameters
         ----------
@@ -381,7 +383,7 @@ cdef class Tagger(object):
         ----------
         xseq : item sequence, optional
             The sequence of features. If omitted, the current sequence is used
-            (e.g. a sequence set using :meth:`set` method).
+            (e.g. a sequence set using :meth:`Tagger.set` method).
 
         feature_format : {'stringlist', 'dict'}, optional
             Item sequence data format.
@@ -421,8 +423,8 @@ cdef class Tagger(object):
 
         xseq : item sequence, optional
             The sequence of features. If omitted, the current sequence is used,
-            i.e. a sequence set using :meth:`set` method or used in a previous
-            :meth:`tag` call.
+            i.e. a sequence set using :meth:`Tagger.set` method or used
+            in a previous :meth:`Tagger.tag` call.
 
         feature_format : {'stringlist', 'dict'}, optional
             Item sequence data format.
@@ -446,7 +448,8 @@ cdef class Tagger(object):
     cpdef set(self, xseq, feature_format=None):
         """
         Set an instance (item sequence) for future calls of
-        viterbi(), probability(), and marginal() functions.
+        :meth:`Tagger.tag`, :meth:`Tagger.probability`
+        and :meth:`Tagger.marginal` methods.
 
         Parameters
         ----------
@@ -477,7 +480,8 @@ cdef class Tagger(object):
     cpdef set_dicts(self, xseq):
         """
         Set an instance (item sequence) for future calls of
-        viterbi(), probability(), and marginal() functions.
+        :meth:`Tagger.tag`, :meth:`Tagger.probability`
+        and :meth:`Tagger.marginal` methods.
 
         Parameters
         ----------
@@ -491,7 +495,8 @@ cdef class Tagger(object):
     cpdef set_stringlists(self, xseq):
         """
         Set an instance (item sequence) for future calls of
-        viterbi(), probability(), and marginal() functions.
+        :meth:`Tagger.tag`, :meth:`Tagger.probability`
+        and :meth:`Tagger.marginal` methods.
 
         Parameters
         ----------
