@@ -88,7 +88,7 @@ cdef class Trainer(object):
     """
     cdef crfsuite_api.Trainer c_trainer
 
-    PARAMETER_TYPES = {
+    _PARAMETER_TYPES = {
         'feature.minfreq': int,
         'feature.possible_states': int, # bool
         'feature.possible_transitions': int,  # bool
@@ -319,8 +319,8 @@ cdef class Trainer(object):
         self.c_trainer.clear()
 
     def _cast_parameter(self, name, value):
-        if name in self.PARAMETER_TYPES:
-            return self.PARAMETER_TYPES[name](value)
+        if name in self._PARAMETER_TYPES:
+            return self._PARAMETER_TYPES[name](value)
         return value
 
 
