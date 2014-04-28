@@ -8,9 +8,9 @@ import warnings
 import traceback
 import logging
 import contextlib
-logger = logging.getLogger('pycrfsuite')
 
-__version__ = crfsuite_api.version()
+logger = logging.getLogger('pycrfsuite')
+CRFSUITE_VERSION = crfsuite_api.version()
 
 
 class CRFSuiteError(Exception):

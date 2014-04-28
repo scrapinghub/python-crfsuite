@@ -131,8 +131,8 @@ def test_set_parameters_in_constructor():
 
 
 def test_version():
-    from pycrfsuite.pycrfsuite import __version__
-    assert bool(__version__), __version__
+    from pycrfsuite.pycrfsuite import CRFSUITE_VERSION
+    assert bool(CRFSUITE_VERSION), CRFSUITE_VERSION
 
 
 def test_tagger_open_close_labels():
