@@ -431,6 +431,24 @@ cdef class Tagger(object):
         return self.c_tagger.probability(yseq)
 
     def marginal(self, y, pos):
+        """
+        Compute the marginal probability of the label ``y`` at position ``pos``
+        for the current input sequence (i.e. a sequence set using one of the
+        :meth:`Tagger.set` methods or a sequence used in a previous
+        :meth:`Tagger.tag` call).
+
+        Parameters
+        ----------
+        y : string
+            The label.
+        t : int
+            The position of the label.
+
+        Returns
+        -------
+        float
+            The marginal probability of the label ``y`` at position ``t``.
+        """
         return self.c_tagger.marginal(y, pos)
 
     cpdef set(self, xseq, feature_format=None):
@@ -438,6 +456,8 @@ cdef class Tagger(object):
         Set an instance (item sequence) for future calls of
         :meth:`Tagger.tag`, :meth:`Tagger.probability`
         and :meth:`Tagger.marginal` methods.
+
+        See also: :meth:`Tagger.set_dicts`, :meth:`Tagger.set_stringlists`.
 
         Parameters
         ----------
