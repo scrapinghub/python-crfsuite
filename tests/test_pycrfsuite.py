@@ -10,15 +10,6 @@ import pytest
 from pycrfsuite import Trainer, Tagger
 
 
-@contextlib.contextmanager
-def tempfilename(name):
-    tmpdir = tempfile.mkdtemp('-python-crfsuite')
-    try:
-        yield os.path.join(tmpdir, name)
-    finally:
-        shutil.rmtree(tmpdir)
-
-
 XSEQ = [
     {'walk': 1, 'shop': 0.5},
     {'walk': 1},
@@ -33,40 +24,40 @@ XSEQ = [
 YSEQ = ['sunny', 'sunny', 'sunny', 'rainy', 'rainy', 'rainy', 'sunny', 'sunny', 'rainy']
 
 
-def test_trainer():
+def test_trainer(tmpdir):
     trainer = Trainer('lbfgs')
     trainer.append_dicts(XSEQ, YSEQ)
 
-    with tempfilename('model.crfsuite') as model_filename:
-        assert not os.path.isfile(model_filename)
-        trainer.train(model_filename)
-        assert os.path.isfile(model_filename)
+    model_filename = str(tmpdir.join('model.crfsuite'))
+    assert not os.path.isfile(model_filename)
+    trainer.train(model_filename)
+    assert os.path.isfile(model_filename)
 
 
-def test_trainer_noselect():
+def test_trainer_noselect(tmpdir):
     # This shouldn't segfault; see https://github.com/chokkan/crfsuite/pull/21
     trainer = Trainer()
     trainer.append_dicts(XSEQ, YSEQ)
-    with tempfilename('model.crfsuite') as model_filename:
-        trainer.train(model_filename)
+    model_filename = str(tmpdir.join('model.crfsuite'))
+    trainer.train(model_filename)
 
 
-def test_trainer_noappend():
+def test_trainer_noappend(tmpdir):
     # This shouldn't segfault; see https://github.com/chokkan/crfsuite/pull/21
     trainer = Trainer()
     trainer.select('lbfgs')
-    with tempfilename('model.crfsuite') as model_filename:
-        trainer.train(model_filename)
+    model_filename = str(tmpdir.join('model.crfsuite'))
+    trainer.train(model_filename)
 
 
-def test_trainer_noselect_noappend():
+def test_trainer_noselect_noappend(tmpdir):
     # This shouldn't segfault; see https://github.com/chokkan/crfsuite/pull/21
     trainer = Trainer()
-    with tempfilename('model.crfsuite') as model_filename:
-        trainer.train(model_filename)
+    model_filename = str(tmpdir.join('model.crfsuite'))
+    trainer.train(model_filename)
 
 
-def test_training_messages():
+def test_training_messages(tmpdir):
 
     class CapturingTrainer(Trainer):
         def __init__(self):
@@ -79,14 +70,15 @@ def test_training_messages():
     trainer.select('lbfgs')
     trainer.append_dicts(XSEQ, YSEQ)
     assert not trainer.messages
-    with tempfilename('model.crfsuite') as model_filename:
-        trainer.train(model_filename)
+
+    model_filename = str(tmpdir.join('model.crfsuite'))
+    trainer.train(model_filename)
     assert trainer.messages
     assert 'type: CRF1d\n' in trainer.messages
     # print("".join(trainer.messages))
 
 
-def test_training_messages_exception():
+def test_training_messages_exception(tmpdir):
     class BadTrainer(Trainer):
         def message(self, message):
             raise Exception("error")
@@ -96,7 +88,8 @@ def test_training_messages_exception():
     trainer.append_dicts(XSEQ, YSEQ)
 
     with warnings.catch_warnings(record=True) as w:
-        trainer.train('model.crfsuite')
+        model_filename = str(tmpdir.join('model.crfsuite'))
+        trainer.train(model_filename)
     assert len(w) > 0
 
 
@@ -152,25 +145,26 @@ def test_version():
     assert bool(CRFSUITE_VERSION), CRFSUITE_VERSION
 
 
-def test_tagger_open_close_labels():
+def test_tagger_open_close_labels(tmpdir):
     trainer = Trainer('lbfgs')
     trainer.append_dicts(XSEQ, YSEQ)
-    with tempfilename('model.crfsuite') as model_filename:
-        trainer.train(model_filename)
+    model_filename = str(tmpdir.join('model.crfsuite'))
 
-        tagger = Tagger()
+    trainer.train(model_filename)
 
-        with pytest.raises(ValueError):
-            # tagger should be closed, so labels() method should fail here
-            labels = tagger.labels()
+    tagger = Tagger()
 
-        with tagger.open(model_filename):
-            labels = tagger.labels()
-        assert set(labels) == set(YSEQ)
+    with pytest.raises(ValueError):
+        # tagger should be closed, so labels() method should fail here
+        labels = tagger.labels()
 
-        with pytest.raises(ValueError):
-            # tagger should be closed, so labels() method should fail here
-            labels = tagger.labels()
+    with tagger.open(model_filename):
+        labels = tagger.labels()
+    assert set(labels) == set(YSEQ)
+
+    with pytest.raises(ValueError):
+        # tagger should be closed, so labels() method should fail here
+        labels = tagger.labels()
 
 
 def test_tagger_open_non_existing():
@@ -185,29 +179,26 @@ def test_tagger_open_invalid():
         tagger.open(__file__)
 
 
-def test_tagger_open_invalid_small():
-    with tempfilename('tmp.txt') as fname:
-        with open(fname, 'wb') as f:
-            f.write(b"foo")
-        tagger = Tagger()
-        with pytest.raises(ValueError):
-            tagger.open(fname)
+def test_tagger_open_invalid_small(tmpdir):
+    tmp = tmpdir.join('tmp.txt')
+    tmp.write(b'foo')
+    tagger = Tagger()
+    with pytest.raises(ValueError):
+        tagger.open(str(tmp))
 
 
-def test_tagger_open_invalid_small_with_correct_signature():
-    with tempfilename('tmp.txt') as fname:
-        with open(fname, 'wb') as f:
-            f.write(b"lCRFfoo")
-        tagger = Tagger()
-        with pytest.raises(ValueError):
-            tagger.open(fname)
+def test_tagger_open_invalid_small_with_correct_signature(tmpdir):
+    tmp = tmpdir.join('tmp.txt')
+    tmp.write(b"lCRFfoo")
+    tagger = Tagger()
+    with pytest.raises(ValueError):
+        tagger.open(str(tmp))
 
 
 @pytest.mark.skipif(True, reason="this test segfaults, see https://github.com/chokkan/crfsuite/pull/24")
-def test_tagger_open_invalid_with_correct_signature():
-    with tempfilename('tmp.txt') as fname:
-        with open(fname, 'wb') as f:
-            f.write(b"lCRFfoo"*100)
-        tagger = Tagger()
-        with pytest.raises(ValueError):
-            tagger.open(fname)
+def test_tagger_open_invalid_with_correct_signature(tmpdir):
+    tmp = tmpdir.join('tmp.txt')
+    tmp.write(b"lCRFfoo"*100)
+    tagger = Tagger()
+    with pytest.raises(ValueError):
+        tagger.open(str(tmp))
