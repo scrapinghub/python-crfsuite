@@ -412,34 +412,22 @@ cdef class Tagger(object):
 
         return self.c_tagger.viterbi()
 
-    def probability(self, yseq, xseq=None, feature_format=None):
+    def probability(self, yseq):
         """
-        Compute the probability of the label sequence.
+        Compute the probability of the label sequence for the current input
+        sequence (i.e. a sequence set using :meth:`Tagger.set` method or
+        a sequence used in a previous :meth:`Tagger.tag` call).
 
         Parameters
         ----------
         yseq : list of strings
             The label sequence.
 
-        xseq : item sequence, optional
-            The sequence of features. If omitted, the current sequence is used,
-            i.e. a sequence set using :meth:`Tagger.set` method or used
-            in a previous :meth:`Tagger.tag` call.
-
-        feature_format : {'stringlist', 'dict'}, optional
-            Item sequence data format.
-
         Returns
         -------
         float
             The probability ``P(yseq|xseq)``.
         """
-        if xseq is None and feature_format is not None:
-            raise ValueError("Can't change feature format of an already loaded sequence")
-
-        if xseq is not None:
-            self.set(xseq, feature_format)
-
         return self.c_tagger.probability(yseq)
 
     def marginal(self, y, pos):
