@@ -4,7 +4,7 @@ import os
 import warnings
 import pytest
 
-from pycrfsuite.pycrfsuite import Trainer, Tagger
+from pycrfsuite import Trainer, Tagger
 
 
 XSEQ = [
@@ -131,7 +131,7 @@ def test_set_parameters_in_constructor():
 
 
 def test_version():
-    from pycrfsuite.pycrfsuite import CRFSUITE_VERSION
+    from pycrfsuite import CRFSUITE_VERSION
     assert bool(CRFSUITE_VERSION), CRFSUITE_VERSION
 
 

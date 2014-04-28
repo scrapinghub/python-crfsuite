@@ -4,7 +4,7 @@ from distutils.extension import Extension
 
 import glob
 
-sources = ['pycrfsuite/pycrfsuite.cpp', 'pycrfsuite/trainer_wrapper.cpp']
+sources = ['pycrfsuite/_pycrfsuite.cpp', 'pycrfsuite/trainer_wrapper.cpp']
 
 # crfsuite
 sources += glob.glob('crfsuite/lib/crf/src/*.c')
@@ -23,7 +23,7 @@ includes = [
     'pycrfsuite',
 ]
 
-ext_modules = [Extension('pycrfsuite.pycrfsuite',
+ext_modules = [Extension('pycrfsuite._pycrfsuite',
     include_dirs=includes,
     language='c++',
     sources=sources
