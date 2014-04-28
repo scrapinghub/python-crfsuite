@@ -472,7 +472,7 @@ cdef class Tagger(object):
         """
         feature_format = feature_format or self.default_feature_format
         self._check_feature_format(feature_format)
-        if feature_format == 'stringlists':
+        if feature_format == 'stringlist':
             self.set_stringlists(xseq)
         else:
             self.set_dicts(xseq)
