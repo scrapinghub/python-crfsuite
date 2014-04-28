@@ -1,4 +1,5 @@
 # cython: embedsignature=True
+# cython: c_string_type=str, c_string_encoding=ascii
 from __future__ import print_function
 cimport crfsuite_api
 from libcpp.string cimport string
@@ -130,9 +131,8 @@ cdef class Trainer(object):
         self.c_trainer._init_hack()
 
     cdef _on_message(self, string message):
-        cdef bytes b_string = message
         try:
-            self.message(b_string.decode('utf8'))
+            self.message(message)
         except:
             # catch all errors to avoid segfaults
             warnings.warn("\n\n** Exception in on_message handler is ignored:\n" +
@@ -197,7 +197,7 @@ cdef class Trainer(object):
         """
         self.c_trainer.append(stringlists_to_seq(xseq), yseq, group)
 
-    def select(self, algorithm, type='crf1d'):
+    def select(self, string algorithm, string type='crf1d'):
         """
         Initialize the training algorithm.
 
