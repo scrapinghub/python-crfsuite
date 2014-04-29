@@ -20,7 +20,7 @@ Usage
 See docs_ and examples_.
 
 .. _docs: http://python-crfsuite.rtfd.org/
-.. _examples: https://github.com/tpeng/python-crfsuite/tree/master/examples
+.. _examples: http://nbviewer.ipython.org/github/tpeng/python-crfsuite/tree/master/examples/
 
 Contributing
 ============
