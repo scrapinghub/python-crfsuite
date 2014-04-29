@@ -14,14 +14,14 @@ XSEQ = [
     {'walk': 1, 'shop': 0.5},
     {'walk': 1},
     {'walk': 1, 'clean': 0.5},
-    {'shop': 0.5, 'clean': 0.5},
+    {u'shop': 0.5, u'clean': 0.5},
     {'walk': 0.5, 'clean': 1},
-    {'clean': 1, 'shop': 0.1},
+    {'clean': 1, u'shop': 0.1},
     {'walk': 1, 'shop': 0.5},
     {},
     {'clean': 1},
 ]
-YSEQ = ['sunny', 'sunny', 'sunny', 'rainy', 'rainy', 'rainy', 'sunny', 'sunny', 'rainy']
+YSEQ = ['sunny', 'sunny', u'sunny', 'rainy', 'rainy', 'rainy', 'sunny', 'sunny', 'rainy']
 
 
 def test_trainer(tmpdir):
