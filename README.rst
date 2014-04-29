@@ -19,15 +19,6 @@ See docs_ and examples_.
 .. _docs: http://python-crfsuite.rtfd.org/
 .. _examples: https://github.com/tpeng/python-crfsuite/tree/master/examples
 
-
-Other CRFsuite Python Bindings
-==============================
-
-* https://github.com/jakevdp/pyCRFsuite - uses C API instead of C++ API;
-* https://github.com/chokkan/crfsuite/tree/master/swig/python - official
-  Python wrapper, exposes C++ API using SWIG.
-
-
 Contributing
 ============
 
@@ -66,3 +57,12 @@ python-crfsuite is licensed under MIT license.
 CRFsuite_ C/C++ library is licensed under BSD license.
 
 .. _CRFsuite: https://github.com/chokkan/crfsuite
+
+Alternatives
+============
+
+* https://github.com/jakevdp/pyCRFsuite - uses C API instead of C++ API;
+* https://github.com/chokkan/crfsuite/tree/master/swig/python - official
+  Python wrapper, exposes C++ API using SWIG.
+
+
