@@ -451,7 +451,7 @@ cdef class Tagger(object):
         """
         return self.c_tagger.marginal(y, pos)
 
-    cpdef set(self, xseq, feature_format=None):
+    def set(self, xseq, feature_format=None):
         """
         Set an instance (item sequence) for future calls of
         :meth:`Tagger.tag`, :meth:`Tagger.probability`
@@ -479,7 +479,9 @@ cdef class Tagger(object):
             is passed to :class:`Tagger` constructor.
         """
         feature_format = feature_format or self.default_feature_format
+
         self._check_feature_format(feature_format)
+
         if feature_format == 'stringlist':
             self.set_stringlists(xseq)
         else:
@@ -514,9 +516,9 @@ cdef class Tagger(object):
         """
         self.c_tagger.set(stringlists_to_seq(xseq))
 
-    cpdef _check_feature_format(self, instance_type) except +:
-        if instance_type not in ('dict', 'stringlist'):
-            raise ValueError("Invalid instance_type value %r" % instance_type)
+    def _check_feature_format(self, feature_format):
+        if feature_format not in ('dict', 'stringlist'):
+            raise ValueError("Invalid value for feature_format: %r" % feature_format)
 
     def _check_model(self, name):
         # See https://github.com/chokkan/crfsuite/pull/24

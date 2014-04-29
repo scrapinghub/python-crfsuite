@@ -2,9 +2,6 @@
 from __future__ import absolute_import
 import os
 import warnings
-import contextlib
-import tempfile
-import shutil
 import pytest
 
 from pycrfsuite import Trainer, Tagger
@@ -21,7 +18,9 @@ XSEQ = [
     {},
     {'clean': 1},
 ]
-YSEQ = ['sunny', 'sunny', u'sunny', 'rainy', 'rainy', 'rainy', 'sunny', 'sunny', 'rainy']
+YSEQ = ['sunny', 'sunny', u'sunny', 'rainy', 'rainy', 'rainy',
+        'sunny', 'sunny', 'rainy']
+
 
 
 def test_trainer(tmpdir):
@@ -138,67 +137,3 @@ def test_get_parameter():
 def test_set_parameters_in_constructor():
     trainer = Trainer(c2=100)
     assert abs(trainer.get('c2') - 100) < 1e-6
-
-
-def test_version():
-    from pycrfsuite import CRFSUITE_VERSION
-    assert bool(CRFSUITE_VERSION), CRFSUITE_VERSION
-
-
-def test_tagger_open_close_labels(tmpdir):
-    trainer = Trainer('lbfgs')
-    trainer.append_dicts(XSEQ, YSEQ)
-    model_filename = str(tmpdir.join('model.crfsuite'))
-
-    trainer.train(model_filename)
-
-    tagger = Tagger()
-
-    with pytest.raises(ValueError):
-        # tagger should be closed, so labels() method should fail here
-        labels = tagger.labels()
-
-    with tagger.open(model_filename):
-        labels = tagger.labels()
-    assert set(labels) == set(YSEQ)
-
-    with pytest.raises(ValueError):
-        # tagger should be closed, so labels() method should fail here
-        labels = tagger.labels()
-
-
-def test_tagger_open_non_existing():
-    tagger = Tagger()
-    with pytest.raises(IOError):
-        tagger.open('foo')
-
-
-def test_tagger_open_invalid():
-    tagger = Tagger()
-    with pytest.raises(ValueError):
-        tagger.open(__file__)
-
-
-def test_tagger_open_invalid_small(tmpdir):
-    tmp = tmpdir.join('tmp.txt')
-    tmp.write(b'foo')
-    tagger = Tagger()
-    with pytest.raises(ValueError):
-        tagger.open(str(tmp))
-
-
-def test_tagger_open_invalid_small_with_correct_signature(tmpdir):
-    tmp = tmpdir.join('tmp.txt')
-    tmp.write(b"lCRFfoo")
-    tagger = Tagger()
-    with pytest.raises(ValueError):
-        tagger.open(str(tmp))
-
-
-@pytest.mark.skipif(True, reason="this test segfaults, see https://github.com/chokkan/crfsuite/pull/24")
-def test_tagger_open_invalid_with_correct_signature(tmpdir):
-    tmp = tmpdir.join('tmp.txt')
-    tmp.write(b"lCRFfoo"*100)
-    tagger = Tagger()
-    with pytest.raises(ValueError):
-        tagger.open(str(tmp))
