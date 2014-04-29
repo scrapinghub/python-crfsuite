@@ -1,9 +1,10 @@
+#!/usr/bin/env python
 from distutils.core import setup
 from distutils.extension import Extension
 
 import glob
 
-sources = ['pycrfsuite/pycrfsuite.cpp']
+sources = ['pycrfsuite/_pycrfsuite.cpp', 'pycrfsuite/trainer_wrapper.cpp']
 
 # crfsuite
 sources += glob.glob('crfsuite/lib/crf/src/*.c')
@@ -18,10 +19,11 @@ sources += glob.glob('liblbfgs/lib/*.c')
 includes = [
     'crfsuite/include/',
     'crfsuite/lib/cqdb/include',
-    'liblbfgs/include'
+    'liblbfgs/include',
+    'pycrfsuite',
 ]
 
-ext_modules = [Extension('pycrfsuite.pycrfsuite',
+ext_modules = [Extension('pycrfsuite._pycrfsuite',
     include_dirs=includes,
     language='c++',
     sources=sources
@@ -42,6 +44,12 @@ setup(
         "Operating System :: POSIX",
         "Programming Language :: Cython",
         "Programming Language :: Python",
+        "Programming Language :: Python :: 2",
+        "Programming Language :: Python :: 2.6",
+        "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.3",
+        "Programming Language :: Python :: 3.4",
         "Topic :: Scientific/Engineering",
         "Topic :: Software Development",
     ],

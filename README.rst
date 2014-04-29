@@ -1,65 +1,71 @@
-==========
-PyCRFsuite
-==========
+===============
+python-crfsuite
+===============
 
-PyCRFsuite is a python binding of CRFsuite_ and mimic scikit-learn_ to provide a similar API.
+.. image:: https://travis-ci.org/tpeng/python-crfsuite.svg?branch=master
+    :target: https://travis-ci.org/tpeng/python-crfsuite
+
+PyCRFsuite is a python binding to CRFsuite_.
 
 Installation
 ============
 
-Prepare `crfsuite` and `liblbfgs`::
+::
 
-    git submodule init && git submodule update
-
-and then ::
-
-    python setup.py install
-
-if you modify the `pycrfsuite.pyx`, make sure run::
-
-    update_cpp.sh
+    pip install python-crfuite
 
 Usage
 =====
 
-The easiest way to start is to fetch a dataset in CoNLL 2000 format, define a feature extraction function, e.g.::
+See docs_ and examples_.
 
-    def features(words, i):
-        word = words[i]
+.. _docs: http://python-crfsuite.rtfd.org/
+.. _examples: http://nbviewer.ipython.org/github/tpeng/python-crfsuite/tree/master/examples/
 
-        yield "word:{}".format(word.lower())
+Contributing
+============
 
-        if word[0].isupper():
-            yield "CAP"
+* Source code: https://github.com/tpeng/python-crfsuite
+* Issue tracker: https://github.com/tpeng/python-crfsuite/issues
 
-        if i > 0:
-            yield "word-1:{}".format(words[i - 1].lower())
-        if i + 1 < len(words):
-            yield "word+1:{}".format(words[i + 1].lower())
+Feel free to submit ideas, bugs reports, pull requests or regular patches.
 
-Load the training file, say train.txt::
+In order to run tests, install Cython_  and tox_, then type
 
-    X = []
-    y = []
+::
 
-    for xseq, yseq in load_conll('train.txt', features):
-        X.append(xseq)
-        y.append(yseq)
+    ./update_cython.sh
+    tox
 
-Train a model::
+from the source checkout.
 
-    from pycrfsuite import CRFsuite
+Please don't commit generated cpp files in the same commit as other files.
 
-    clf = CRFSuite('model_name')
-    clf.fit(X, y)
+.. _Cython: http://cython.org/
+.. _tox: http://tox.testrun.org
 
 Authors
 =======
-Terry Peng <pengtaoo@gmail.com>
+
+* Terry Peng <pengtaoo@gmail.com>
+* Mikhail Korobov <kmike84@gmail.com>
+
+Bundled CRFSuite_ C/C++ library is by Naoaki Okazaki & contributors.
 
 License
 =======
-Licensed under MIT license.
+
+python-crfsuite is licensed under MIT license.
+
+CRFsuite_ C/C++ library is licensed under BSD license.
 
 .. _CRFsuite: https://github.com/chokkan/crfsuite
-.. _scikit-learn: http://scikit-learn.org/
+
+Alternatives
+============
+
+* https://github.com/jakevdp/pyCRFsuite - uses C API instead of C++ API;
+* https://github.com/chokkan/crfsuite/tree/master/swig/python - official
+  Python wrapper, exposes C++ API using SWIG.
+
+
