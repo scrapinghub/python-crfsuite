@@ -4,28 +4,12 @@ import os
 import warnings
 import pytest
 
-from pycrfsuite import Trainer, Tagger
+from pycrfsuite import Trainer
 
 
-XSEQ = [
-    {'walk': 1, 'shop': 0.5},
-    {'walk': 1},
-    {'walk': 1, 'clean': 0.5},
-    {u'shop': 0.5, u'clean': 0.5},
-    {'walk': 0.5, 'clean': 1},
-    {'clean': 1, u'shop': 0.1},
-    {'walk': 1, 'shop': 0.5},
-    {},
-    {'clean': 1},
-]
-YSEQ = ['sunny', 'sunny', u'sunny', 'rainy', 'rainy', 'rainy',
-        'sunny', 'sunny', 'rainy']
-
-
-
-def test_trainer(tmpdir):
+def test_trainer(tmpdir, xseq, yseq):
     trainer = Trainer('lbfgs')
-    trainer.append_dicts(XSEQ, YSEQ)
+    trainer.append_dicts(xseq, yseq)
 
     model_filename = str(tmpdir.join('model.crfsuite'))
     assert not os.path.isfile(model_filename)
@@ -33,10 +17,10 @@ def test_trainer(tmpdir):
     assert os.path.isfile(model_filename)
 
 
-def test_trainer_noselect(tmpdir):
+def test_trainer_noselect(tmpdir, xseq, yseq):
     # This shouldn't segfault; see https://github.com/chokkan/crfsuite/pull/21
     trainer = Trainer()
-    trainer.append_dicts(XSEQ, YSEQ)
+    trainer.append_dicts(xseq, yseq)
     model_filename = str(tmpdir.join('model.crfsuite'))
     trainer.train(model_filename)
 
@@ -56,7 +40,7 @@ def test_trainer_noselect_noappend(tmpdir):
     trainer.train(model_filename)
 
 
-def test_training_messages(tmpdir):
+def test_training_messages(tmpdir, xseq, yseq):
 
     class CapturingTrainer(Trainer):
         def __init__(self):
@@ -67,7 +51,7 @@ def test_training_messages(tmpdir):
 
     trainer = CapturingTrainer()
     trainer.select('lbfgs')
-    trainer.append_dicts(XSEQ, YSEQ)
+    trainer.append_dicts(xseq, yseq)
     assert not trainer.messages
 
     model_filename = str(tmpdir.join('model.crfsuite'))
@@ -77,14 +61,14 @@ def test_training_messages(tmpdir):
     # print("".join(trainer.messages))
 
 
-def test_training_messages_exception(tmpdir):
+def test_training_messages_exception(tmpdir, xseq, yseq):
     class BadTrainer(Trainer):
         def message(self, message):
             raise Exception("error")
 
     trainer = BadTrainer()
     trainer.select('lbfgs')
-    trainer.append_dicts(XSEQ, YSEQ)
+    trainer.append_dicts(xseq, yseq)
 
     with warnings.catch_warnings(record=True) as w:
         model_filename = str(tmpdir.join('model.crfsuite'))
