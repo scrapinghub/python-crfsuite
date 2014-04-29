@@ -5,3 +5,5 @@
 dist
 build
 MANIFEST
+.ipynb_checkpoints
+conll2002-esp.crfsuite
