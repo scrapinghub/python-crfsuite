@@ -4,6 +4,7 @@
 .tox
 dist
 build
+_build
 MANIFEST
 .ipynb_checkpoints
 conll2002-esp.crfsuite
