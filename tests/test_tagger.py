@@ -4,7 +4,7 @@ import pytest
 from pycrfsuite import Tagger
 
 
-def test_open_close_labels(tmpdir, model_filename, yseq):
+def test_open_close_labels(model_filename, yseq):
     tagger = Tagger()
 
     with pytest.raises(ValueError):
@@ -69,7 +69,7 @@ def test_invalid_feature_format(tmpdir):
         Tagger(feature_format='foo')
 
 
-def test_tag(tmpdir, model_filename, xseq, yseq):
+def test_tag(model_filename, xseq, yseq):
     with Tagger().open(model_filename) as tagger:
         yseq = tagger.tag(xseq, feature_format='dict')
         assert yseq == yseq
@@ -79,7 +79,8 @@ def test_tag(tmpdir, model_filename, xseq, yseq):
         assert yseq == yseq
 
 
-def test_tag_invalid_feature_format(tmpdir, model_filename, xseq):
+def test_tag_invalid_feature_format(model_filename, xseq):
     with Tagger().open(model_filename) as tagger:
         with pytest.raises(ValueError):
             tagger.tag(xseq, feature_format='dicts')
+
