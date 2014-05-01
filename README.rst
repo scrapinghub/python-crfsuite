@@ -56,8 +56,7 @@ License
 =======
 
 python-crfsuite is licensed under MIT license.
-
-CRFsuite_ C/C++ library is licensed under BSD license.
+CRFsuite_ library is licensed under BSD license.
 
 .. _CRFsuite: https://github.com/chokkan/crfsuite
 
