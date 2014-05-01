@@ -84,3 +84,13 @@ def test_tag_invalid_feature_format(model_filename, xseq):
         with pytest.raises(ValueError):
             tagger.tag(xseq, feature_format='dicts')
 
+
+def test_tag_probability(model_filename, xseq, yseq):
+    with Tagger().open(model_filename) as tagger:
+        res = tagger.tag(xseq, feature_format='dict')
+        prob = tagger.probability(res)
+        prob2 = tagger.probability([yseq[0]]*len(yseq))
+        assert prob > prob2
+        assert 0 < prob < 1
+        assert 0 < prob2 < 1
+
