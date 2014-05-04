@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
 import pytest
-from pycrfsuite import Tagger
+from pycrfsuite import Tagger, Trainer
 
 
 def test_open_close_labels(model_filename, yseq):
@@ -57,7 +57,7 @@ def test_open_invalid_with_correct_signature(tmpdir):
         tagger.open(str(tmp))
 
 
-def test_invalid_feature_format(tmpdir):
+def test_invalid_feature_format():
     Tagger()
     Tagger(feature_format='stringlist')
     Tagger(feature_format='dict')
@@ -71,12 +71,30 @@ def test_invalid_feature_format(tmpdir):
 
 def test_tag(model_filename, xseq, yseq):
     with Tagger().open(model_filename) as tagger:
-        yseq = tagger.tag(xseq, feature_format='dict')
-        assert yseq == yseq
+        assert tagger.tag(xseq, feature_format='dict') == yseq
 
     with Tagger().open(model_filename) as tagger:
-        yseq = tagger.tag([x.keys() for x in xseq], feature_format='stringlist')
-        assert yseq == yseq
+        # if we discard weights the results become different
+        data = [x.keys() for x in xseq]
+        assert tagger.tag(data, feature_format='stringlist') != yseq
+
+
+def test_tag_formats(tmpdir, xseq, yseq):
+    # make all coefficients 1 and check that results are the same
+    model_filename = str(tmpdir.join('model.crfsuite'))
+    xseq = [dict((key, 1) for key in x) for x in xseq]
+
+    trainer = Trainer()
+    trainer.set('c2', 1e-6)  # make sure model overfits
+    trainer.append_dicts(xseq, yseq)
+    trainer.train(model_filename)
+
+    with Tagger().open(model_filename) as tagger:
+        assert tagger.tag(xseq, feature_format='dict') == yseq
+
+    with Tagger().open(model_filename) as tagger:
+        data = [x.keys() for x in xseq]
+        assert tagger.tag(data, feature_format='stringlist') == yseq
 
 
 def test_tag_invalid_feature_format(model_filename, xseq):
