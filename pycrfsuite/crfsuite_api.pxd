@@ -26,17 +26,6 @@ cdef extern from "../crfsuite/include/crfsuite_api.hpp" namespace "CRFSuite":
     ctypedef vector[Item] ItemSequence
     ctypedef vector[string] StringList
 
-    cdef cppclass Tagger:
-        Tagger() except +
-        int open(string) except +
-        void close() except +
-        StringList labels() except +
-        StringList tag(ItemSequence) except +
-        void set(ItemSequence) except +
-        StringList viterbi() except +
-        double probability(StringList) except +
-        double marginal(string, int) except +
-
     cdef string version()
 
 
@@ -57,3 +46,20 @@ cdef extern from "trainer_wrapper.hpp" namespace "CRFSuiteWrapper":
         string help(string) except +
         void _init_hack() except +
 
+
+cdef extern from "tagger_wrapper.hpp" namespace "CRFSuiteWrapper":
+
+    ctypedef object (*messagefunc)(object self, string message)
+
+    cdef cppclass Tagger:
+        Tagger() except +
+        int open(string) except +
+        void close() except +
+        StringList labels() except +
+        StringList tag(ItemSequence) except +
+        void set(ItemSequence) except +
+        StringList viterbi() except +
+        double probability(StringList) except +
+        double marginal(string, int) except +
+        void dump(int) except +
+        void dump2() except +

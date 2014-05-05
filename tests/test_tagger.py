@@ -112,3 +112,33 @@ def test_tag_probability(model_filename, xseq, yseq):
         assert 0 < prob < 1
         assert 0 < prob2 < 1
 
+
+def test_dump(tmpdir, model_filename):
+    with Tagger().open(model_filename) as tagger:
+        dump_filename = str(tmpdir.join("dump.txt"))
+        tagger.dump(dump_filename)
+
+        with open(dump_filename, 'rb') as f:
+            res = f.read().decode('utf8')
+            assert 'LABELS = {' in res
+            assert u'проверка --> rainy:' in res
+
+    # it shouldn't segfault on a closed tagger
+    with pytest.raises(RuntimeError):
+        tagger.dump(dump_filename)
+
+
+def test_info(model_filename):
+    with Tagger().open(model_filename) as tagger:
+        res = tagger.info()
+
+        assert res.transitions[('sunny', 'sunny')] > res.transitions[('sunny', 'rainy')]
+        assert res.state_features[('walk', 'sunny')] > res.state_features[('walk', 'rainy')]
+        assert (u'проверка', u'rainy') in res.state_features
+        assert res.header['num_labels'] == '2'
+        assert set(res.labels.keys()) == set(['sunny', 'rainy'])
+        assert set(res.attributes.keys()) == set(['shop', 'walk', 'clean', u'проверка'])
+
+    # it shouldn't segfault on a closed tagger
+    with pytest.raises(RuntimeError):
+        tagger.info()

@@ -1,14 +1,18 @@
 # cython: embedsignature=True
 # cython: c_string_type=str, c_string_encoding=ascii
-from __future__ import print_function
+from __future__ import print_function, absolute_import
 cimport crfsuite_api
 from libcpp.string cimport string
 
+import sys
 import os
 import warnings
 import traceback
 import logging
 import contextlib
+import tempfile
+
+from pycrfsuite import _dumpparser
 
 logger = logging.getLogger('pycrfsuite')
 CRFSUITE_VERSION = crfsuite_api.version()
@@ -515,6 +519,44 @@ cdef class Tagger(object):
             contain observed features (as strings).
         """
         self.c_tagger.set(stringlists_to_seq(xseq))
+
+    def dump(self, filename=None):
+        """
+        Dump a CRF model in plain-text format.
+
+        Parameters
+        ----------
+        filename : string, optional
+            File name to dump the model to.
+            If None, the model is dumped to stdout.
+        """
+        if filename is None:
+            self.c_tagger.dump(os.dup(sys.stdout.fileno()))
+        else:
+            fd = os.open(filename, os.O_CREAT | os.O_WRONLY)
+            try:
+                self.c_tagger.dump(fd)
+            finally:
+                try:
+                    os.close(fd)
+                except OSError:
+                    pass  # already closed by Tagger::dump
+
+    def info(self):
+        """
+        Return a structure with model internal information
+        (header, learned weights, attribute and state mappings).
+        """
+        parser = _dumpparser.CRFsuiteDumpParser()
+        fd, name = tempfile.mkstemp()
+        try:
+            self.c_tagger.dump(fd)
+            with open(name, 'rb') as f:
+                for line in f:
+                    parser.feed(line.decode('utf8'))
+        finally:
+            os.unlink(name)
+        return parser.result
 
     def _check_feature_format(self, feature_format):
         if feature_format not in ('dict', 'stringlist'):
