@@ -24,7 +24,6 @@ protected:
 
 public:
     void set_handler(PyObject *obj, messagefunc handler);
-    virtual ~Trainer();
     virtual void message(const std::string& msg);
     void _init_hack();
 };

@@ -8,22 +8,12 @@ namespace CRFSuiteWrapper
 
 void Trainer::set_handler(PyObject *obj, messagefunc handler)
 {
-    if (this->m_obj != NULL){
-        Py_XDECREF(this->m_obj);
-    }
+    // don't hold a reference to obj here because it prevents
+    // destructor from being called
     this->m_obj = obj;
-    Py_XINCREF(this->m_obj);
-
     this->handler = handler;
 }
 
-
-Trainer::~Trainer()
-{
-    if (this->m_obj != NULL){
-        Py_XDECREF(this->m_obj);
-    }
-}
 
 void Trainer::message(const std::string& msg)
 {
