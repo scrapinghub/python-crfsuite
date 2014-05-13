@@ -34,8 +34,7 @@ In order to run tests, install Cython_  and tox_, then type
 
 ::
 
-    ./update_cython.sh
-    tox
+    ./update_cpp.sh; tox
 
 from the source checkout.
 
@@ -64,7 +63,12 @@ Alternatives
 ============
 
 * https://github.com/jakevdp/pyCRFsuite - uses C API instead of C++ API;
+  allows to use scipy sparse matrices as an input.
 * https://github.com/chokkan/crfsuite/tree/master/swig/python - official
   Python wrapper, exposes C++ API using SWIG.
 
-
+This package (python-crfsuite) wraps CRFsuite C++ API using Cython.
+It is faster than official SWIG wrapper and has a simpler codebase than
+a more advanced pyCRFsuite. python-crfsuite works in Python 2 and Python 3,
+doesn't have external dependencies (CRFsuite is bundled, numpy/scipy stack
+is not needed) and workarounds some of the issues with C++ CRFsuite library.
