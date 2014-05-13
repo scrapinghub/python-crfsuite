@@ -17,10 +17,10 @@ Installation
 Usage
 =====
 
-See docs_ and examples_.
+See docs_ and an example_.
 
 .. _docs: http://python-crfsuite.rtfd.org/
-.. _examples: http://nbviewer.ipython.org/github/tpeng/python-crfsuite/tree/master/examples/
+.. _example: http://nbviewer.ipython.org/github/tpeng/python-crfsuite/blob/master/examples/CoNLL%202002.ipynb
 
 Contributing
 ============
