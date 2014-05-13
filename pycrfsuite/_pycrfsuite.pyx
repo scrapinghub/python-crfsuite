@@ -544,8 +544,7 @@ cdef class Tagger(object):
 
     def info(self):
         """
-        Return a structure with model internal information
-        (header, learned weights, attribute and state mappings).
+        Return a :class:`~.ParsedDump` structure with model internal information.
         """
         parser = _dumpparser.CRFsuiteDumpParser()
         fd, name = tempfile.mkstemp()

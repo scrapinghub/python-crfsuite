@@ -31,7 +31,6 @@ CRFsuite_ C/C++ library is licensed under BSD license.
 
 Development happens at github: https://github.com/tpeng/python-crfsuite
 
-
 .. toctree::
    :hidden:
 
@@ -44,4 +43,9 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+
+
+
+.. include:: ../CHANGES.rst
+
 

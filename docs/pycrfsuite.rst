@@ -7,3 +7,6 @@ API Reference
     :members: Trainer,Tagger,CRFSuiteError
     :undoc-members:
 
+.. automodule:: pycrfsuite._dumpparser
+    :members: ParsedDump
+    :undoc-members:

@@ -4,6 +4,28 @@ import re
 
 
 class ParsedDump(object):
+    """
+    CRFsuite model parameters.
+
+    Attributes
+    ----------
+
+    transitions : dict
+        ``{(from_label, to_label): weight}`` dict with learned transition weights
+
+    state_features : dict
+        ``{(attribute, label): weight}`` dict with learned ``(attribute, label)`` weights
+
+    header : dict
+        Metadata from the file header
+
+    labels : dict
+        ``{name: internal_id}`` dict with model labels
+
+    attributes : dict
+        ``{name: internal_id}`` dict with known attributes
+
+    """
     def __init__(self):
         self.header = {}
         self.labels = {}
