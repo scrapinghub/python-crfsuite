@@ -5,7 +5,8 @@ import re
 
 class ParsedDump(object):
     """
-    CRFsuite model parameters.
+    CRFsuite model parameters. Objects of this type are returned by
+    :meth:`pycrfsuite.Tagger.info()` method.
 
     Attributes
     ----------

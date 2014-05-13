@@ -1,8 +1,4 @@
-.. python-crfsuite documentation master file, created by
-   sphinx-quickstart on Sun Apr 27 15:19:14 2014.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
+===============
 python-crfsuite
 ===============
 
@@ -22,9 +18,9 @@ Usage
 =====
 
 * :ref:`api-reference`
-* Examples_
+* Example_: building a Named Entity Recognition system with python-crfsuite.
 
-.. _examples: http://nbviewer.ipython.org/github/tpeng/python-crfsuite/tree/master/examples/
+.. _Example: http://nbviewer.ipython.org/github/tpeng/python-crfsuite/blob/master/examples/CoNLL%202002.ipynb
 
 python-crfsuite is licensed under MIT license.
 CRFsuite_ C/C++ library is licensed under BSD license.
