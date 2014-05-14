@@ -9,7 +9,7 @@ from pycrfsuite import Trainer
 
 def test_trainer(tmpdir, xseq, yseq):
     trainer = Trainer('lbfgs')
-    trainer.append_dicts(xseq, yseq)
+    trainer.append(xseq, yseq)
 
     model_filename = str(tmpdir.join('model.crfsuite'))
     assert not os.path.isfile(model_filename)
@@ -20,7 +20,7 @@ def test_trainer(tmpdir, xseq, yseq):
 def test_trainer_noselect(tmpdir, xseq, yseq):
     # This shouldn't segfault; see https://github.com/chokkan/crfsuite/pull/21
     trainer = Trainer()
-    trainer.append_dicts(xseq, yseq)
+    trainer.append(xseq, yseq)
     model_filename = str(tmpdir.join('model.crfsuite'))
     trainer.train(model_filename)
 
@@ -51,7 +51,7 @@ def test_training_messages(tmpdir, xseq, yseq):
 
     trainer = CapturingTrainer()
     trainer.select('lbfgs')
-    trainer.append_dicts(xseq, yseq)
+    trainer.append(xseq, yseq)
     assert not trainer.messages
 
     model_filename = str(tmpdir.join('model.crfsuite'))
@@ -68,7 +68,7 @@ def test_training_messages_exception(tmpdir, xseq, yseq):
 
     trainer = BadTrainer()
     trainer.select('lbfgs')
-    trainer.append_dicts(xseq, yseq)
+    trainer.append(xseq, yseq)
 
     with warnings.catch_warnings(record=True) as w:
         model_filename = str(tmpdir.join('model.crfsuite'))

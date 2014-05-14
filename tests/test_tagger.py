@@ -57,26 +57,15 @@ def test_open_invalid_with_correct_signature(tmpdir):
         tagger.open(str(tmp))
 
 
-def test_invalid_feature_format():
-    Tagger()
-    Tagger(feature_format='stringlist')
-    Tagger(feature_format='dict')
-
-    with pytest.raises(ValueError):
-        Tagger(feature_format='dicts')
-
-    with pytest.raises(ValueError):
-        Tagger(feature_format='foo')
-
-
 def test_tag(model_filename, xseq, yseq):
     with Tagger().open(model_filename) as tagger:
-        assert tagger.tag(xseq, feature_format='dict') == yseq
+        assert tagger.tag(xseq) == yseq
 
     with Tagger().open(model_filename) as tagger:
-        # if we discard weights the results become different
+        # Working with lists is supported,
+        # but if we discard weights the results become different
         data = [x.keys() for x in xseq]
-        assert tagger.tag(data, feature_format='stringlist') != yseq
+        assert tagger.tag(data) != yseq
 
 
 def test_tag_formats(tmpdir, xseq, yseq):
@@ -86,26 +75,33 @@ def test_tag_formats(tmpdir, xseq, yseq):
 
     trainer = Trainer()
     trainer.set('c2', 1e-6)  # make sure model overfits
-    trainer.append_dicts(xseq, yseq)
+    trainer.append(xseq, yseq)
     trainer.train(model_filename)
 
     with Tagger().open(model_filename) as tagger:
-        assert tagger.tag(xseq, feature_format='dict') == yseq
+        assert tagger.tag(xseq) == yseq
 
     with Tagger().open(model_filename) as tagger:
         data = [x.keys() for x in xseq]
-        assert tagger.tag(data, feature_format='stringlist') == yseq
+        assert tagger.tag(data) == yseq
 
 
-def test_tag_invalid_feature_format(model_filename, xseq):
+@pytest.mark.xfail()
+@pytest.mark.parametrize("bad_seq", [
+    'foo',
+    ['foo'],            # should be a list of lists of strings
+    [[{'foo': 1.0}]],   # should be a list of dicts
+    [{'foo': 'bar'}],   # dicts should be string: float mappings
+])
+def test_tag_invalid_feature_format(model_filename, bad_seq):
     with Tagger().open(model_filename) as tagger:
         with pytest.raises(ValueError):
-            tagger.tag(xseq, feature_format='dicts')
+            tagger.tag(bad_seq)
 
 
 def test_tag_probability(model_filename, xseq, yseq):
     with Tagger().open(model_filename) as tagger:
-        res = tagger.tag(xseq, feature_format='dict')
+        res = tagger.tag(xseq)
         prob = tagger.probability(res)
         prob2 = tagger.probability([yseq[0]]*len(yseq))
         assert prob > prob2

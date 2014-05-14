@@ -1,5 +1,6 @@
 # cython: embedsignature=True
 # cython: c_string_type=str, c_string_encoding=ascii
+# cython: profile=False
 from __future__ import print_function, absolute_import
 cimport crfsuite_api
 from libcpp.string cimport string
@@ -35,50 +36,27 @@ class CRFSuiteError(Exception):
         Exception.__init__(self._messages.get(self.code, "Unexpected error"))
 
 
-cdef crfsuite_api.ItemSequence dicts_to_seq(seq) except+:
+cdef crfsuite_api.ItemSequence to_seq(pyseq) except+:
     """
-    Convert an iterable of dicts {unicode_key: float_value}
-    to an ItemSequence.
+    Convert an iterable to an ItemSequence.
+    Elements of an iterable could be either dicts {unicode_key: float_value}
+    or strings.
     """
-    cdef dict x
     cdef crfsuite_api.ItemSequence c_seq
+
     cdef crfsuite_api.Item c_item
-    cdef string c_key
     cdef double c_value
-
-    for x in seq:
-        c_item = crfsuite_api.Item()
-        c_item.reserve(len(x))
-        for key in x:
-            if isinstance(key, unicode):
-                c_key = (<unicode>key).encode('utf8')
-            else:
-                c_key = key
-            c_value = x[key]
-            c_item.push_back(crfsuite_api.Attribute(c_key, c_value))
-        c_seq.push_back(c_item)
-
-    return c_seq
-
-
-cdef crfsuite_api.ItemSequence stringlists_to_seq(seq) except+:
-    """
-    Convert an iterable of lists ``[key1, key2, ...]``
-    to an ItemSequence.
-    """
-    cdef crfsuite_api.ItemSequence c_seq
-    cdef crfsuite_api.Item c_item
     cdef string c_key
+    cdef bint is_dict
 
-    for x in seq:
+    for x in pyseq:
+        is_dict = isinstance(x, dict)
         c_item = crfsuite_api.Item()
         c_item.reserve(len(x))
         for key in x:
-            if isinstance(key, unicode):
-                c_key = (<unicode>key).encode('utf8')
-            else:
-                c_key = key
-            c_item.push_back(crfsuite_api.Attribute(c_key))
+            c_key = (<unicode>key).encode('utf8') if isinstance(key, unicode) else key
+            c_value = x[key] if is_dict else 1.0
+            c_item.push_back(crfsuite_api.Attribute(c_key, c_value))
         c_seq.push_back(c_item)
 
     return c_seq
@@ -158,16 +136,18 @@ cdef class Trainer(object):
         """
         logger.info(message)
 
-    def append_dicts(self, xseq, yseq, int group=0):
+    def append(self, xseq, yseq, int group=0):
         """
         Append an instance (item/label sequence) to the data set.
 
         Parameters
         ----------
-        xseq : a sequence of {string: float} dicts
-            The item sequence of the instance. Each dict should
-            be a string -> float mapping where keys are observed features
-            and values are their weights.
+        xseq : a sequence of item features
+            The item sequence of the instance. Features for an item
+            can be represented either by a ``{key1: weight1, key2: weight2, ..}``
+            dict (a string -> float mapping where keys are observed features
+            and values are their weights) or by a ``[key1, key2, ...]``
+            list - all weights are considered 1.0 in this case.
 
         yseq : a sequence of strings
             The label sequence of the instance. The number
@@ -178,28 +158,7 @@ cdef class Trainer(object):
             The group number of the instance. Group numbers are used to
             select subset of data for heldout evaluation.
         """
-        self.c_trainer.append(dicts_to_seq(xseq), yseq, group)
-
-    def append_stringlists(self, xseq, yseq, int group=0):
-        """
-        Append an instance (item/label sequence) to the data set.
-
-        Parameters
-        ----------
-        xseq : a sequence of lists of strings
-            The item sequence of the instance. Each list should
-            contain observed features (as strings).
-
-        yseq : a sequence of strings
-            The label sequence of the instance. The number
-            of elements in yseq must be identical to that
-            in xseq.
-
-        group : int, optional
-            The group number of the instance. Group numbers are used to
-            select subset of data for heldout evaluation.
-        """
-        self.c_trainer.append(stringlists_to_seq(xseq), yseq, group)
+        self.c_trainer.append(to_seq(xseq), yseq, group)
 
     def select(self, string algorithm, string type='crf1d'):
         """
@@ -338,11 +297,6 @@ cdef class Tagger(object):
     input sequences using a model.
     """
     cdef crfsuite_api.Tagger c_tagger
-    cdef str default_feature_format
-
-    def __init__(self, feature_format='stringlist'):
-        self._check_feature_format(feature_format)
-        self.default_feature_format = feature_format
 
     def open(self, name):
         """
@@ -379,47 +333,37 @@ cdef class Tagger(object):
         """
         return self.c_tagger.labels()
 
-    def tag(self, xseq=None, feature_format=None):
+    def tag(self, xseq=None):
         """
         Predict the label sequence for the item sequence.
 
         Parameters
         ----------
         xseq : item sequence, optional
-            The sequence of features. If omitted, the current sequence is used
-            (e.g. a sequence set using :meth:`Tagger.set` method).
+            The item sequence. If omitted, the current sequence is used
+            (a sequence set using :meth:`Tagger.set` method or
+            a sequence used in a previous :meth:`Tagger.tag` call).
 
-        feature_format : {'stringlist', 'dict'}, optional
-            Item sequence data format.
-
-            * 'stringlist' means that ``xseq`` must be a sequence
-              of lists of strings, where each list contains observed
-              features (all weights are assumed to be 1.0).
-            * 'dict' means that ``xseq`` must be a sequence
-              of {string: float} dicts, where each dict is has observed
-              features as keys and their weights as values.
-
-            By default, ``feature_format`` passed to :class:`Tagger`
-            constructor is used, or 'stringlist' if no ``feature_format``
-            is passed to :class:`Tagger` constructor.
+            Features for each item can be represented either by
+            a ``{key1: weight1, key2: weight2, ..}`` dict
+            (a string -> float mapping where keys are observed features
+            and values are their weights) or by a ``[key1, key2, ...]``
+            list - all weights are considered 1.0 in this case.
 
         Returns
         -------
         list of strings
             The label sequence predicted.
         """
-        if xseq is None and feature_format is not None:
-            raise ValueError("Can't change feature format of an already loaded sequence")
-
         if xseq is not None:
-            self.set(xseq, feature_format)
+            self.set(xseq)
 
         return self.c_tagger.viterbi()
 
     def probability(self, yseq):
         """
         Compute the probability of the label sequence for the current input
-        sequence (i.e. a sequence set using :meth:`Tagger.set` method or
+        sequence (a sequence set using :meth:`Tagger.set` method or
         a sequence used in a previous :meth:`Tagger.tag` call).
 
         Parameters
@@ -437,8 +381,8 @@ cdef class Tagger(object):
     def marginal(self, y, pos):
         """
         Compute the marginal probability of the label ``y`` at position ``pos``
-        for the current input sequence (i.e. a sequence set using one of the
-        :meth:`Tagger.set` methods or a sequence used in a previous
+        for the current input sequence (i.e. a sequence set using
+        :meth:`Tagger.set` method or a sequence used in a previous
         :meth:`Tagger.tag` call).
 
         Parameters
@@ -455,70 +399,26 @@ cdef class Tagger(object):
         """
         return self.c_tagger.marginal(y, pos)
 
-    def set(self, xseq, feature_format=None):
+    cpdef set(self, xseq) except +:
         """
         Set an instance (item sequence) for future calls of
         :meth:`Tagger.tag`, :meth:`Tagger.probability`
         and :meth:`Tagger.marginal` methods.
-
-        See also: :meth:`Tagger.set_dicts`, :meth:`Tagger.set_stringlists`.
 
         Parameters
         ----------
         xseq : item sequence
-            The sequence of features.
+            The item sequence. If omitted, the current sequence is used
+            (e.g. a sequence set using :meth:`Tagger.set` method).
 
-        feature_format : {'stringlist', 'dict'}, optional
-            Item sequence data format.
+            Features for each item can be represented either by
+            a ``{key1: weight1, key2: weight2, ..}`` dict
+            (a string -> float mapping where keys are observed features
+            and values are their weights) or by a ``[key1, key2, ...]``
+            list - all weights are considered 1.0 in this case.
 
-            * 'stringlist' means that ``xseq`` must be a sequence
-              of lists of strings, where each list contains observed
-              features (all weights are assumed to be 1.0).
-            * 'dict' means that ``xseq`` must be a sequence
-              of {string: float} dicts, where each dict is has observed
-              features as keys and their weights as values.
-
-            By default, ``feature_format`` passed to :class:`Tagger`
-            constructor is used, or 'stringlist' if no ``feature_format``
-            is passed to :class:`Tagger` constructor.
         """
-        feature_format = feature_format or self.default_feature_format
-
-        self._check_feature_format(feature_format)
-
-        if feature_format == 'stringlist':
-            self.set_stringlists(xseq)
-        else:
-            self.set_dicts(xseq)
-
-    cpdef set_dicts(self, xseq):
-        """
-        Set an instance (item sequence) for future calls of
-        :meth:`Tagger.tag`, :meth:`Tagger.probability`
-        and :meth:`Tagger.marginal` methods.
-
-        Parameters
-        ----------
-        xseq : a sequence of {string: float} dicts
-            The sequence of feature dicts to be tagged. Each dict should
-            be a string -> float mapping where keys are observed features
-            and values are their weights.
-        """
-        self.c_tagger.set(dicts_to_seq(xseq))
-
-    cpdef set_stringlists(self, xseq):
-        """
-        Set an instance (item sequence) for future calls of
-        :meth:`Tagger.tag`, :meth:`Tagger.probability`
-        and :meth:`Tagger.marginal` methods.
-
-        Parameters
-        ----------
-        xseq : a sequence of lists of strings
-            The sequence of feature lists. Each list should
-            contain observed features (as strings).
-        """
-        self.c_tagger.set(stringlists_to_seq(xseq))
+        self.c_tagger.set(to_seq(xseq))
 
     def dump(self, filename=None):
         """
@@ -556,10 +456,6 @@ cdef class Tagger(object):
         finally:
             os.unlink(name)
         return parser.result
-
-    def _check_feature_format(self, feature_format):
-        if feature_format not in ('dict', 'stringlist'):
-            raise ValueError("Invalid value for feature_format: %r" % feature_format)
 
     def _check_model(self, name):
         # See https://github.com/chokkan/crfsuite/pull/24

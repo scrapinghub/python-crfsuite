@@ -28,7 +28,7 @@ def yseq():
 def model_filename(tmpdir, xseq, yseq):
     from pycrfsuite import Trainer
     trainer = Trainer('lbfgs')
-    trainer.append_dicts(xseq, yseq)
+    trainer.append(xseq, yseq)
     model_filename = str(tmpdir.join('model.crfsuite'))
     trainer.train(model_filename)
     return model_filename

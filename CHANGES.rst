@@ -1,6 +1,19 @@
 Changes
 =======
 
+dev (TBA)
+---------
+
+python-crfsuite now detects the featue format (dict vs list of strings)
+automatically - it turns out the performance overhead is negligible.
+
+* ``Trainer.append_stringslists`` and ``Trainer.append_dicts`` methods
+  are replaced with a single :meth:`pycrfsuite.Tagger.append` method;
+* ``Tagger.set_stringlists`` and ``Tagger.set_dicts`` methods are
+  removed in favor of :meth:`pycrfsuite.Tagger.set` method;
+* ``feature_format`` arguments in :class:`pycrfsuite.Tagger` methods
+  and constructor are dropped.
+
 0.2 (2014-05-14)
 ----------------
 
