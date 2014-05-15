@@ -100,12 +100,11 @@ cdef class Trainer(object):
         'gamma': float,
     }
 
-    def __init__(self, algorithm=None, **kwargs):
+    def __init__(self, algorithm=None, params=None):
         if algorithm is not None:
             self.select(algorithm)
-
-        for key, value in kwargs.items():
-            self.set(key, value)
+        if params is not None:
+            self.set_params(params)
 
     def __cinit__(self):
         # setup message handler
@@ -226,6 +225,18 @@ cdef class Trainer(object):
 
         """
         return self.c_trainer.params()
+
+    def set_params(self, params):
+        """
+        Set training parameters.
+
+        Parameters
+        ----------
+        params : dict
+            A dict with parameters ``{name: value}``
+        """
+        for key, value in params.items():
+            self.set(key, value)
 
     def set(self, name, value):
         """

@@ -119,5 +119,5 @@ def test_get_parameter():
 
 
 def test_set_parameters_in_constructor():
-    trainer = Trainer(c2=100)
+    trainer = Trainer(params={'c2': 100})
     assert abs(trainer.get('c2') - 100) < 1e-6
