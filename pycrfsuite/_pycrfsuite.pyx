@@ -62,6 +62,9 @@ cdef crfsuite_api.ItemSequence to_seq(pyseq) except+:
     return c_seq
 
 
+def _intbool(txt):
+    return bool(int(txt))
+
 cdef class Trainer(object):
     """
     The trainer class.
@@ -72,9 +75,9 @@ cdef class Trainer(object):
     cdef crfsuite_api.Trainer c_trainer
 
     _PARAMETER_TYPES = {
-        'feature.minfreq': int,
-        'feature.possible_states': int, # bool
-        'feature.possible_transitions': int,  # bool
+        'feature.minfreq': float,
+        'feature.possible_states': _intbool,
+        'feature.possible_transitions': _intbool,
         'c1': float,
         'c2': float,
         'max_iterations': int,
@@ -91,8 +94,8 @@ cdef class Trainer(object):
         'calibration.max_trials': int,
         'type': int,
         'c': float,
-        'error_sensitive': int,  # bool
-        'averaging': int,  # bool
+        'error_sensitive': _intbool,
+        'averaging': _intbool,
         'variance': float,
         'gamma': float,
     }
