@@ -9,13 +9,11 @@ import sys
 import os
 import warnings
 import traceback
-import logging
 import contextlib
 import tempfile
 
 from pycrfsuite import _dumpparser
 
-logger = logging.getLogger('pycrfsuite')
 CRFSUITE_VERSION = crfsuite_api.version()
 
 
@@ -105,11 +103,14 @@ cdef class Trainer(object):
         'pa': 'passive-aggressive',
     }
 
-    def __init__(self, algorithm=None, params=None):
+    cdef verbose
+
+    def __init__(self, algorithm=None, params=None, verbose=True):
         if algorithm is not None:
             self.select(algorithm)
         if params is not None:
             self.set_params(params)
+        self.verbose = verbose
 
     def __cinit__(self):
         # setup message handler
@@ -133,15 +134,16 @@ cdef class Trainer(object):
         Override this method to receive messages of the training
         process.
 
-        By default, this method uses Python logging subsystem to
-        output the messages (logger name is 'pycrfsuite').
+        By default, this method prints messages
+        if ``Trainer.verbose`` is True.
 
         Parameters
         ----------
         message : string
             The message
         """
-        logger.info(message)
+        if self.verbose:
+            print(message, end='')
 
     def append(self, xseq, yseq, int group=0):
         """

@@ -27,7 +27,7 @@ def yseq():
 @pytest.fixture
 def model_filename(tmpdir, xseq, yseq):
     from pycrfsuite import Trainer
-    trainer = Trainer('lbfgs')
+    trainer = Trainer('lbfgs', verbose=False)
     trainer.append(xseq, yseq)
     model_filename = str(tmpdir.join('model.crfsuite'))
     trainer.train(model_filename)
