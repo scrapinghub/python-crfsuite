@@ -30,7 +30,7 @@ Contributing
 
 Feel free to submit ideas, bugs reports, pull requests or regular patches.
 
-In order to run tests, install Cython_  and tox_, then type
+In order to run tests, install Cython_ (> 0.20.1)  and tox_, then type
 
 ::
 
