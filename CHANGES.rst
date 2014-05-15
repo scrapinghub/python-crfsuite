@@ -1,6 +1,24 @@
 Changes
 =======
 
+0.4 (2014-05-16)
+----------------
+
+* (backwards-incompatible) training parameters are now passed
+  using ``params`` argument of  :class:`pycrfsuite.Trainer` constructor
+  instead of ``**kwargs``;
+* (backwards-incompatible) logging support is dropped;
+* `verbose` argument for :class:`pycrfsuite.Trainer` constructor;
+* :meth:`pycrfsuite.Trainer.get_params` and
+  :meth:`pycrfsuite.Trainer.set_params` for getting/setting multiple training
+  parameters at once;
+* string handling in Python 3.x is fixed by rebuilding the wrapper with
+  Cython 0.21dev;
+* algorithm names are normalized to support names used
+  by crfsuite console utility and documented in crfsuite manual;
+* type conversion for training parameters is fixed: ``feature.minfreq``
+  now works, and boolean arguments become boolean.
+
 0.3 (2014-05-14)
 ----------------
 
