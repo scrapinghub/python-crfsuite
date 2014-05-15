@@ -100,6 +100,11 @@ cdef class Trainer(object):
         'gamma': float,
     }
 
+    _ALGORITHM_ALIASES = {
+        'ap': 'averaged-perceptron',
+        'pa': 'passive-aggressive',
+    }
+
     def __init__(self, algorithm=None, params=None):
         if algorithm is not None:
             self.select(algorithm)
@@ -162,7 +167,7 @@ cdef class Trainer(object):
         """
         self.c_trainer.append(to_seq(xseq), yseq, group)
 
-    def select(self, string algorithm, string type='crf1d'):
+    def select(self, algorithm, type='crf1d'):
         """
         Initialize the training algorithm.
 
@@ -180,6 +185,8 @@ cdef class Trainer(object):
         type : string, optional
             The name of the graphical model.
         """
+        algorithm = algorithm.lower()
+        algorithm = self._ALGORITHM_ALIASES.get(algorithm, algorithm)
         if not self.c_trainer.select(algorithm, type):
             raise ValueError(
                 "Bad arguments: algorithm=%r, type=%r" % (algorithm, type)
