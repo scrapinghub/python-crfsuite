@@ -81,6 +81,38 @@ def test_trainer_select_raises_error():
     with pytest.raises(ValueError):
         trainer.select('foo')
 
+@pytest.mark.parametrize("algo", [
+    'lbfgs',
+    'l2sgd',
+    'ap',
+    'averaged-perceptron',
+    'pa',
+    'passive-aggressive',
+    'arow',
+])
+def test_algorithm_parameters(algo):
+    trainer = Trainer(algo)
+    params = trainer.get_params()
+    assert params
+
+    # set the same values
+    trainer.set_params(params)
+    params2 = trainer.get_params()
+    assert params2 == params
+
+    # change a value
+    trainer.set('feature.possible_states', True)
+    assert trainer.get_params()['feature.possible_states'] == True
+
+    trainer.set('feature.possible_states', False)
+    assert trainer.get_params()['feature.possible_states'] == False
+
+    # invalid parameter
+    params['foo'] = 5
+    with pytest.raises(ValueError):
+        trainer.set_params(params)
+
+
 
 def test_params_and_help():
     trainer = Trainer()

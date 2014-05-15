@@ -247,6 +247,19 @@ cdef class Trainer(object):
         for key, value in params.items():
             self.set(key, value)
 
+    def get_params(self):
+        """
+        Get training parameters.
+
+        Returns
+        -------
+        dict
+            A dictionary with ``{parameter_name: parameter_value}``
+            with all trainer parameters.
+        """
+        # params = self.params()
+        return dict((name, self.get(name)) for name in self.params())
+
     def set(self, name, value):
         """
         Set a training parameter.
