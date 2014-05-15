@@ -69,6 +69,19 @@ cdef class Trainer(object):
 
     This class maintains a data set for training, and provides an interface
     to various training algorithms.
+
+    Parameters
+    ----------
+    algorithm : {'lbfgs', 'l2sgd', 'ap', 'pa', 'arow'}
+        The name of the training algorithm. See :meth:`Trainer.select`.
+
+    params : dict, optional
+        Training parameters. See :meth:`Trainer.set_params`
+        and :meth:`Trainer.set`.
+
+    verbose : boolean
+        Whether to print debug messages during training. Default is True.
+
     """
     cdef crfsuite_api.Trainer c_trainer
 
@@ -198,8 +211,7 @@ cdef class Trainer(object):
         """
         Run the training algorithm.
         This function starts the training algorithm with the data set given
-        by :meth:`Trainer.append_dicts` or :meth:`Trainer.append_stringlists`
-        methods.
+        by :meth:`Trainer.append` method.
 
         Parameters
         ----------
@@ -223,8 +235,8 @@ cdef class Trainer(object):
         Obtain the list of parameters.
 
         This function returns the list of parameter names available for the
-        graphical model and training algorithm specified by
-        :meth:`Trainer.select` method.
+        graphical model and training algorithm specified in Trainer constructor
+        or by :meth:`Trainer.select` method.
 
         Returns
         -------
