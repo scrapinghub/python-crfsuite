@@ -73,14 +73,14 @@ class CRFsuiteDumpParser(object):
         self.result.attributes[m.group(2)] = m.group(1)
 
     def parse_TRANSITIONS(self, line):
-        m = re.match(r"\(\d+\) (.+) --> (.+): ([+-]?\d\.\d+)", line)
+        m = re.match(r"\(\d+\) (.+) --> (.+): ([+-]?\d+\.\d+)", line)
         from_, to_ = m.group(1), m.group(2)
         assert from_ in self.result.labels
         assert to_ in self.result.labels
         self.result.transitions[(from_, to_)] = float(m.group(3))
 
     def parse_STATE_FEATURES(self, line):
-        m = re.match(r"\(\d+\) (.+) --> (.+): ([+-]?\d\.\d+)", line)
+        m = re.match(r"\(\d+\) (.+) --> (.+): ([+-]?\d+\.\d+)", line)
         attr, label = m.group(1), m.group(2)
         assert attr in self.result.attributes
         assert label in self.result.labels
