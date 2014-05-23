@@ -11,24 +11,37 @@ class TrainLogParser(object):
 
     def __init__(self):
         self.state = None
-        self.buf = []
         self.featgen_percent = -2
         self.featgen_num_features = None
         self.featgen_seconds = None
-        self.optimization_log = []
-        self.iterations = []
-        self.last_iteration = None
         self.training_seconds = None
         self.storing_seconds = None
-        self.storing_log = []
+
+        self.iterations = []
+        self.last_iteration = None
+        self.log = []
+        self.events = []
 
     def feed(self, line):
+        # if line != '\n':
+        self.log.append(line)
         if self.state is None:
             self.state = 'STARTING'
             self.handle_STARTING(line)
+            self.events.append(('start', 0, len(self.log)))
             return 'start'
-        meth = getattr(self, "handle_" + self.state)
-        return meth(line)
+        event = getattr(self, "handle_" + self.state)(line)
+        if event is not None:
+            start, end = self.events[-1][2], len(self.log)
+            if event in ('prepared', 'optimization_end'):
+                end -= 1
+            self.events.append((event, start, end))
+        return event
+
+    @property
+    def last_log(self):
+        event, start, end = self.events[-1]
+        return ''.join(self.log[start:end])
 
     def handle_STARTING(self, line):
         if line.startswith('Feature generation'):
@@ -52,24 +65,23 @@ class TrainLogParser(object):
     def handle_AFTER_FEATGEN(self, line):
         if self._iteration_head(line) is not None:
             self.state = 'ITERATION'
-            return self.handle_ITERATION(line)
+            self.handle_ITERATION(line)
+            return 'prepared'
 
-        if line != '\n':
-            self.optimization_log.append(line)
+        if 'terminated with error' in line:
+            self.state = 'AFTER_ITERATION'
+            return 'prepare_error'
 
     def handle_ITERATION(self, line):
         if self._iteration_head(line) is not None:
             self.last_iteration = {
                 'num': self._iteration_head(line),
-                'log': [],
                 'scores': {},
             }
             self.iterations.append(self.last_iteration)
         elif line == '\n':
             self.state = 'AFTER_ITERATION'
             return 'iteration'
-        else:
-            self.last_iteration['log'].append(line)
 
         def add_re(key, pattern, typ):
             m = re.match(pattern, line)
@@ -92,17 +104,15 @@ class TrainLogParser(object):
 
         m = re.match("Item accuracy: (\d+) / (\d+)", line)
         if m:
-            self.last_iteration['item_accuracy'] = fractions.Fraction(
-                int(m.group(1)),
-                int(m.group(2)),
-            )
+            acc = fractions.Fraction(int(m.group(1)), int(m.group(2)))
+            self.last_iteration['item_accuracy'] = acc
+            self.last_iteration['item_accuracy_float'] = float(acc)
 
         m = re.match("Instance accuracy: (\d+) / (\d+)", line)
         if m:
-            self.last_iteration['instance_accuracy'] = fractions.Fraction(
-                int(m.group(1)),
-                int(m.group(2)),
-            )
+            acc = fractions.Fraction(int(m.group(1)), int(m.group(2)))
+            self.last_iteration['instance_accuracy'] = acc
+            self.last_iteration['instance_accuracy_float'] = float(acc)
 
         m = re.match(r"\s{4}(.+): \((\d+), (\d+), (\d+)\) \((\d\.\d+), (\d\.\d+), (\d\.\d+)\)", line)
         if m:
@@ -144,7 +154,6 @@ class TrainLogParser(object):
             return 'end'
         elif self._seconds(line):
             self.storing_seconds = self._seconds(line)
-        self.storing_log.append(line)
 
     def _iteration_head(self, line):
         m = re.match(r'\*{5} (?:Iteration|Epoch) #(\d+) \*{5}\n', line)

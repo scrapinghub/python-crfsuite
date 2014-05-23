@@ -85,5 +85,3 @@ class CRFsuiteDumpParser(object):
         assert attr in self.result.attributes
         assert label in self.result.labels
         self.result.state_features[(attr, label)] = float(m.group(3))
-
-
