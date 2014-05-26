@@ -13,6 +13,7 @@ import contextlib
 import tempfile
 
 from pycrfsuite import _dumpparser
+from pycrfsuite import _logparser
 
 CRFSUITE_VERSION = crfsuite_api.version()
 
@@ -63,7 +64,7 @@ cdef crfsuite_api.ItemSequence to_seq(pyseq) except+:
 def _intbool(txt):
     return bool(int(txt))
 
-cdef class Trainer(object):
+cdef class BaseTrainer(object):
     """
     The trainer class.
 
@@ -116,7 +117,7 @@ cdef class Trainer(object):
         'pa': 'passive-aggressive',
     }
 
-    cdef verbose
+    cdef public verbose
 
     def __init__(self, algorithm=None, params=None, verbose=True):
         if algorithm is not None:
@@ -226,6 +227,7 @@ cdef class Trainer(object):
             for training, but for holdout evaluation.
             Default value is -1, meaning "use all instances for training".
         """
+        self._before_train()
         status_code = self.c_trainer.train(model, holdout)
         if status_code != crfsuite_api.CRFSUITE_SUCCESS:
             raise CRFSuiteError(status_code)
@@ -335,6 +337,85 @@ cdef class Trainer(object):
         if name in self._PARAMETER_TYPES:
             return self._PARAMETER_TYPES[name](value)
         return value
+
+    def _before_train(self):
+        pass
+
+
+class Trainer(BaseTrainer):
+    """
+    The trainer class.
+
+    This class maintains a data set for training, and provides an interface
+    to various training algorithms.
+
+    Parameters
+    ----------
+    algorithm : {'lbfgs', 'l2sgd', 'ap', 'pa', 'arow'}
+        The name of the training algorithm. See :meth:`Trainer.select`.
+
+    params : dict, optional
+        Training parameters. See :meth:`Trainer.set_params`
+        and :meth:`Trainer.set`.
+
+    verbose : boolean
+        Whether to print debug messages during training. Default is True.
+
+    """
+    logparser = None
+
+    def _before_train(self):
+        self.logparser = _logparser.TrainLogParser()
+
+    def message(self, message):
+        event = self.logparser.feed(message)
+
+        if not self.verbose or event is None:
+            return
+
+        log = self.logparser.last_log
+        if event == 'start':
+            self.on_start(log)
+        elif event == 'featgen_progress':
+            self.on_featgen_progress(log, self.logparser.featgen_percent)
+        elif event == 'featgen_end':
+            self.on_featgen_end(log)
+        elif event == 'prepared':
+            self.on_prepared(log)
+        elif event == 'prepare_error':
+            self.on_prepare_error(log)
+        elif event == 'iteration':
+            self.on_iteration(log, self.logparser.last_iteration)
+        elif event == 'optimization_end':
+            self.on_optimization_end(log)
+        elif event == 'end':
+            self.on_end(log)
+        else:
+            raise Exception("Unknown event %r" % event)
+
+    def on_start(self, log):
+        print(log, end='')
+
+    def on_featgen_progress(self, log, percent):
+        print(log, end='')
+
+    def on_featgen_end(self, log):
+        print(log, end='')
+
+    def on_prepared(self, log):
+        print(log, end='')
+
+    def on_prepare_error(self, log):
+        print(log, end='')
+
+    def on_iteration(self, log, info):
+        print(log, end='')
+
+    def on_optimization_end(self, log):
+        print(log, end='')
+
+    def on_end(self, log):
+        print(log, end='')
 
 
 cdef class Tagger(object):

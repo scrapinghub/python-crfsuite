@@ -81,6 +81,7 @@ def test_trainer_select_raises_error():
     with pytest.raises(ValueError):
         trainer.select('foo')
 
+
 @pytest.mark.parametrize("algo", [
     'lbfgs',
     'l2sgd',
