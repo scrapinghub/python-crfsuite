@@ -1,6 +1,25 @@
 Changes
 =======
 
+0.5 (2014-05-27)
+----------------
+
+* Exceptions in logging message handlers are now propogated and raised. This
+  allows, for example, to stop training earlier by pressing Ctrl-C.
+
+* It is now possible to customize :class:`pycrfsuite.Trainer` logging
+  more easily by overriding the following methods:
+  :meth:`pycrfsuite.Trainer.on_start`,
+  :meth:`pycrfsuite.Trainer.on_featgen_progress`,
+  :meth:`pycrfsuite.Trainer.on_featgen_end`,
+  :meth:`pycrfsuite.Trainer.on_prepared`,
+  :meth:`pycrfsuite.Trainer.on_prepare_error`,
+  :meth:`pycrfsuite.Trainer.on_iteration`,
+  :meth:`pycrfsuite.Trainer.on_optimization_end`
+  :meth:`pycrfsuite.Trainer.on_end`. The feature is implemented by parsing
+  CRFsuite log. There is :class:`pycrfsuite.BaseTrainer` that is not
+  doing this.
+
 0.4.1 (2014-05-18)
 ------------------
 
