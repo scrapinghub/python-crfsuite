@@ -62,18 +62,22 @@ def test_training_messages(tmpdir, xseq, yseq):
 
 
 def test_training_messages_exception(tmpdir, xseq, yseq):
+
+    class MyException(Exception):
+        pass
+
     class BadTrainer(Trainer):
         def message(self, message):
-            raise Exception("error")
+            raise MyException("error")
 
     trainer = BadTrainer()
     trainer.select('lbfgs')
     trainer.append(xseq, yseq)
 
-    with warnings.catch_warnings(record=True) as w:
-        model_filename = str(tmpdir.join('model.crfsuite'))
+    model_filename = str(tmpdir.join('model.crfsuite'))
+
+    with pytest.raises(MyException):
         trainer.train(model_filename)
-    assert len(w) > 0
 
 
 def test_trainer_select_raises_error():

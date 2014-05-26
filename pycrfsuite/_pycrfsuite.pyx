@@ -135,12 +135,7 @@ cdef class BaseTrainer(object):
         self.c_trainer._init_hack()
 
     cdef _on_message(self, string message):
-        try:
-            self.message(message)
-        except:
-            # catch all errors to avoid segfaults
-            warnings.warn("\n\n** Exception in on_message handler is ignored:\n" +
-                          traceback.format_exc())
+        self.message(message)
 
     def message(self, message):
         """
