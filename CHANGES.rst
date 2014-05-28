@@ -1,6 +1,13 @@
 Changes
 =======
 
+0.6 (2014-05-29)
+----------------
+
+* More data formats for ``xseq``: ``{"key": "value"}`` and
+  ``{"key": bool_value}`` feature dicts are now accepted by
+  :class:`pycrfsuite.Trainer` and :class:`pycrfsuite.Tagger`.
+
 0.5 (2014-05-27)
 ----------------
 
