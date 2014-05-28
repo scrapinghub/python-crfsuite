@@ -15,7 +15,7 @@ def xseq():
         {'walk': 1, 'shop': 0.5},
         {},
         {'clean': 1},
-        {u'проверка': 1, 'clean': 1},
+        {u'солнце': u'не светит'.encode('utf8'), 'clean': 1},
     ]
 
 @pytest.fixture

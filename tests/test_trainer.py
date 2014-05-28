@@ -118,7 +118,6 @@ def test_algorithm_parameters(algo):
         trainer.set_params(params)
 
 
-
 def test_params_and_help():
     trainer = Trainer()
 
@@ -158,3 +157,4 @@ def test_get_parameter():
 def test_set_parameters_in_constructor():
     trainer = Trainer(params={'c2': 100})
     assert abs(trainer.get('c2') - 100) < 1e-6
+
