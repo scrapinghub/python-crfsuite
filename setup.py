@@ -1,8 +1,6 @@
 #!/usr/bin/env python
-from distutils.core import setup
-from distutils.extension import Extension
-
 import glob
+from setuptools import setup, Extension
 
 sources = ['pycrfsuite/_pycrfsuite.cpp', 'pycrfsuite/trainer_wrapper.cpp']
 
@@ -56,6 +54,7 @@ setup(
         "Topic :: Scientific/Engineering :: Information Analysis",
         "Topic :: Text Processing :: Linguistic",
     ],
+    zip_safe=False,
     packages=['pycrfsuite'],
     ext_modules=ext_modules
 )

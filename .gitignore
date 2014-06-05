@@ -8,3 +8,4 @@ _build
 MANIFEST
 .ipynb_checkpoints
 conll2002-esp.crfsuite
+*.egg-info/
