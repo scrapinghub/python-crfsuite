@@ -1,6 +1,12 @@
 Changes
 =======
 
+0.6.1 (2014-06-06)
+------------------
+
+* Switch to setuptools;
+* wheels are uploaded to pypi for faster installation.
+
 0.6 (2014-05-29)
 ----------------
 
