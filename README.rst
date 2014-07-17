@@ -12,7 +12,7 @@ Installation
 
 ::
 
-    pip install python-crfuite
+    pip install python-crfsuite
 
 Usage
 =====
