@@ -4,12 +4,9 @@
 from __future__ import print_function, absolute_import
 cimport crfsuite_api
 from libcpp.string cimport string
-from cpython.bool cimport PyBool_Check
 
 import sys
 import os
-import warnings
-import traceback
 import contextlib
 import tempfile
 
