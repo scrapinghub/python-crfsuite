@@ -163,3 +163,18 @@ def test_append_strstr_dicts(tmpdir):
         info = tagger.info()
         assert set(info.attributes.keys()) == set(['foo=bar', 'baz'])
         assert info.state_features[('foo=bar', 'spam')] > 0
+
+
+def test_append_dicts_with_tuples(tmpdir):
+    trainer = Trainer()
+    trainer.append(
+        [{'foo': ('bar', 0.5)}, {'baz': False}, {'foo': ('bar', True), 'baz': True}, {'baz': 0.2}],
+        ['spam', 'egg', 'spam', 'spam']
+    )
+    model_filename = str(tmpdir.join('model.crfsuite'))
+    trainer.train(model_filename)
+
+    with Tagger().open(model_filename) as tagger:
+        info = tagger.info()
+        assert set(info.attributes.keys()) == set(['foo=bar', 'baz'])
+        assert info.state_features[('foo=bar', 'spam')] > 0

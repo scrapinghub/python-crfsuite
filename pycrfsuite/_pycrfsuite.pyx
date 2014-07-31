@@ -41,9 +41,19 @@ cdef crfsuite_api.ItemSequence to_seq(pyseq) except+:
     Elements of an iterable could be:
 
     * {"string_key": float_value} dicts;
+
     * {"string_key": bool} dicts: True is converted to 1.0, False - to 0.0;
+
     * {"string_key": "string_value"} dicts: result is {"string_key=string_value": 1.0}
+
+    * {"string_key": ("string_value", float_value)} dicts: result
+      is {"string_key=string_value": float_value}
+
+    * {"string_key": ("string_value", bool)} dicts: result
+      is {"string_key=string_value": float_value} where value is 1.0 or 0.0
+
     * "string_key": result is {"string_key": 1.0}
+
     """
     cdef crfsuite_api.ItemSequence c_seq
 
@@ -63,18 +73,33 @@ cdef crfsuite_api.ItemSequence to_seq(pyseq) except+:
                 c_key = key
 
             if not is_dict:
+                # "string_key"
                 c_value = 1.0
             else:
                 value = x[key]
                 if isinstance(value, unicode):
+                    # {"string_key": "string_value"}
                     c_key += _SEP
                     c_key += <string>(<unicode>value).encode('utf8')
                     c_value = 1.0
                 elif isinstance(value, bytes):
+                    # {"string_key": "string_value"}
                     c_key += _SEP
                     c_key += <string>value
                     c_value = 1.0
+                elif isinstance(value, tuple):
+                    # {"string_key": ("string_value", float_value)}
+                    # {"string_key": ("string_value", bool)}
+                    c_key += _SEP
+                    key2, c_value = <tuple>value
+                    if isinstance(key2, unicode):
+                        c_key += <string>(<unicode>key2).encode('utf8')
+                    else:
+                        c_key += <string>key2
+
                 else:
+                    # {"string_key": float_value}
+                    # {"string_key": bool}
                     c_value = value
 
             c_item.push_back(crfsuite_api.Attribute(c_key, c_value))
@@ -193,6 +218,11 @@ cdef class BaseTrainer(object):
               False - to 0.0;
             * {"string_key": "string_value", ...} dict; that's the same as
               {"string_key=string_value": 1.0, ...}
+            * {"string_key": ("string_value", float_value)} dicts: result
+              is the same as {"string_key=string_value": float_value}
+            * {"string_key": ("string_value", bool)} dicts: result
+              is the same as {"string_key=string_value": float_value} where
+              value is 1.0 or 0.0;
             * ["string_key1", "string_key2", ...] list; that's the same as
               {"string_key1": 1.0, "string_key2": 1.0, ...}
 
@@ -201,6 +231,7 @@ cdef class BaseTrainer(object):
                 {"key1": float_weight,
                  "key2": "string_value",
                  "key3": bool_value
+                 "key4": ("string_value", float_weight),
                  }
 
         yseq : a sequence of strings
@@ -513,6 +544,11 @@ cdef class Tagger(object):
               False - to 0.0;
             * {"string_key": "string_value", ...} dict; that's the same as
               {"string_key=string_value": 1.0, ...}
+            * {"string_key": ("string_value", float_value)} dicts: result
+              is the same as {"string_key=string_value": float_value}
+            * {"string_key": ("string_value", bool)} dicts: result
+              is the same as {"string_key=string_value": float_value} where
+              value is 1.0 or 0.0;
             * ["string_key1", "string_key2", ...] list; that's the same as
               {"string_key1": 1.0, "string_key2": 1.0, ...}
 
@@ -521,6 +557,7 @@ cdef class Tagger(object):
                 {"key1": float_weight,
                  "key2": "string_value",
                  "key3": bool_value
+                 "key4": ("string_value", float_weight),
                  }
 
         Returns
@@ -591,6 +628,11 @@ cdef class Tagger(object):
               False - to 0.0;
             * {"string_key": "string_value", ...} dict; that's the same as
               {"string_key=string_value": 1.0, ...}
+            * {"string_key": ("string_value", float_value)} dicts: result
+              is the same as {"string_key=string_value": float_value}
+            * {"string_key": ("string_value", bool)} dicts: result
+              is the same as {"string_key=string_value": float_value} where
+              value is 1.0 or 0.0;
             * ["string_key1", "string_key2", ...] list; that's the same as
               {"string_key1": 1.0, "string_key2": 1.0, ...}
 
@@ -598,7 +640,8 @@ cdef class Tagger(object):
 
                 {"key1": float_weight,
                  "key2": "string_value",
-                 "key3": bool_value
+                 "key3": bool_value,
+                 "key4": ("string_value", float_weight),
                  }
 
         """
