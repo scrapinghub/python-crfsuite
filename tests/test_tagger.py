@@ -127,7 +127,7 @@ def test_dump(tmpdir, model_filename):
         with open(dump_filename, 'rb') as f:
             res = f.read().decode('utf8')
             assert 'LABELS = {' in res
-            assert u'солнце=не светит --> rainy:' in res
+            assert u'солнце:не светит --> rainy:' in res
 
     # it shouldn't segfault on a closed tagger
     with pytest.raises(RuntimeError):
@@ -140,10 +140,10 @@ def test_info(model_filename):
 
         assert res.transitions[('sunny', 'sunny')] > res.transitions[('sunny', 'rainy')]
         assert res.state_features[('walk', 'sunny')] > res.state_features[('walk', 'rainy')]
-        assert (u'солнце=не светит', u'rainy') in res.state_features
+        assert (u'солнце:не светит', u'rainy') in res.state_features
         assert res.header['num_labels'] == '2'
         assert set(res.labels.keys()) == set(['sunny', 'rainy'])
-        assert set(res.attributes.keys()) == set(['shop', 'walk', 'clean', u'солнце=не светит'])
+        assert set(res.attributes.keys()) == set(['shop', 'walk', 'clean', u'солнце:не светит'])
 
     # it shouldn't segfault on a closed tagger
     with pytest.raises(RuntimeError):
@@ -161,5 +161,53 @@ def test_append_strstr_dicts(tmpdir):
 
     with Tagger().open(model_filename) as tagger:
         info = tagger.info()
-        assert set(info.attributes.keys()) == set(['foo=bar', 'baz'])
-        assert info.state_features[('foo=bar', 'spam')] > 0
+        assert set(info.attributes.keys()) == set(['foo:bar', 'baz'])
+        assert info.state_features[('foo:bar', 'spam')] > 0
+
+
+def test_append_nested_dicts(tmpdir):
+    trainer = Trainer()
+    trainer.append(
+        [
+            {
+                "foo": {
+                    "bar": "baz",
+                    "spam": 0.5,
+                    "egg": ["x", "y"],
+                    "ham": {"x": -0.5, "y": -0.1}
+                },
+            },
+            {
+                "foo": {
+                    "bar": "ham",
+                    "spam": -0.5,
+                    "ham": set(["x", "y"])
+                },
+            },
+        ],
+        ['first', 'second']
+    )
+    model_filename = str(tmpdir.join('model.crfsuite'))
+    trainer.train(model_filename)
+
+    with Tagger().open(model_filename) as tagger:
+        info = tagger.info()
+        assert set(info.attributes.keys()) == set([
+            'foo:bar:baz',
+            'foo:spam',
+            'foo:egg:x',
+            'foo:egg:y',
+            'foo:ham:x',
+            'foo:ham:y',
+            'foo:bar:ham',
+        ])
+
+        for feat in ['foo:bar:baz', 'foo:spam', 'foo:egg:x', 'foo:egg:y']:
+            assert info.state_features[(feat, 'first')] > 0
+            assert info.state_features.get((feat, 'second'), 0) <= 0
+
+        for feat in ['foo:bar:ham', 'foo:ham:x', 'foo:ham:y']:
+            assert info.state_features[(feat, 'second')] > 0
+            assert info.state_features.get((feat, 'first'), 0) <= 0
+
+

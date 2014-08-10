@@ -33,40 +33,38 @@ class CRFSuiteError(Exception):
         Exception.__init__(self._messages.get(self.code, "Unexpected error"))
 
 
-cdef string _SEP = b'='
+cdef string _SEP = b':'
 
-cdef crfsuite_api.ItemSequence to_seq(pyseq) except+:
-    """
-    Convert an iterable to an ItemSequence.
-    Elements of an iterable could be:
-
-    * {"string_key": float_value} dicts;
-    * {"string_key": bool} dicts: True is converted to 1.0, False - to 0.0;
-    * {"string_key": "string_value"} dicts: result is {"string_key=string_value": 1.0}
-    * "string_key": result is {"string_key": 1.0}
-    """
-    cdef crfsuite_api.ItemSequence c_seq
-
+cdef crfsuite_api.Item to_item(x) except+:
+    """ Convert a Python object to an Item. """
     cdef crfsuite_api.Item c_item
     cdef double c_value
     cdef string c_key
-    cdef bint is_dict
+    cdef bint is_dict, is_nested_value
 
-    for x in pyseq:
-        is_dict = isinstance(x, dict)
-        c_item = crfsuite_api.Item()
-        c_item.reserve(len(x))
-        for key in x:
-            if isinstance(key, unicode):
-                c_key = (<unicode>key).encode('utf8')
-            else:
-                c_key = key
+    is_dict = isinstance(x, dict)
+    c_item = crfsuite_api.Item()
+    c_item.reserve(len(x))  # at least this amount is required
+    for key in x:
+        if isinstance(key, unicode):
+            c_key = (<unicode>key).encode('utf8')
+        else:
+            c_key = key
 
-            if not is_dict:
-                # "string_key"
-                c_value = 1.0
+        if not is_dict:
+            # "string_key"
+            c_value = 1.0
+            c_item.push_back(crfsuite_api.Attribute(c_key, c_value))
+        else:
+            value = (<dict>x)[key]
+
+            if isinstance(value, (dict, list, set)):
+                # {"string_prefix": {...}}
+                for attr in to_item(value):
+                    c_item.push_back(
+                        crfsuite_api.Attribute(c_key + _SEP + attr.attr, attr.value)
+                    )
             else:
-                value = x[key]
                 if isinstance(value, unicode):
                     # {"string_key": "string_value"}
                     c_key += _SEP
@@ -82,8 +80,28 @@ cdef crfsuite_api.ItemSequence to_seq(pyseq) except+:
                     # {"string_key": bool}
                     c_value = value
 
-            c_item.push_back(crfsuite_api.Attribute(c_key, c_value))
-        c_seq.push_back(c_item)
+                c_item.push_back(crfsuite_api.Attribute(c_key, c_value))
+
+    return c_item
+
+
+cdef crfsuite_api.ItemSequence to_seq(pyseq) except+:
+    """
+    Convert an iterable to an ItemSequence.
+    Elements of an iterable could be:
+
+    * {"string_key": float_value} dicts;
+    * {"string_key": bool} dicts: True is converted to 1.0, False - to 0.0;
+    * {"string_key": "string_value"} dicts: result is {"string_key=string_value": 1.0}
+    * "string_key": result is {"string_key": 1.0}
+    * {"string_prefix": {...}} nested dicts: nested dict is processed and
+      "string_prefix" s prepended to each key.
+    * {"string_prefix": [...]} dicts: nested list is processed and
+      "string_prefix" s prepended to each key.
+    """
+    cdef crfsuite_api.ItemSequence c_seq
+    for x in pyseq:
+        c_seq.push_back(to_item(x))
 
     return c_seq
 
@@ -200,12 +218,17 @@ cdef class BaseTrainer(object):
               {"string_key=string_value": 1.0, ...}
             * ["string_key1", "string_key2", ...] list; that's the same as
               {"string_key1": 1.0, "string_key2": 1.0, ...}
+            * {"string_prefix": {...}} dicts: nested dict is processed and
+              "string_prefix" s prepended to each key.
+            * {"string_prefix": [...]} dicts: nested list is processed and
+              "string_prefix" s prepended to each key.
 
             Dict-based features can be mixed, i.e. this is allowed::
 
                 {"key1": float_weight,
                  "key2": "string_value",
-                 "key3": bool_value
+                 "key3": bool_value,
+                 "key4: {"key5": ["x", "y"], "key6": float_value},
                  }
 
         yseq : a sequence of strings
@@ -510,23 +533,7 @@ cdef class Tagger(object):
             a sequence used in a previous :meth:`Tagger.tag` call).
 
             ``xseq`` should be a list of item features.
-            Item features could be in one of the following formats:
-
-            * {"string_key": float_weight, ...} dict where keys are
-              observed features and values are their weights;
-            * {"string_key": bool, ...} dict; True is converted to 1.0 weight,
-              False - to 0.0;
-            * {"string_key": "string_value", ...} dict; that's the same as
-              {"string_key=string_value": 1.0, ...}
-            * ["string_key1", "string_key2", ...] list; that's the same as
-              {"string_key1": 1.0, "string_key2": 1.0, ...}
-
-            Dict-based features can be mixed, i.e. this is allowed::
-
-                {"key1": float_weight,
-                 "key2": "string_value",
-                 "key3": bool_value
-                 }
+            Check :meth:`Trainer.append` for xseq format description.
 
         Returns
         -------
@@ -587,24 +594,8 @@ cdef class Tagger(object):
         ----------
         xseq : item sequence
             The item sequence of the instance. ``xseq`` should be a list
-            of item features. Item features could be in one of the
-            following formats:
-
-            * {"string_key": float_weight, ...} dict where keys are
-              observed features and values are their weights;
-            * {"string_key": bool, ...} dict; True is converted to 1.0 weight,
-              False - to 0.0;
-            * {"string_key": "string_value", ...} dict; that's the same as
-              {"string_key=string_value": 1.0, ...}
-            * ["string_key1", "string_key2", ...] list; that's the same as
-              {"string_key1": 1.0, "string_key2": 1.0, ...}
-
-            Dict-based features can be mixed, i.e. this is allowed::
-
-                {"key1": float_weight,
-                 "key2": "string_value",
-                 "key3": bool_value
-                 }
+            of item features. Check :meth:`Trainer.append` for xseq
+            format description.
 
         """
         self.c_tagger.set(to_seq(xseq))
