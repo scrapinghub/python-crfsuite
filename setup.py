@@ -29,14 +29,14 @@ ext_modules = [Extension('pycrfsuite._pycrfsuite',
 
 setup(
     name='python-crfsuite',
-    version="0.6.1",
+    version="0.7",
     description="Python binding for CRFsuite",
     long_description=open('README.rst').read(),
     author="Terry Peng, Mikhail Korobov",
     author_email="pengtaoo@gmail.com, kmike84@gmail.com",
     url='https://github.com/tpeng/python-crfsuite',
     classifiers=[
-        "Development Status :: 3 - Alpha",
+        "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
         "Intended Audience :: Science/Research",
         "License :: OSI Approved :: MIT License",

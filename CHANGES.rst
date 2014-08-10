@@ -1,6 +1,17 @@
 Changes
 =======
 
+0.7 (2014-08-11)
+----------------
+
+* More data formats for ``xseq``: ``{"prefix": {feature_dict}}`` and
+  ``{"key": set(["key1",...])}`` feature dicts are now accepted by
+  :class:`pycrfsuite.Trainer` and :class:`pycrfsuite.Tagger`;
+* feature separator changed from "=" to ":" (it looks better in case of
+  multi-level features);
+* small doc and README fixes.
+
+
 0.6.1 (2014-06-06)
 ------------------
 
