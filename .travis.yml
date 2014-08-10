@@ -7,7 +7,7 @@ env:
 - TOXENV=py34
 install:
 - pip install tox
-- pip install https://github.com/cython/cython/archive/master.zip#egg=cython
+- pip install -U cython
 script:
 - ./update_cpp.sh
 - tox
