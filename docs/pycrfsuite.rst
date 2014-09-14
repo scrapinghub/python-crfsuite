@@ -5,6 +5,10 @@ API Reference
 
 .. automodule:: pycrfsuite
 
+.. autoclass:: ItemSequence
+    :members:
+    :undoc-members:
+
 Training
 --------
 

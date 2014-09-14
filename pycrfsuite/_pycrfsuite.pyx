@@ -1,5 +1,6 @@
 # cython: embedsignature=True
-# cython: c_string_type=str, c_string_encoding=ascii
+# cython: c_string_type=str
+# cython: c_string_encoding=ascii
 # cython: profile=False
 from __future__ import print_function, absolute_import
 cimport crfsuite_api
@@ -100,14 +101,94 @@ cdef crfsuite_api.ItemSequence to_seq(pyseq) except+:
       "string_prefix" s prepended to each key.
     """
     cdef crfsuite_api.ItemSequence c_seq
-    for x in pyseq:
-        c_seq.push_back(to_item(x))
 
+    if isinstance(pyseq, ItemSequence):
+        c_seq = (<ItemSequence>pyseq).c_seq
+    else:
+        for x in pyseq:
+            c_seq.push_back(to_item(x))
     return c_seq
+
+
+cdef class ItemSequence(object):
+    """
+    A wrapper for crfsuite ItemSequence - a class for storing
+    features for all items in a single sequence.
+
+    Initialize it with a list of item features:
+
+    >>> ItemSequence([{'foo': 1, 'bar': 0}, {'foo': 1.5, 'baz': 2}])
+    <ItemSequence of size 2>
+
+    Item features could be in one of the following formats:
+
+    * {"string_key": float_weight, ...} dict where keys are
+      observed features and values are their weights;
+    * {"string_key": bool, ...} dict; True is converted to 1.0 weight,
+      False - to 0.0;
+    * {"string_key": "string_value", ...} dict; that's the same as
+      {"string_key=string_value": 1.0, ...}
+    * ["string_key1", "string_key2", ...] list; that's the same as
+      {"string_key1": 1.0, "string_key2": 1.0, ...}
+    * {"string_prefix": {...}} dicts: nested dict is processed and
+      "string_prefix" s prepended to each key.
+    * {"string_prefix": [...]} dicts: nested list is processed and
+      "string_prefix" s prepended to each key.
+    * {"string_prefix": set([...])} dicts: nested list is processed and
+      "string_prefix" s prepended to each key.
+
+    Dict-based features can be mixed, i.e. this is allowed::
+
+        {"key1": float_weight,
+         "key2": "string_value",
+         "key3": bool_value,
+         "key4: {"key5": ["x", "y"], "key6": float_value},
+         }
+
+    """
+    cdef crfsuite_api.ItemSequence c_seq
+
+    def __init__(self, pyseq):
+        self.c_seq = to_seq(pyseq)
+
+    def items(self):
+        """
+        Return a list of prepared item features:
+        a list of ``{unicode_key: float_value}`` dicts.
+
+        >>> ItemSequence([["foo"], {"bar": {"baz": 1}}]).items()
+        [{'foo': 1.0}, {'bar:baz': 1.0}]
+
+        """
+        cdef crfsuite_api.Item c_item
+        cdef crfsuite_api.Attribute c_attr
+        cdef bytes key
+        seq = []
+
+        for c_item in self.c_seq:
+            x = {}
+            for c_attr in c_item:
+                # Always decode keys from utf-8. It means binary keys are
+                # not supported. I think it is OK because Tagger.info()
+                # also only supports utf-8.
+
+                # XXX: (<bytes>c_attr.attr).decode('utf8') doesn't
+                # work properly in Cython 0.21
+                key = <bytes>c_attr.attr.c_str()
+                x[key.decode('utf8')] = c_attr.value
+            seq.append(x)
+        return seq
+
+    def __len__(self):
+        return self.c_seq.size()
+
+    def __repr__(self):
+        return "<ItemSequence of size %d>" % len(self)
 
 
 def _intbool(txt):
     return bool(int(txt))
+
 
 cdef class BaseTrainer(object):
     """
@@ -207,29 +288,7 @@ cdef class BaseTrainer(object):
         ----------
         xseq : a sequence of item features
             The item sequence of the instance. ``xseq`` should be a list
-            of item features. Item features could be in one of the
-            following formats:
-
-            * {"string_key": float_weight, ...} dict where keys are
-              observed features and values are their weights;
-            * {"string_key": bool, ...} dict; True is converted to 1.0 weight,
-              False - to 0.0;
-            * {"string_key": "string_value", ...} dict; that's the same as
-              {"string_key=string_value": 1.0, ...}
-            * ["string_key1", "string_key2", ...] list; that's the same as
-              {"string_key1": 1.0, "string_key2": 1.0, ...}
-            * {"string_prefix": {...}} dicts: nested dict is processed and
-              "string_prefix" s prepended to each key.
-            * {"string_prefix": [...]} dicts: nested list is processed and
-              "string_prefix" s prepended to each key.
-
-            Dict-based features can be mixed, i.e. this is allowed::
-
-                {"key1": float_weight,
-                 "key2": "string_value",
-                 "key3": bool_value,
-                 "key4: {"key5": ["x", "y"], "key6": float_value},
-                 }
+            of item features or an :class:`~ItemSequence` instance.
 
         yseq : a sequence of strings
             The label sequence of the instance. The number
@@ -532,8 +591,9 @@ cdef class Tagger(object):
             (a sequence set using :meth:`Tagger.set` method or
             a sequence used in a previous :meth:`Tagger.tag` call).
 
-            ``xseq`` should be a list of item features.
-            Check :meth:`Trainer.append` for xseq format description.
+            ``xseq`` should be a list of item features or
+            an :class:`~ItemSequence` instance. Check :class:`~ItemSequence`
+            for xseq format description.
 
         Returns
         -------
@@ -593,9 +653,9 @@ cdef class Tagger(object):
         Parameters
         ----------
         xseq : item sequence
-            The item sequence of the instance. ``xseq`` should be a list
-            of item features. Check :meth:`Trainer.append` for xseq
-            format description.
+            The item sequence of the instance. ``xseq`` should be a list of
+            item features or an :class:`~ItemSequence` instance.
+            Check :class:`~ItemSequence` for xseq format description.
 
         """
         self.c_tagger.set(to_seq(xseq))

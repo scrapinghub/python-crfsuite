@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
 import pytest
-from pycrfsuite import Tagger, Trainer
+from pycrfsuite import Tagger, Trainer, ItemSequence
 
 
 def test_open_close_labels(model_filename, yseq):
@@ -61,13 +61,21 @@ def test_tag(model_filename, xseq, yseq):
     with Tagger().open(model_filename) as tagger:
         assert tagger.tag(xseq) == yseq
 
-    # string lists
+
+def test_tag_item_sequence(model_filename, xseq, yseq):
+    with Tagger().open(model_filename) as tagger:
+        assert tagger.tag(ItemSequence(xseq)) == yseq
+
+
+def test_tag_string_lists(model_filename, xseq, yseq):
     with Tagger().open(model_filename) as tagger:
         # Working with lists is supported,
         # but if we discard weights the results become different
         data = [x.keys() for x in xseq]
         assert tagger.tag(data) != yseq
 
+
+def test_tag_bools(model_filename, xseq, yseq):
     with Tagger().open(model_filename) as tagger:
         # Some values are bools:
         # True <=> 1.0; False <=> 0.0
