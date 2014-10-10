@@ -115,7 +115,15 @@ cdef class ItemSequence(object):
     A wrapper for crfsuite ItemSequence - a class for storing
     features for all items in a single sequence.
 
-    Initialize it with a list of item features:
+    Using this class is an alternative to passing data to :class:`~Trainer`
+    and :class:`Tagger` directly. By using this class it is possible to
+    save some time if the same input sequence is passed to trainers/taggers
+    more than once - features won't be processed multiple times.
+    It also allows to get "processed" features/attributes that are sent
+    to CRFsuite - they could be helpful e.g. to check which attributes
+    (returned by :meth:`~Tagger.info`) are active for a given observation.
+
+    Initialize ItemSequence with a list of item features:
 
     >>> ItemSequence([{'foo': 1, 'bar': 0}, {'foo': 1.5, 'baz': 2}])
     <ItemSequence of size 2>
