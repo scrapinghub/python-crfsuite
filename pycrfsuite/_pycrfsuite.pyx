@@ -289,6 +289,8 @@ cdef class BaseTrainer(object):
         xseq : a sequence of item features
             The item sequence of the instance. ``xseq`` should be a list
             of item features or an :class:`~ItemSequence` instance.
+            Allowed item features formats are the same as described
+            in :class:`~ItemSequence` docs.
 
         yseq : a sequence of strings
             The label sequence of the instance. The number
@@ -592,8 +594,8 @@ cdef class Tagger(object):
             a sequence used in a previous :meth:`Tagger.tag` call).
 
             ``xseq`` should be a list of item features or
-            an :class:`~ItemSequence` instance. Check :class:`~ItemSequence`
-            for xseq format description.
+            an :class:`~ItemSequence` instance. Allowed item features formats
+            are the same as described in :class:`~ItemSequence` docs.
 
         Returns
         -------
@@ -655,7 +657,8 @@ cdef class Tagger(object):
         xseq : item sequence
             The item sequence of the instance. ``xseq`` should be a list of
             item features or an :class:`~ItemSequence` instance.
-            Check :class:`~ItemSequence` for xseq format description.
+            Allowed item features formats are the same as described
+            in :class:`~ItemSequence` docs.
 
         """
         self.c_tagger.set(to_seq(xseq))
