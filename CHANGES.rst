@@ -1,6 +1,12 @@
 Changes
 =======
 
+0.8 (2014-10-10)
+----------------
+
+* :class:`~ItemSequence` wrapper is added;
+* tox tests are fixed.
+
 0.7 (2014-08-11)
 ----------------
 
