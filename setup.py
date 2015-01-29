@@ -3,6 +3,14 @@ import glob
 import sys
 from setuptools import setup, Extension
 
+
+is_pypy = True
+try:
+    import __pypy__
+except ImportError:
+    is_pypy = False
+
+
 sources = ['pycrfsuite/_pycrfsuite.cpp', 'pycrfsuite/trainer_wrapper.cpp']
 
 # crfsuite
@@ -25,11 +33,23 @@ includes = [
 if sys.platform == 'win32':
     includes.append('crfsuite/win32')
 
-ext_modules = [Extension('pycrfsuite._pycrfsuite',
-    include_dirs=includes,
-    language='c++',
-    sources=sources
-)]
+if is_pypy:
+    from Cython.Build import cythonize
+    ext_modules = cythonize(Extension(
+        'pycrfsuite._pycrfsuite',
+        include_dirs=includes,
+        language='c++',
+        sources=sources,
+        extra_compile_args=['-lstdc++'],
+        extra_link_args=['-lstdc++'],
+        force=True,
+    ))
+else:
+    ext_modules = [Extension('pycrfsuite._pycrfsuite',
+                             include_dirs=includes,
+                             language='c++',
+                             sources=sources,
+                             )]
 
 setup(
     name='python-crfsuite',
@@ -53,6 +73,7 @@ setup(
         "Programming Language :: Python :: 3.3",
         "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5",
+        "Programming Language :: Python :: PyPy",
         "Topic :: Software Development",
         "Topic :: Software Development :: Libraries :: Python Modules",
         "Topic :: Scientific/Engineering",
