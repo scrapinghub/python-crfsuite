@@ -1,5 +1,7 @@
 language: python
-python: 3.5
+python: 
+	- 3.5
+    - pypy
 sudo: false
 env:
 - TOXENV=py26
@@ -7,6 +9,7 @@ env:
 - TOXENV=py33
 - TOXENV=py34
 - TOXENV=py35
+- TOXENV=pypy
 install:
 - pip install tox
 - pip install -U cython
