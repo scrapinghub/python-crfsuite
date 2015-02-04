@@ -1,6 +1,12 @@
 Changes
 =======
 
+0.8.2 (2015-02-04)
+------------------
+
+* memory leak is fixed by updating the bundled CRFsuite C++ library;
+* the wrapper is rebuilt with Cython 0.21.2.
+
 0.8.1 (2014-10-10)
 ------------------
 
