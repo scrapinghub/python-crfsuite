@@ -33,7 +33,7 @@ ext_modules = [Extension('pycrfsuite._pycrfsuite',
 
 setup(
     name='python-crfsuite',
-    version="0.8.2",
+    version="0.8.3",
     description="Python binding for CRFsuite",
     long_description=open('README.rst').read(),
     author="Terry Peng, Mikhail Korobov",
