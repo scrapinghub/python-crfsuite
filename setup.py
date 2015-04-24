@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import glob
+import sys
 from setuptools import setup, Extension
 
 sources = ['pycrfsuite/_pycrfsuite.cpp', 'pycrfsuite/trainer_wrapper.cpp']
@@ -20,6 +21,9 @@ includes = [
     'liblbfgs/include',
     'pycrfsuite',
 ]
+
+if sys.platform == 'win32':
+    includes.append('crfsuite/win32')
 
 ext_modules = [Extension('pycrfsuite._pycrfsuite',
     include_dirs=includes,
