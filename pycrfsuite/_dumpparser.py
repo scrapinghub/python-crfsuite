@@ -48,7 +48,8 @@ class CRFsuiteDumpParser(object):
         self.result = ParsedDump()
 
     def feed(self, line):
-        line = line.strip()
+        # Strip initial ws and line terminator, but allow for ws at the end of feature names.
+        line = line.lstrip().rstrip('\r\n')
         if not line:
             return
 
