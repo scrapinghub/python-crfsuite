@@ -138,7 +138,6 @@ cdef class ItemSequence(object):
       {"string_key=string_value": 1.0, ...}
     * ["string_key1", "string_key2", ...] list; that's the same as
       {"string_key1": 1.0, "string_key2": 1.0, ...}
-    * ["string_key1=string_value1", "string_key2=string_value2", ...] list;
     * {"string_prefix": {...}} dicts: nested dict is processed and
       "string_prefix" s prepended to each key.
     * {"string_prefix": [...]} dicts: nested list is processed and
