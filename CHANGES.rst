@@ -1,6 +1,13 @@
 Changes
 =======
 
+0.8.4 (2015-11-25)
+------------------
+
+* the wrapper is rebuilt with Cython 0.23.4;
+* declared Python 3.5 compatibility;
+* fixed an issue with feature names ending with white spaces.
+
 0.8.3 (2015-04-24)
 ------------------
 
