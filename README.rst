@@ -22,6 +22,14 @@ See docs_ and an example_.
 .. _docs: http://python-crfsuite.rtfd.org/
 .. _example: http://nbviewer.ipython.org/github/tpeng/python-crfsuite/blob/master/examples/CoNLL%202002.ipynb
 
+See Also
+========
+
+sklearn-crfsuite_ is a python-crfsuite wrapper which provides
+API similar to scikit-learn.
+
+.. _sklearn-crfsuite: https://github.com/TeamHG-Memex/sklearn-crfsuite
+
 Contributing
 ============
 

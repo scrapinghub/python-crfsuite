@@ -32,6 +32,14 @@ Development happens at github: https://github.com/tpeng/python-crfsuite
 
    pycrfsuite
 
+See Also
+========
+
+sklearn-crfsuite_ is a python-crfsuite wrapper which provides
+API similar to scikit-learn.
+
+.. _sklearn-crfsuite: https://github.com/TeamHG-Memex/sklearn-crfsuite
+
 
 Indices and tables
 ==================
