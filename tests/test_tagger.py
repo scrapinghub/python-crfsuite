@@ -48,13 +48,22 @@ def test_open_invalid_small_with_correct_signature(tmpdir):
         tagger.open(str(tmp))
 
 
-@pytest.mark.skipif(True, reason="this test segfaults, see https://github.com/chokkan/crfsuite/pull/24")
+@pytest.mark.xfail(reason="see https://github.com/chokkan/crfsuite/pull/24",
+                   run=False)
 def test_open_invalid_with_correct_signature(tmpdir):
     tmp = tmpdir.join('tmp.txt')
     tmp.write(b"lCRFfoo"*100)
     tagger = Tagger()
     with pytest.raises(ValueError):
         tagger.open(str(tmp))
+
+
+@pytest.mark.xfail(reason="see https://github.com/tpeng/python-crfsuite/issues/28",
+                   run=False)
+def test_tag_not_opened(xseq):
+    tagger = Tagger()
+    with pytest.raises(Exception):
+        tagger.tag(xseq)
 
 
 def test_tag(model_filename, xseq, yseq):
