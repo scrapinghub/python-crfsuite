@@ -1,6 +1,7 @@
 environment:
   password:
     secure: uOcv5TOm/CgwOmiLQhNX+g==
+  os: Visual Studio 2015
 
   matrix:
     - python : 26
