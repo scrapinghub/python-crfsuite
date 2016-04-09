@@ -5,6 +5,9 @@ python-crfsuite
 .. image:: https://travis-ci.org/tpeng/python-crfsuite.svg?branch=master
     :target: https://travis-ci.org/tpeng/python-crfsuite
 
+.. image:: https://ci.appveyor.com/api/projects/status/github/tpeng/python-crfsuite?branch=master&svg=true
+    :target: https://ci.appveyor.com/project/kmike/python-crfsuite
+
 python-crfsuite is a python binding to CRFsuite_.
 
 Installation
