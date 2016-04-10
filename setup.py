@@ -23,7 +23,7 @@ includes = [
 ]
 
 if sys.platform == 'win32':
-    includes.append('crfsuite/win32')
+    includes.extend(['crfsuite/win32', 'include'])
 
 ext_modules = [Extension('pycrfsuite._pycrfsuite',
     include_dirs=includes,
