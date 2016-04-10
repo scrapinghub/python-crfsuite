@@ -705,7 +705,10 @@ cdef class Tagger(object):
                 for line in f:
                     parser.feed(line.decode('utf8'))
         finally:
-            os.unlink(name)
+            try:
+                os.unlink(name)
+            except OSError:
+                pass
         return parser.result
 
     def _check_model(self, name):
