@@ -1,6 +1,6 @@
 environment:
   password:
-    secure: uOcv5TOm/CgwOmiLQhNX+g==
+    secure: encrypted_pypi_password
   os: Visual Studio 2015
 
   matrix:
