@@ -13,9 +13,9 @@ import tempfile
 
 from pycrfsuite import _dumpparser
 from pycrfsuite import _logparser
+from pycrfsuite import _float_features
 
 CRFSUITE_VERSION = crfsuite_api.version()
-
 
 class CRFSuiteError(Exception):
 
@@ -58,7 +58,14 @@ cdef crfsuite_api.Item to_item(x) except+:
             c_item.push_back(crfsuite_api.Attribute(c_key, c_value))
         else:
             value = (<dict>x)[key]
-
+            if isinstance(value, _float_features.FloatFeatures):
+                # {"string_prefix": _float_features.FloatFeatures([1., 2. ])}
+                # value should be an instance of FloatFeatures
+                for i,v in enumerate(value.values):
+                    c_item.push_back(
+                        crfsuite_api.Attribute(c_key + _SEP + str(i), v)
+                    )
+                continue
             if isinstance(value, (dict, list, set)):
                 # {"string_prefix": {...}}
                 for attr in to_item(value):
