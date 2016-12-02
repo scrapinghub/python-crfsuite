@@ -28,6 +28,7 @@ if sys.platform == 'win32':
 ext_modules = [Extension('pycrfsuite._pycrfsuite',
     include_dirs=includes,
     language='c++',
+    extra_compile_args=['-std=c99'],
     sources=sources
 )]
 
