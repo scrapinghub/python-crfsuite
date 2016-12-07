@@ -2,6 +2,7 @@
 import glob
 import sys
 from setuptools import setup, Extension
+from distutils.command.build_ext import build_ext
 
 sources = ['pycrfsuite/_pycrfsuite.cpp', 'pycrfsuite/trainer_wrapper.cpp']
 
@@ -25,10 +26,17 @@ includes = [
 if sys.platform == 'win32':
     includes.extend(['crfsuite/win32', 'include'])
 
+class build_ext_check_gcc(build_ext):
+    def build_extensions(self):
+        c = self.compiler
+        if c.compiler_type == 'unix' and 'gcc' in c.compiler:
+            for e in self.extensions:
+                e.extra_compile_args=['-std=c99']
+        build_ext.build_extensions(self)
+
 ext_modules = [Extension('pycrfsuite._pycrfsuite',
     include_dirs=includes,
     language='c++',
-    extra_compile_args=['-std=c99'],
     sources=sources
 )]
 
@@ -62,5 +70,6 @@ setup(
     ],
     zip_safe=False,
     packages=['pycrfsuite'],
-    ext_modules=ext_modules
+    ext_modules=ext_modules,
+    cmdclass={'build_ext' : build_ext_check_gcc}
 )
