@@ -71,5 +71,5 @@ setup(
     zip_safe=False,
     packages=['pycrfsuite'],
     ext_modules=ext_modules,
-    cmdclass={ 'build_ext': build_ext_check_gcc}
+    cmdclass={'build_ext': build_ext_check_gcc}
 )
