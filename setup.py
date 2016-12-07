@@ -26,6 +26,7 @@ includes = [
 if sys.platform == 'win32':
     includes.extend(['crfsuite/win32', 'include'])
 
+
 class build_ext_check_gcc(build_ext):
     def build_extensions(self):
         c = self.compiler
@@ -34,11 +35,13 @@ class build_ext_check_gcc(build_ext):
                 e.extra_compile_args=['-std=c99']
         build_ext.build_extensions(self)
 
+
 ext_modules = [Extension('pycrfsuite._pycrfsuite',
     include_dirs=includes,
     language='c++',
     sources=sources
 )]
+
 
 setup(
     name='python-crfsuite',
@@ -56,7 +59,6 @@ setup(
         "Programming Language :: Cython",
         "Programming Language :: Python",
         "Programming Language :: Python :: 2",
-        "Programming Language :: Python :: 2.6",
         "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.3",
@@ -71,5 +73,5 @@ setup(
     zip_safe=False,
     packages=['pycrfsuite'],
     ext_modules=ext_modules,
-    cmdclass={'build_ext' : build_ext_check_gcc}
+    cmdclass={'build_ext': build_ext_check_gcc}
 )
