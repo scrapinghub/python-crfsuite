@@ -54,13 +54,16 @@ Please don't commit generated cpp files in the same commit as other files.
 .. _Cython: http://cython.org/
 .. _tox: http://tox.testrun.org
 
-Authors
-=======
+Authors and Contributors
+========================
 
-* Terry Peng <pengtaoo@gmail.com>
-* Mikhail Korobov <kmike84@gmail.com>
+Original authors are Terry Peng <pengtaoo@gmail.com> and
+Mikhail Korobov <kmike84@gmail.com>. Many other people contributed;
+some of them can be found at github Contributors_ page.
 
 Bundled CRFSuite_ C/C++ library is by Naoaki Okazaki & contributors.
+
+.. _Contributors: https://github.com/tpeng/python-crfsuite/graphs/contributors
 
 License
 =======
@@ -73,10 +76,11 @@ CRFsuite_ library is licensed under BSD license.
 Alternatives
 ============
 
-* https://github.com/jakevdp/pyCRFsuite - uses C API instead of C++ API;
-  allows to use scipy sparse matrices as an input.
 * https://github.com/chokkan/crfsuite/tree/master/swig/python - official
   Python wrapper, exposes C++ API using SWIG.
+* https://github.com/jakevdp/pyCRFsuite - uses C API instead of C++ API;
+  allows to use scipy sparse matrices as an input. At the time of writing
+  it is unmaintained.
 
 This package (python-crfsuite) wraps CRFsuite C++ API using Cython.
 It is faster than official SWIG wrapper and has a simpler codebase than

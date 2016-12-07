@@ -1,6 +1,17 @@
 Changes
 =======
 
+0.9 (2016-12-08)
+----------------
+
+* Python 2.6 support is dropped;
+* CRFSuite C++ library is updated to a more recent commit;
+* improved Windows support (thanks @fgregg);
+* fixed building with gcc < 5.0.0 (thanks @kantan2015);
+* extension is rebuilt with Cython 0.25.1; this improves PyPy compatibility
+  (but we're not quite there yet).
+* docs: trainer.logparser example is added to the notebook (thanks @samgalen).
+
 0.8.4 (2015-11-25)
 ------------------
 
