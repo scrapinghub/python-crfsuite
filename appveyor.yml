@@ -4,8 +4,6 @@ environment:
   os: Visual Studio 2015
 
   matrix:
-    - python : 26
-    - python : 26-x64  
     - python : 27
     - python : 27-x64
     - python : 33
