@@ -58,7 +58,7 @@ def test_open_invalid_with_correct_signature(tmpdir):
         tagger.open(str(tmp))
 
 
-@pytest.mark.xfail(reason="see https://github.com/tpeng/python-crfsuite/issues/28",
+@pytest.mark.xfail(reason="see https://github.com/scrapinghub/python-crfsuite/issues/28",
                    run=False)
 def test_tag_not_opened(xseq):
     tagger = Tagger()

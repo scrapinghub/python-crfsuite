@@ -2,11 +2,11 @@
 python-crfsuite
 ===============
 
-.. image:: https://travis-ci.org/tpeng/python-crfsuite.svg?branch=master
-    :target: https://travis-ci.org/tpeng/python-crfsuite
+.. image:: https://travis-ci.org/scrapinghub/python-crfsuite.svg?branch=master
+    :target: https://travis-ci.org/scrapinghub/python-crfsuite
 
-.. image:: https://ci.appveyor.com/api/projects/status/github/tpeng/python-crfsuite?branch=master&svg=true
-    :target: https://ci.appveyor.com/project/kmike/python-crfsuite
+.. image:: https://ci.appveyor.com/api/projects/status/github/scrapinghub/python-crfsuite?branch=master&svg=true
+    :target: https://ci.appveyor.com/project/kmike/python-crfsuite-mhi5h
 
 python-crfsuite is a python binding to CRFsuite_.
 
@@ -23,7 +23,7 @@ Usage
 See docs_ and an example_.
 
 .. _docs: http://python-crfsuite.rtfd.org/
-.. _example: http://nbviewer.ipython.org/github/tpeng/python-crfsuite/blob/master/examples/CoNLL%202002.ipynb
+.. _example: https://github.com/scrapinghub/python-crfsuite/blob/master/examples/CoNLL%202002.ipynb
 
 See Also
 ========
@@ -36,12 +36,12 @@ API similar to scikit-learn.
 Contributing
 ============
 
-* Source code: https://github.com/tpeng/python-crfsuite
-* Issue tracker: https://github.com/tpeng/python-crfsuite/issues
+* Source code: https://github.com/scrapinghub/python-crfsuite
+* Issue tracker: https://github.com/scrapinghub/python-crfsuite/issues
 
 Feel free to submit ideas, bugs reports, pull requests or regular patches.
 
-In order to run tests, install Cython_ (> 0.20.1)  and tox_, then type
+In order to run tests, install Cython_ (> 0.24.1)  and tox_, then type
 
 ::
 
@@ -63,7 +63,7 @@ some of them can be found at github Contributors_ page.
 
 Bundled CRFSuite_ C/C++ library is by Naoaki Okazaki & contributors.
 
-.. _Contributors: https://github.com/tpeng/python-crfsuite/graphs/contributors
+.. _Contributors: https://github.com/scrapinghub/python-crfsuite/graphs/contributors
 
 License
 =======

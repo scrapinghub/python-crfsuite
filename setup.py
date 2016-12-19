@@ -50,7 +50,7 @@ setup(
     long_description=open('README.rst').read(),
     author="Terry Peng, Mikhail Korobov",
     author_email="pengtaoo@gmail.com, kmike84@gmail.com",
-    url='https://github.com/tpeng/python-crfsuite',
+    url='https://github.com/scrapinghub/python-crfsuite',
     classifiers=[
         "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
