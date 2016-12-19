@@ -1,6 +1,14 @@
 Changes
 =======
 
+0.9.1 (2016-12-19)
+------------------
+
+This is a release without changes in functionality.
+
+* Repository is moved to https://github.com/scrapinghub/python-crfsuite;
+* We're now providing Windows wheels for Python 2.7, 3.3. and 3.4.
+
 0.9 (2016-12-08)
 ----------------
 
