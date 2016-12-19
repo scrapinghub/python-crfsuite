@@ -5,7 +5,7 @@ python-crfsuite
 .. image:: https://travis-ci.org/scrapinghub/python-crfsuite.svg?branch=master
     :target: https://travis-ci.org/scrapinghub/python-crfsuite
 
-.. image:: https://ci.appveyor.com/api/projects/status/github/scrapinghub/python-crfsuite?branch=master&svg=true
+.. image:: https://ci.appveyor.com/api/projects/status/uaq4sw8tc0oojr4v?svg=true
     :target: https://ci.appveyor.com/project/kmike/python-crfsuite-mhi5h
 
 python-crfsuite is a python binding to CRFsuite_.
