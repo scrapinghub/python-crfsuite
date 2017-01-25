@@ -30,9 +30,13 @@ if sys.platform == 'win32':
 class build_ext_check_gcc(build_ext):
     def build_extensions(self):
         c = self.compiler
+        print(c.compiler_type)
+        print(c.compiler)
+        print(platform.platform())
         if c.compiler_type == 'unix' and 'gcc' in c.compiler:
-            for e in self.extensions:
-                e.extra_compile_args=['-std=c99']
+            if 'darwin' not in platform.platform().lower():
+                for e in self.extensions:
+                    e.extra_compile_args=['-std=c99']
         build_ext.build_extensions(self)
 
 
