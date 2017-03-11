@@ -17,7 +17,7 @@ for PYBIN in /opt/python/*/bin; do
         "${PYBIN}/cython" /io/pycrfsuite/_pycrfsuite.pyx --cplus -a -I /io/pycrfsuite
         "${PYBIN}/pip" install -e /io/
         "${PYBIN}/pip" wheel /io/ -w wheelhouse/
-        ls /io/wheelhouse/
+        ls wheelhouse/
     fi
 done
 
