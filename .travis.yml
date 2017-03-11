@@ -11,9 +11,13 @@ matrix:
     python: 3.5
   - os: osx
     language: generic
+    env: PYTHON='3.6.0'
   - os: osx
     language: generic
     env: PYTHON='3.5.2'
+  - os: osx
+    language: generic
+    env: PYTHON='2.7.12'
   - sudo: required
     services:
       - docker
@@ -82,4 +86,4 @@ after_success:
 
 env:
   global:
-  - secure: $PYPIPASSWORD=pypipassword
+  - secure: PYPIPASSWORD=yourpypipassword

@@ -25,7 +25,7 @@ for whl in wheelhouse/*.whl; do
     auditwheel repair "$whl" -w /io/wheelhouse/
 done
 
-# Install packages and test
+# Install new wheels and test
 for PYBIN in /opt/python/*/bin; do
     if [[ "${PYBIN}" == *"cp27"* ]] || \
        [[ "${PYBIN}" == *"cp33"* ]] || \
