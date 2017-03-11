@@ -14,10 +14,7 @@ for PYBIN in /opt/python/*/bin; do
         "${PYBIN}/pip" install pytest
         "${PYBIN}/pip" install -U cython
         "${PYBIN}/pip" install argparse
-        cd /io/pycrfsuite/
-        ls
-        "${PYBIN}/cython" _pycrfsuite.pyx --cplus -a -I pycrfsuite
-        cd ../..
+        "${PYBIN}/cython" /io/pycrfsuite/_pycrfsuite.pyx --cplus -a -I /io/pycrfsuite
         "${PYBIN}/pip" install -e /io/
         "${PYBIN}/pip" wheel /io/ -w wheelhouse/
     fi
