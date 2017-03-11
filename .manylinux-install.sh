@@ -34,7 +34,7 @@ for PYBIN in /opt/python/*/bin; do
     then
         "${PYBIN}/pip" uninstall -y python-crfsuite
         "${PYBIN}/pip" install python-crfsuite --no-index -f /io/wheelhouse
-        "${PYBIN}/pytest" tests --doctest-modules
+        "${PYBIN}/pytest" /io/tests --doctest-modules
     fi
 done
 
@@ -43,5 +43,5 @@ travis=$( cat /io/.travis_tag )
 PYBIN34="/opt/python/cp35-cp35m/bin"
 if [[ $travis ]]; then
     "${PYBIN34}/pip" install twine;
-    "${PYBIN34}/twine" upload --config-file /io/.pypirc wheelhouse/*.whl;
+    "${PYBIN34}/twine" upload --config-file /io/.pypirc /io/wheelhouse/*.whl;
 fi
