@@ -17,12 +17,11 @@ for PYBIN in /opt/python/*/bin; do
         "${PYBIN}/cython" /io/pycrfsuite/_pycrfsuite.pyx --cplus -a -I /io/pycrfsuite
         "${PYBIN}/pip" install -e /io/
         "${PYBIN}/pip" wheel /io/ -w wheelhouse/
-        ls wheelhouse/
     fi
 done
 
 # Bundle external shared libraries into the wheels
-for whl in wheelhouse/python-crfsuite*.whl; do
+for whl in wheelhouse/*.whl; do
     auditwheel repair "$whl" -w /io/wheelhouse/
 done
 
@@ -44,5 +43,5 @@ travis=$( cat /io/.travis_tag )
 PYBIN34="/opt/python/cp35-cp35m/bin"
 if [[ $travis ]]; then
     "${PYBIN34}/pip" install twine;
-    "${PYBIN34}/twine" upload --config-file /io/.pypirc /io/wheelhouse/python-crfsuite*.whl;
+    "${PYBIN34}/twine" upload --config-file /io/.pypirc wheelhouse/*.whl;
 fi
