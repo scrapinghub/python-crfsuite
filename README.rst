@@ -8,14 +8,26 @@ python-crfsuite
 .. image:: https://ci.appveyor.com/api/projects/status/uaq4sw8tc0oojr4v?svg=true
     :target: https://ci.appveyor.com/project/kmike/python-crfsuite-mhi5h
 
+.. image:: https://img.shields.io/pypi/v/python-crfsuite.svg?style=flat-square
+    :target: https://pypi.python.org/pypi/python-crfsuite
+    :alt: pypi Version
+
+.. image:: https://anaconda.org/conda-forge/python-crfsuite/badges/version.svg
+    :target: https://anaconda.org/conda-forge/python-crfsuite
+    :alt: conda Version
+
 python-crfsuite is a python binding to CRFsuite_.
 
 Installation
 ============
 
-::
+Using ``pip``::
 
     pip install python-crfsuite
+
+Using ``conda``::
+
+    conda install -c conda-forge python-crfsuite
 
 Usage
 =====
