@@ -1,3 +1,4 @@
+include LICENSE.txt
 include README.rst
 include CHANGES.rst
 include update_cpp.sh
