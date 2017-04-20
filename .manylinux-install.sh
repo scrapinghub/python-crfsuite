@@ -8,12 +8,12 @@ for PYBIN in /opt/python/*/bin; do
     if [[ "${PYBIN}" == *"cp27"* ]] || \
        [[ "${PYBIN}" == *"cp33"* ]] || \
        [[ "${PYBIN}" == *"cp34"* ]] || \
-       [[ "${PYBIN}" == *"cp35"* ]]; 
+       [[ "${PYBIN}" == *"cp35"* ]] || \
+       [[ "${PYBIN}" == *"cp36"* ]]; 
     then
         "${PYBIN}/pip" install -r /io/requirements-doc.txt
         "${PYBIN}/pip" install pytest
         "${PYBIN}/pip" install -U cython
-        "${PYBIN}/pip" install argparse
         "${PYBIN}/cython" /io/pycrfsuite/_pycrfsuite.pyx --cplus -a -I /io/pycrfsuite
         "${PYBIN}/pip" install -e /io/
         "${PYBIN}/pip" wheel /io/ -w wheelhouse/
@@ -30,7 +30,8 @@ for PYBIN in /opt/python/*/bin; do
     if [[ "${PYBIN}" == *"cp27"* ]] || \
        [[ "${PYBIN}" == *"cp33"* ]] || \
        [[ "${PYBIN}" == *"cp34"* ]] || \
-       [[ "${PYBIN}" == *"cp35"* ]];
+       [[ "${PYBIN}" == *"cp35"* ]] || \
+       [[ "${PYBIN}" == *"cp36"* ]];
     then
         "${PYBIN}/pip" uninstall -y python-crfsuite
         "${PYBIN}/pip" install python-crfsuite --no-index -f /io/wheelhouse
