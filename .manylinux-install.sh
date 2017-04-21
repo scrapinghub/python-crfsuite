@@ -34,8 +34,8 @@ for PYBIN in /opt/python/*/bin; do
     then
         "${PYBIN}/pip" uninstall -y python-crfsuite
         "${PYBIN}/pip" install python-crfsuite --no-index -f /io/wheelhouse
-        "${PYBIN}/pip" install tox
-        (cd /io/ && "${PYBIN}/tox")
+        "${PYBIN}/pip" install pytest
+        "${PYBIN}/pytest" /io/tests --doctest-modules
     fi
 done
 
