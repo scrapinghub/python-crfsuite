@@ -13,7 +13,7 @@ for PYBIN in /opt/python/*/bin; do
     then
         "${PYBIN}/pip" install -r /io/requirements-doc.txt
         "${PYBIN}/pip" install -U cython
-        (cd /io/ && bash ./manylinux-cython.sh)
+        (cd /io/ && bash ./.manylinux-cython.sh)
         "${PYBIN}/pip" install -e /io/
         "${PYBIN}/pip" wheel /io/ -w wheelhouse/
     fi
