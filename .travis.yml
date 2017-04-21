@@ -1,6 +1,15 @@
 language: python
 matrix:
   include:
+  - sudo: required
+    services:
+      - docker
+    env: DOCKER_IMAGE=quay.io/pypa/manylinux1_x86_64
+  - sudo: required
+    services:
+      - docker
+    env: DOCKER_IMAGE=quay.io/pypa/manylinux1_i686
+         PRE_CMD=linux32
   - os: linux
     python: 2.7
     env: TOXENV=py27
@@ -41,15 +50,6 @@ matrix:
     env: 
       - PYTHON='2.7.12'
       - TOXENV=py27
-  - sudo: required
-    services:
-      - docker
-    env: DOCKER_IMAGE=quay.io/pypa/manylinux1_x86_64
-  - sudo: required
-    services:
-      - docker
-    env: DOCKER_IMAGE=quay.io/pypa/manylinux1_i686
-         PRE_CMD=linux32
 
 before_install:
 - |

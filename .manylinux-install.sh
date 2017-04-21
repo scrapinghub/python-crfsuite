@@ -11,10 +11,9 @@ for PYBIN in /opt/python/*/bin; do
        [[ "${PYBIN}" == *"cp35"* ]] || \
        [[ "${PYBIN}" == *"cp36"* ]]; 
     then
-        alias cython="${PYBIN}/cython"
         "${PYBIN}/pip" install -r /io/requirements-doc.txt
         "${PYBIN}/pip" install -U cython
-        (cd /io/ && bash ./update_cpp.sh)
+        (cd /io/ && bash ./manylinux_cython.sh)
         "${PYBIN}/pip" install -e /io/
         "${PYBIN}/pip" wheel /io/ -w wheelhouse/
     fi
