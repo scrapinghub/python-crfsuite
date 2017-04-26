@@ -12,8 +12,11 @@ for PYBIN in /opt/python/*/bin; do
        [[ "${PYBIN}" == *"cp36"* ]]; 
     then
         "${PYBIN}/pip" install -r /io/requirements-doc.txt
+        "${PYBIN}/pip" install tox
         "${PYBIN}/pip" install -U cython
-        (cd /io/ && export BIN="${PYBIN}" && bash ./.manylinux-cython.sh)
+        export PATH="${PYBIN}:$PATH"
+        echo $PATH
+        (cd /io/ && export BIN="${PYBIN}" && bash ./.manylinux-cython.sh && "${PYBIN}/tox" -e manylinux)
         "${PYBIN}/pip" install -e /io/
         "${PYBIN}/pip" wheel /io/ -w wheelhouse/
     fi
