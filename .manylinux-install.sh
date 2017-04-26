@@ -43,8 +43,8 @@ done
 
 # If everything works, upload wheels to PyPi
 travis=$( cat /io/.travis_tag )
-PYBIN34="/opt/python/cp35-cp35m/bin"
+SAMPLE_PYBIN="/opt/python/cp35-cp35m/bin"
 if [[ $travis ]]; then
-    "${PYBIN34}/pip" install twine;
-    "${PYBIN34}/twine" upload --config-file /io/.pypirc /io/wheelhouse/*.whl;
+    "${SAMPLE_PYBIN}/pip" install twine;
+    "${SAMPLE_PYBIN}/twine" upload --config-file /io/.pypirc /io/wheelhouse/*.whl;
 fi
