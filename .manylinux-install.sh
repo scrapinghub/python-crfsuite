@@ -15,7 +15,6 @@ for PYBIN in /opt/python/*/bin; do
         "${PYBIN}/pip" install tox
         "${PYBIN}/pip" install -U cython
         export PATH="${PYBIN}:$PATH"
-        echo $PATH
         (cd /io/ && export BIN="${PYBIN}" && bash ./.manylinux-cython.sh && "${PYBIN}/tox" -e manylinux)
         "${PYBIN}/pip" install -e /io/
         "${PYBIN}/pip" wheel /io/ -w wheelhouse/
