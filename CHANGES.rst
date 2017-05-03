@@ -1,6 +1,11 @@
 Changes
 =======
 
+0.9.2 (2017-05-04)
+------------------
+
+* binary wheels for OS X and Linux (thanks @jeancochrane).
+
 0.9.1 (2016-12-19)
 ------------------
 
