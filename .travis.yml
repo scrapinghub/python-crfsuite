@@ -107,4 +107,4 @@ after_success:
 
 env:
   global:
-  - secure: PYPIPASSWORD=yourpypipassword
+    - secure: HQDMJlzbWMSuA2YANijtacm9croR5e9BTSKq08QDp1Fc33BGLjDWXeKPOcZSx3LR9AdCN9CLA2NQn3hQ8wViibrCmn5kUFdzIDxpFgPrq5fvOTU43Kf8o/DbDZxK2Loqw7LwskwxTpJZOnp2gwF6kNJiC4hygI9HID8qqs9l480=
