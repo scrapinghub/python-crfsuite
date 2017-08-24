@@ -51,6 +51,11 @@ matrix:
     env: DOCKER_IMAGE=quay.io/pypa/manylinux1_i686
          PRE_CMD=linux32
 
+branches:
+  only:
+    - master
+    - /^\d\.\d+$/
+
 before_install:
 - |
   if [[ $PYTHON && "$TRAVIS_OS_NAME" == "osx" ]]; then
