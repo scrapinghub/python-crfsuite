@@ -23,16 +23,16 @@ includes = [
     'pycrfsuite',
 ]
 
-if sys.platform == 'win32':
-    includes.extend(['crfsuite/win32', 'include'])
-
-
 class build_ext_check_gcc(build_ext):
     def build_extensions(self):
         c = self.compiler
         if c.compiler_type == 'unix' and 'gcc' in c.compiler:
             for e in self.extensions:
                 e.extra_compile_args=['-std=c99']
+        elif self.compiler.compiler_type == "msvc":
+            if sys.version_info[:2] < (3, 5):
+                c.include_dirs.extend(['crfsuite/win32', 'include']) 
+                
         build_ext.build_extensions(self)
 
 
