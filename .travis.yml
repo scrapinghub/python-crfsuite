@@ -24,7 +24,7 @@ matrix:
   - os: osx
     language: generic
     env:
-      - PYTHON='3.5.4'
+      - PYTHON='3.5.2'
       - TOXENV=py35
   - os: osx
     language: generic
