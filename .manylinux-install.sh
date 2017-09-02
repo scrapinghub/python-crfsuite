@@ -11,7 +11,6 @@ for PYBIN in /opt/python/*/bin; do
        [[ "${PYBIN}" == *"cp35"* ]] || \
        [[ "${PYBIN}" == *"cp36"* ]]; 
     then
-        "${PYBIN}/pip" install -r /io/requirements-doc.txt
         "${PYBIN}/pip" install tox
         "${PYBIN}/pip" install -U cython
         export PATH="${PYBIN}:$PATH"
