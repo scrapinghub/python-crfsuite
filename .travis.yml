@@ -19,12 +19,12 @@ matrix:
   - os: osx
     language: generic
     env: 
-      - PYTHON='3.6.1'
+      - PYTHON='3.6.2'
       - TOXENV=py36
   - os: osx
     language: generic
     env:
-      - PYTHON='3.5.3'
+      - PYTHON='3.5.2'
       - TOXENV=py35
   - os: osx
     language: generic
@@ -39,7 +39,7 @@ matrix:
   - os: osx
     language: generic
     env: 
-      - PYTHON='2.7.12'
+      - PYTHON='2.7.13'
       - TOXENV=py27
   - sudo: required
     services:

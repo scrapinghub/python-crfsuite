@@ -2,7 +2,6 @@ include LICENSE.txt
 include README.rst
 include CHANGES.rst
 include update_cpp.sh
-include include/inttypes.h
 
 recursive-include crfsuite *
 recursive-include liblbfgs *
