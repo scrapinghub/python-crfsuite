@@ -54,7 +54,7 @@ matrix:
 branches:
   only:
     - master
-    - /^\d\.\d+$/
+    - /^\d\.[\d.]+$/
 
 before_install:
 - |
@@ -73,7 +73,6 @@ before_install:
   echo [distutils]                                  > ~/.pypirc;
   echo index-servers=pypi                          >> ~/.pypirc;
   echo [pypi]                                      >> ~/.pypirc;
-  echo repository=https://pypi.python.org/pypi     >> ~/.pypirc;
   echo username=kmike                              >> ~/.pypirc;
   echo password=$PYPIPASSWORD                      >> ~/.pypirc;
   touch .travis_tag;
