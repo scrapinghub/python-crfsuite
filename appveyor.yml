@@ -12,6 +12,8 @@ environment:
     - python : 34-x64
     - python : 35	
     - python : 35-x64
+    - python : 36	
+    - python : 36-x64
 
 install:
   - "SET PATH=C:\\Python%PYTHON%;c:\\Python%PYTHON%\\scripts;%PATH%"
