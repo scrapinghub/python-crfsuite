@@ -90,7 +90,7 @@ class CRFsuiteDumpParser(object):
             assert to_ in self.result.labels
             self.result.transitions[(from_, to_)] = float(m.group(3))
         else:
-        self.result.transitions = None
+            self.result.transitions = None
 
     def parse_STATE_FEATURES(self, line):
         m = re.match(r"\(\d+\) (.+) --> (.+): ([+-]?\d+\.\d+)", line)
