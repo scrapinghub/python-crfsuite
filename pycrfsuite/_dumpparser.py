@@ -63,26 +63,41 @@ class CRFsuiteDumpParser(object):
 
     def parse_FILEHEADER(self, line):
         m = re.match("(\w+): (.*)", line)
-        self.result.header[m.group(1)] = m.group(2)
+        if m:
+            self.result.header[m.group(1)] = m.group(2)
+        else:
+            self.result.header = None
 
     def parse_LABELS(self, line):
         m = re.match("(\d+): (.*)", line)
-        self.result.labels[m.group(2)] = m.group(1)
+        if m:
+            self.result.labels[m.group(2)] = m.group(1)
+        else:
+            self.result.labels = None
 
     def parse_ATTRIBUTES(self, line):
         m = re.match("(\d+): (.*)", line)
-        self.result.attributes[m.group(2)] = m.group(1)
+        if m:
+            self.result.attributes[m.group(2)] = m.group(1)
+        else:
+            self.result.attributes = None
 
     def parse_TRANSITIONS(self, line):
         m = re.match(r"\(\d+\) (.+) --> (.+): ([+-]?\d+\.\d+)", line)
-        from_, to_ = m.group(1), m.group(2)
-        assert from_ in self.result.labels
-        assert to_ in self.result.labels
-        self.result.transitions[(from_, to_)] = float(m.group(3))
+        if m:
+            from_, to_ = m.group(1), m.group(2)
+            assert from_ in self.result.labels
+            assert to_ in self.result.labels
+            self.result.transitions[(from_, to_)] = float(m.group(3))
+        else:
+        self.result.transitions = None
 
     def parse_STATE_FEATURES(self, line):
         m = re.match(r"\(\d+\) (.+) --> (.+): ([+-]?\d+\.\d+)", line)
-        attr, label = m.group(1), m.group(2)
-        assert attr in self.result.attributes
-        assert label in self.result.labels
-        self.result.state_features[(attr, label)] = float(m.group(3))
+        if m:
+            attr, label = m.group(1), m.group(2)
+            assert attr in self.result.attributes
+            assert label in self.result.labels
+            self.result.state_features[(attr, label)] = float(m.group(3))
+        else:
+            self.result.state_features = None
