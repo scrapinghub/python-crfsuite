@@ -6,7 +6,6 @@ set -e -x
 # Compile wheels
 for PYBIN in /opt/python/*/bin; do
     if [[ "${PYBIN}" == *"cp27"* ]] || \
-       [[ "${PYBIN}" == *"cp33"* ]] || \
        [[ "${PYBIN}" == *"cp34"* ]] || \
        [[ "${PYBIN}" == *"cp35"* ]] || \
        [[ "${PYBIN}" == *"cp36"* ]]; 
@@ -28,7 +27,6 @@ done
 # Install new wheels and test
 for PYBIN in /opt/python/*/bin; do
     if [[ "${PYBIN}" == *"cp27"* ]] || \
-       [[ "${PYBIN}" == *"cp33"* ]] || \
        [[ "${PYBIN}" == *"cp34"* ]] || \
        [[ "${PYBIN}" == *"cp35"* ]] || \
        [[ "${PYBIN}" == *"cp36"* ]];
