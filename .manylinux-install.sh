@@ -9,7 +9,8 @@ for PYBIN in /opt/python/*/bin; do
        [[ "${PYBIN}" == *"cp33"* ]] || \
        [[ "${PYBIN}" == *"cp34"* ]] || \
        [[ "${PYBIN}" == *"cp35"* ]] || \
-       [[ "${PYBIN}" == *"cp36"* ]]; 
+       [[ "${PYBIN}" == *"cp36"* ]] || \
+       [[ "${PYBIN}" == *"cp37"* ]]; 
     then
         "${PYBIN}/pip" install tox
         "${PYBIN}/pip" install -U cython
