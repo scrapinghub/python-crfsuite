@@ -16,6 +16,11 @@ matrix:
   - os: osx
     language: generic
     env: 
+      - PYTHON='3.7.0'
+      - TOXENV=py37    
+  - os: osx
+    language: generic
+    env: 
       - PYTHON='3.6.2'
       - TOXENV=py36
   - os: osx
