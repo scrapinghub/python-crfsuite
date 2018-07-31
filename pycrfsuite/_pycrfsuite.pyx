@@ -574,6 +574,15 @@ cdef class Tagger(object):
         return contextlib.closing(self)
 
     def open_inmemory(self, bytes value):
+        """
+        Open a model from memory.
+
+        Parameters
+        ----------
+        value : bytes
+            Binary model data (content of a file saved by Trainer.train).
+
+        """
         self._check_inmemory_model(value)
         cdef const char *v = value
         if not self.c_tagger.open(v, len(value)):
