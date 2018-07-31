@@ -57,9 +57,11 @@ def test_open_invalid_with_correct_signature(tmpdir):
     with pytest.raises(ValueError):
         tagger.open(str(tmp))
 
+
 def test_open_inmemory(model_bytes, xseq, yseq):
     with Tagger().open_inmemory(model_bytes) as tagger:
         assert tagger.tag(xseq) == yseq
+
 
 def test_open_inmemory_invalid():
     tagger = Tagger()

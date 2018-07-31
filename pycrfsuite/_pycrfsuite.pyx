@@ -575,7 +575,7 @@ cdef class Tagger(object):
 
     def open_inmemory(self, bytes value):
         self._check_inmemory_model(value)
-        cdef char *v = value
+        cdef const char *v = value
         if not self.c_tagger.open(v, len(value)):
             raise ValueError("Error opening model")
         return contextlib.closing(self)
