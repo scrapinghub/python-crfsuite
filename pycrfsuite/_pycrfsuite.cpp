@@ -8440,13 +8440,13 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_open(struct __pyx_o
  *         return contextlib.closing(self)
  * 
  *     def open_inmemory(self, bytes value):             # <<<<<<<<<<<<<<
- *         self._check_inmemory_model(value)
- *         cdef const char *v = value
+ *         """
+ *         Open a model from memory.
  */
 
 /* Python wrapper */
 static PyObject *__pyx_pw_10pycrfsuite_11_pycrfsuite_6Tagger_3open_inmemory(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
-static char __pyx_doc_10pycrfsuite_11_pycrfsuite_6Tagger_2open_inmemory[] = "Tagger.open_inmemory(self, bytes value)";
+static char __pyx_doc_10pycrfsuite_11_pycrfsuite_6Tagger_2open_inmemory[] = "Tagger.open_inmemory(self, bytes value)\n\n        Open a model from memory.\n\n        Parameters\n        ----------\n        value : bytes\n            Binary model data (content of a file saved by Trainer.train).\n\n        ";
 static PyObject *__pyx_pw_10pycrfsuite_11_pycrfsuite_6Tagger_3open_inmemory(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
@@ -8477,14 +8477,14 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_2open_inmemory(stru
   int __pyx_t_8;
   __Pyx_RefNannySetupContext("open_inmemory", 0);
 
-  /* "pycrfsuite/_pycrfsuite.pyx":577
+  /* "pycrfsuite/_pycrfsuite.pyx":586
  * 
- *     def open_inmemory(self, bytes value):
+ *         """
  *         self._check_inmemory_model(value)             # <<<<<<<<<<<<<<
  *         cdef const char *v = value
  *         if not self.c_tagger.open(v, len(value)):
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_check_inmemory_model); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 577, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_check_inmemory_model); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 586, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -8497,13 +8497,13 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_2open_inmemory(stru
     }
   }
   if (!__pyx_t_3) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v_value); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 577, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v_value); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 586, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_2)) {
       PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_v_value};
-      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 577, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 586, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else
@@ -8511,19 +8511,19 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_2open_inmemory(stru
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
       PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_v_value};
-      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 577, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 586, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else
     #endif
     {
-      __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 577, __pyx_L1_error)
+      __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 586, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3); __pyx_t_3 = NULL;
       __Pyx_INCREF(__pyx_v_value);
       __Pyx_GIVEREF(__pyx_v_value);
       PyTuple_SET_ITEM(__pyx_t_4, 0+1, __pyx_v_value);
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 577, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 586, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     }
@@ -8531,8 +8531,8 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_2open_inmemory(stru
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pycrfsuite/_pycrfsuite.pyx":578
- *     def open_inmemory(self, bytes value):
+  /* "pycrfsuite/_pycrfsuite.pyx":587
+ *         """
  *         self._check_inmemory_model(value)
  *         cdef const char *v = value             # <<<<<<<<<<<<<<
  *         if not self.c_tagger.open(v, len(value)):
@@ -8540,12 +8540,12 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_2open_inmemory(stru
  */
   if (unlikely(__pyx_v_value == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "expected bytes, NoneType found");
-    __PYX_ERR(1, 578, __pyx_L1_error)
+    __PYX_ERR(1, 587, __pyx_L1_error)
   }
-  __pyx_t_5 = __Pyx_PyBytes_AsString(__pyx_v_value); if (unlikely((!__pyx_t_5) && PyErr_Occurred())) __PYX_ERR(1, 578, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyBytes_AsString(__pyx_v_value); if (unlikely((!__pyx_t_5) && PyErr_Occurred())) __PYX_ERR(1, 587, __pyx_L1_error)
   __pyx_v_v = __pyx_t_5;
 
-  /* "pycrfsuite/_pycrfsuite.pyx":579
+  /* "pycrfsuite/_pycrfsuite.pyx":588
  *         self._check_inmemory_model(value)
  *         cdef const char *v = value
  *         if not self.c_tagger.open(v, len(value)):             # <<<<<<<<<<<<<<
@@ -8554,32 +8554,32 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_2open_inmemory(stru
  */
   if (unlikely(__pyx_v_value == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
-    __PYX_ERR(1, 579, __pyx_L1_error)
+    __PYX_ERR(1, 588, __pyx_L1_error)
   }
-  __pyx_t_6 = PyBytes_GET_SIZE(__pyx_v_value); if (unlikely(__pyx_t_6 == ((Py_ssize_t)-1))) __PYX_ERR(1, 579, __pyx_L1_error)
+  __pyx_t_6 = PyBytes_GET_SIZE(__pyx_v_value); if (unlikely(__pyx_t_6 == ((Py_ssize_t)-1))) __PYX_ERR(1, 588, __pyx_L1_error)
   try {
     __pyx_t_7 = __pyx_v_self->c_tagger.open(__pyx_v_v, __pyx_t_6);
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(1, 579, __pyx_L1_error)
+    __PYX_ERR(1, 588, __pyx_L1_error)
   }
   __pyx_t_8 = ((!(__pyx_t_7 != 0)) != 0);
   if (unlikely(__pyx_t_8)) {
 
-    /* "pycrfsuite/_pycrfsuite.pyx":580
+    /* "pycrfsuite/_pycrfsuite.pyx":589
  *         cdef const char *v = value
  *         if not self.c_tagger.open(v, len(value)):
  *             raise ValueError("Error opening model")             # <<<<<<<<<<<<<<
  *         return contextlib.closing(self)
  * 
  */
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__6, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 580, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__6, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 589, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_Raise(__pyx_t_1, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __PYX_ERR(1, 580, __pyx_L1_error)
+    __PYX_ERR(1, 589, __pyx_L1_error)
 
-    /* "pycrfsuite/_pycrfsuite.pyx":579
+    /* "pycrfsuite/_pycrfsuite.pyx":588
  *         self._check_inmemory_model(value)
  *         cdef const char *v = value
  *         if not self.c_tagger.open(v, len(value)):             # <<<<<<<<<<<<<<
@@ -8588,7 +8588,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_2open_inmemory(stru
  */
   }
 
-  /* "pycrfsuite/_pycrfsuite.pyx":581
+  /* "pycrfsuite/_pycrfsuite.pyx":590
  *         if not self.c_tagger.open(v, len(value)):
  *             raise ValueError("Error opening model")
  *         return contextlib.closing(self)             # <<<<<<<<<<<<<<
@@ -8596,9 +8596,9 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_2open_inmemory(stru
  *     def close(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_contextlib); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 581, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_contextlib); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 590, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_closing); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 581, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_closing); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 590, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -8612,13 +8612,13 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_2open_inmemory(stru
     }
   }
   if (!__pyx_t_2) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_4, ((PyObject *)__pyx_v_self)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 581, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_4, ((PyObject *)__pyx_v_self)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 590, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_4)) {
       PyObject *__pyx_temp[2] = {__pyx_t_2, ((PyObject *)__pyx_v_self)};
-      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 581, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 590, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else
@@ -8626,19 +8626,19 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_2open_inmemory(stru
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
       PyObject *__pyx_temp[2] = {__pyx_t_2, ((PyObject *)__pyx_v_self)};
-      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 581, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 590, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_GOTREF(__pyx_t_1);
     } else
     #endif
     {
-      __pyx_t_3 = PyTuple_New(1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 581, __pyx_L1_error)
+      __pyx_t_3 = PyTuple_New(1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 590, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_2); __pyx_t_2 = NULL;
       __Pyx_INCREF(((PyObject *)__pyx_v_self));
       __Pyx_GIVEREF(((PyObject *)__pyx_v_self));
       PyTuple_SET_ITEM(__pyx_t_3, 0+1, ((PyObject *)__pyx_v_self));
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 581, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 590, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     }
@@ -8652,8 +8652,8 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_2open_inmemory(stru
  *         return contextlib.closing(self)
  * 
  *     def open_inmemory(self, bytes value):             # <<<<<<<<<<<<<<
- *         self._check_inmemory_model(value)
- *         cdef const char *v = value
+ *         """
+ *         Open a model from memory.
  */
 
   /* function exit code */
@@ -8670,7 +8670,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_2open_inmemory(stru
   return __pyx_r;
 }
 
-/* "pycrfsuite/_pycrfsuite.pyx":583
+/* "pycrfsuite/_pycrfsuite.pyx":592
  *         return contextlib.closing(self)
  * 
  *     def close(self):             # <<<<<<<<<<<<<<
@@ -8697,7 +8697,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_4close(struct __pyx
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("close", 0);
 
-  /* "pycrfsuite/_pycrfsuite.pyx":587
+  /* "pycrfsuite/_pycrfsuite.pyx":596
  *         Close the model.
  *         """
  *         self.c_tagger.close()             # <<<<<<<<<<<<<<
@@ -8708,10 +8708,10 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_4close(struct __pyx
     __pyx_v_self->c_tagger.close();
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(1, 587, __pyx_L1_error)
+    __PYX_ERR(1, 596, __pyx_L1_error)
   }
 
-  /* "pycrfsuite/_pycrfsuite.pyx":583
+  /* "pycrfsuite/_pycrfsuite.pyx":592
  *         return contextlib.closing(self)
  * 
  *     def close(self):             # <<<<<<<<<<<<<<
@@ -8731,7 +8731,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_4close(struct __pyx
   return __pyx_r;
 }
 
-/* "pycrfsuite/_pycrfsuite.pyx":589
+/* "pycrfsuite/_pycrfsuite.pyx":598
  *         self.c_tagger.close()
  * 
  *     def labels(self):             # <<<<<<<<<<<<<<
@@ -8760,7 +8760,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_6labels(struct __py
   PyObject *__pyx_t_2 = NULL;
   __Pyx_RefNannySetupContext("labels", 0);
 
-  /* "pycrfsuite/_pycrfsuite.pyx":598
+  /* "pycrfsuite/_pycrfsuite.pyx":607
  *             The list of labels in the model.
  *         """
  *         return self.c_tagger.labels()             # <<<<<<<<<<<<<<
@@ -8772,15 +8772,15 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_6labels(struct __py
     __pyx_t_1 = __pyx_v_self->c_tagger.labels();
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(1, 598, __pyx_L1_error)
+    __PYX_ERR(1, 607, __pyx_L1_error)
   }
-  __pyx_t_2 = __pyx_convert_vector_to_py_std_3a__3a_string(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 598, __pyx_L1_error)
+  __pyx_t_2 = __pyx_convert_vector_to_py_std_3a__3a_string(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 607, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "pycrfsuite/_pycrfsuite.pyx":589
+  /* "pycrfsuite/_pycrfsuite.pyx":598
  *         self.c_tagger.close()
  * 
  *     def labels(self):             # <<<<<<<<<<<<<<
@@ -8799,7 +8799,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_6labels(struct __py
   return __pyx_r;
 }
 
-/* "pycrfsuite/_pycrfsuite.pyx":600
+/* "pycrfsuite/_pycrfsuite.pyx":609
  *         return self.c_tagger.labels()
  * 
  *     def tag(self, xseq=None):             # <<<<<<<<<<<<<<
@@ -8837,7 +8837,7 @@ static PyObject *__pyx_pw_10pycrfsuite_11_pycrfsuite_6Tagger_9tag(PyObject *__py
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "tag") < 0)) __PYX_ERR(1, 600, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "tag") < 0)) __PYX_ERR(1, 609, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -8851,7 +8851,7 @@ static PyObject *__pyx_pw_10pycrfsuite_11_pycrfsuite_6Tagger_9tag(PyObject *__py
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("tag", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(1, 600, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("tag", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(1, 609, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pycrfsuite._pycrfsuite.Tagger.tag", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -8873,7 +8873,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_8tag(struct __pyx_o
   CRFSuite::StringList __pyx_t_4;
   __Pyx_RefNannySetupContext("tag", 0);
 
-  /* "pycrfsuite/_pycrfsuite.pyx":620
+  /* "pycrfsuite/_pycrfsuite.pyx":629
  *             The label sequence predicted.
  *         """
  *         if xseq is not None:             # <<<<<<<<<<<<<<
@@ -8884,7 +8884,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_8tag(struct __pyx_o
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "pycrfsuite/_pycrfsuite.pyx":621
+    /* "pycrfsuite/_pycrfsuite.pyx":630
  *         """
  *         if xseq is not None:
  *             self.set(xseq)             # <<<<<<<<<<<<<<
@@ -8895,12 +8895,12 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_8tag(struct __pyx_o
       __pyx_t_3 = ((struct __pyx_vtabstruct_10pycrfsuite_11_pycrfsuite_Tagger *)__pyx_v_self->__pyx_vtab)->set(__pyx_v_self, __pyx_v_xseq, 0);
     } catch(...) {
       __Pyx_CppExn2PyErr();
-      __PYX_ERR(1, 621, __pyx_L1_error)
+      __PYX_ERR(1, 630, __pyx_L1_error)
     }
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "pycrfsuite/_pycrfsuite.pyx":620
+    /* "pycrfsuite/_pycrfsuite.pyx":629
  *             The label sequence predicted.
  *         """
  *         if xseq is not None:             # <<<<<<<<<<<<<<
@@ -8909,7 +8909,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_8tag(struct __pyx_o
  */
   }
 
-  /* "pycrfsuite/_pycrfsuite.pyx":623
+  /* "pycrfsuite/_pycrfsuite.pyx":632
  *             self.set(xseq)
  * 
  *         return self.c_tagger.viterbi()             # <<<<<<<<<<<<<<
@@ -8921,15 +8921,15 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_8tag(struct __pyx_o
     __pyx_t_4 = __pyx_v_self->c_tagger.viterbi();
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(1, 623, __pyx_L1_error)
+    __PYX_ERR(1, 632, __pyx_L1_error)
   }
-  __pyx_t_3 = __pyx_convert_vector_to_py_std_3a__3a_string(__pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 623, __pyx_L1_error)
+  __pyx_t_3 = __pyx_convert_vector_to_py_std_3a__3a_string(__pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 632, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_r = __pyx_t_3;
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "pycrfsuite/_pycrfsuite.pyx":600
+  /* "pycrfsuite/_pycrfsuite.pyx":609
  *         return self.c_tagger.labels()
  * 
  *     def tag(self, xseq=None):             # <<<<<<<<<<<<<<
@@ -8948,7 +8948,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_8tag(struct __pyx_o
   return __pyx_r;
 }
 
-/* "pycrfsuite/_pycrfsuite.pyx":625
+/* "pycrfsuite/_pycrfsuite.pyx":634
  *         return self.c_tagger.viterbi()
  * 
  *     def probability(self, yseq):             # <<<<<<<<<<<<<<
@@ -8978,7 +8978,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_10probability(struc
   PyObject *__pyx_t_3 = NULL;
   __Pyx_RefNannySetupContext("probability", 0);
 
-  /* "pycrfsuite/_pycrfsuite.pyx":641
+  /* "pycrfsuite/_pycrfsuite.pyx":650
  *             The probability ``P(yseq|xseq)``.
  *         """
  *         return self.c_tagger.probability(yseq)             # <<<<<<<<<<<<<<
@@ -8986,20 +8986,20 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_10probability(struc
  *     def marginal(self, y, pos):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_convert_vector_from_py_std_3a__3a_string(__pyx_v_yseq); if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 641, __pyx_L1_error)
+  __pyx_t_1 = __pyx_convert_vector_from_py_std_3a__3a_string(__pyx_v_yseq); if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 650, __pyx_L1_error)
   try {
     __pyx_t_2 = __pyx_v_self->c_tagger.probability(__pyx_t_1);
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(1, 641, __pyx_L1_error)
+    __PYX_ERR(1, 650, __pyx_L1_error)
   }
-  __pyx_t_3 = PyFloat_FromDouble(__pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 641, __pyx_L1_error)
+  __pyx_t_3 = PyFloat_FromDouble(__pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 650, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_r = __pyx_t_3;
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "pycrfsuite/_pycrfsuite.pyx":625
+  /* "pycrfsuite/_pycrfsuite.pyx":634
  *         return self.c_tagger.viterbi()
  * 
  *     def probability(self, yseq):             # <<<<<<<<<<<<<<
@@ -9018,7 +9018,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_10probability(struc
   return __pyx_r;
 }
 
-/* "pycrfsuite/_pycrfsuite.pyx":643
+/* "pycrfsuite/_pycrfsuite.pyx":652
  *         return self.c_tagger.probability(yseq)
  * 
  *     def marginal(self, y, pos):             # <<<<<<<<<<<<<<
@@ -9058,11 +9058,11 @@ static PyObject *__pyx_pw_10pycrfsuite_11_pycrfsuite_6Tagger_13marginal(PyObject
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_pos)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("marginal", 1, 2, 2, 1); __PYX_ERR(1, 643, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("marginal", 1, 2, 2, 1); __PYX_ERR(1, 652, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "marginal") < 0)) __PYX_ERR(1, 643, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "marginal") < 0)) __PYX_ERR(1, 652, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -9075,7 +9075,7 @@ static PyObject *__pyx_pw_10pycrfsuite_11_pycrfsuite_6Tagger_13marginal(PyObject
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("marginal", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(1, 643, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("marginal", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(1, 652, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pycrfsuite._pycrfsuite.Tagger.marginal", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -9097,7 +9097,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_12marginal(struct _
   PyObject *__pyx_t_4 = NULL;
   __Pyx_RefNannySetupContext("marginal", 0);
 
-  /* "pycrfsuite/_pycrfsuite.pyx":662
+  /* "pycrfsuite/_pycrfsuite.pyx":671
  *             The marginal probability of the label ``y`` at position ``t``.
  *         """
  *         return self.c_tagger.marginal(y, pos)             # <<<<<<<<<<<<<<
@@ -9105,21 +9105,21 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_12marginal(struct _
  *     cpdef set(self, xseq) except +:
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_convert_string_from_py_std__in_string(__pyx_v_y); if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 662, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_v_pos); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 662, __pyx_L1_error)
+  __pyx_t_1 = __pyx_convert_string_from_py_std__in_string(__pyx_v_y); if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 671, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_v_pos); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 671, __pyx_L1_error)
   try {
     __pyx_t_3 = __pyx_v_self->c_tagger.marginal(__pyx_t_1, __pyx_t_2);
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(1, 662, __pyx_L1_error)
+    __PYX_ERR(1, 671, __pyx_L1_error)
   }
-  __pyx_t_4 = PyFloat_FromDouble(__pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 662, __pyx_L1_error)
+  __pyx_t_4 = PyFloat_FromDouble(__pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 671, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_r = __pyx_t_4;
   __pyx_t_4 = 0;
   goto __pyx_L0;
 
-  /* "pycrfsuite/_pycrfsuite.pyx":643
+  /* "pycrfsuite/_pycrfsuite.pyx":652
  *         return self.c_tagger.probability(yseq)
  * 
  *     def marginal(self, y, pos):             # <<<<<<<<<<<<<<
@@ -9138,7 +9138,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_12marginal(struct _
   return __pyx_r;
 }
 
-/* "pycrfsuite/_pycrfsuite.pyx":664
+/* "pycrfsuite/_pycrfsuite.pyx":673
  *         return self.c_tagger.marginal(y, pos)
  * 
  *     cpdef set(self, xseq) except +:             # <<<<<<<<<<<<<<
@@ -9161,7 +9161,7 @@ static PyObject *__pyx_f_10pycrfsuite_11_pycrfsuite_6Tagger_set(struct __pyx_obj
   if (unlikely(__pyx_skip_dispatch)) ;
   /* Check if overridden in Python */
   else if (unlikely(Py_TYPE(((PyObject *)__pyx_v_self))->tp_dictoffset != 0)) {
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 664, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 673, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)__pyx_pw_10pycrfsuite_11_pycrfsuite_6Tagger_15set)) {
       __Pyx_XDECREF(__pyx_r);
@@ -9177,13 +9177,13 @@ static PyObject *__pyx_f_10pycrfsuite_11_pycrfsuite_6Tagger_set(struct __pyx_obj
         }
       }
       if (!__pyx_t_4) {
-        __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_xseq); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 664, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_xseq); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 673, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
       } else {
         #if CYTHON_FAST_PYCALL
         if (PyFunction_Check(__pyx_t_3)) {
           PyObject *__pyx_temp[2] = {__pyx_t_4, __pyx_v_xseq};
-          __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 664, __pyx_L1_error)
+          __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 673, __pyx_L1_error)
           __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
           __Pyx_GOTREF(__pyx_t_2);
         } else
@@ -9191,19 +9191,19 @@ static PyObject *__pyx_f_10pycrfsuite_11_pycrfsuite_6Tagger_set(struct __pyx_obj
         #if CYTHON_FAST_PYCCALL
         if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
           PyObject *__pyx_temp[2] = {__pyx_t_4, __pyx_v_xseq};
-          __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 664, __pyx_L1_error)
+          __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 673, __pyx_L1_error)
           __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
           __Pyx_GOTREF(__pyx_t_2);
         } else
         #endif
         {
-          __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 664, __pyx_L1_error)
+          __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 673, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_5);
           __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_4); __pyx_t_4 = NULL;
           __Pyx_INCREF(__pyx_v_xseq);
           __Pyx_GIVEREF(__pyx_v_xseq);
           PyTuple_SET_ITEM(__pyx_t_5, 0+1, __pyx_v_xseq);
-          __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 664, __pyx_L1_error)
+          __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 673, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_2);
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         }
@@ -9217,7 +9217,7 @@ static PyObject *__pyx_f_10pycrfsuite_11_pycrfsuite_6Tagger_set(struct __pyx_obj
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   }
 
-  /* "pycrfsuite/_pycrfsuite.pyx":679
+  /* "pycrfsuite/_pycrfsuite.pyx":688
  * 
  *         """
  *         self.c_tagger.set(to_seq(xseq))             # <<<<<<<<<<<<<<
@@ -9228,16 +9228,16 @@ static PyObject *__pyx_f_10pycrfsuite_11_pycrfsuite_6Tagger_set(struct __pyx_obj
     __pyx_t_6 = __pyx_f_10pycrfsuite_11_pycrfsuite_to_seq(__pyx_v_xseq);
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(1, 679, __pyx_L1_error)
+    __PYX_ERR(1, 688, __pyx_L1_error)
   }
   try {
     __pyx_v_self->c_tagger.set(__pyx_t_6);
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(1, 679, __pyx_L1_error)
+    __PYX_ERR(1, 688, __pyx_L1_error)
   }
 
-  /* "pycrfsuite/_pycrfsuite.pyx":664
+  /* "pycrfsuite/_pycrfsuite.pyx":673
  *         return self.c_tagger.marginal(y, pos)
  * 
  *     cpdef set(self, xseq) except +:             # <<<<<<<<<<<<<<
@@ -9286,7 +9286,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_14set(struct __pyx_
     __pyx_t_1 = __pyx_f_10pycrfsuite_11_pycrfsuite_6Tagger_set(__pyx_v_self, __pyx_v_xseq, 1);
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(1, 664, __pyx_L1_error)
+    __PYX_ERR(1, 673, __pyx_L1_error)
   }
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
@@ -9304,7 +9304,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_14set(struct __pyx_
   return __pyx_r;
 }
 
-/* "pycrfsuite/_pycrfsuite.pyx":681
+/* "pycrfsuite/_pycrfsuite.pyx":690
  *         self.c_tagger.set(to_seq(xseq))
  * 
  *     def dump(self, filename=None):             # <<<<<<<<<<<<<<
@@ -9342,7 +9342,7 @@ static PyObject *__pyx_pw_10pycrfsuite_11_pycrfsuite_6Tagger_17dump(PyObject *__
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "dump") < 0)) __PYX_ERR(1, 681, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "dump") < 0)) __PYX_ERR(1, 690, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -9356,7 +9356,7 @@ static PyObject *__pyx_pw_10pycrfsuite_11_pycrfsuite_6Tagger_17dump(PyObject *__
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("dump", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(1, 681, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("dump", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(1, 690, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pycrfsuite._pycrfsuite.Tagger.dump", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -9395,7 +9395,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_16dump(struct __pyx
   int __pyx_t_20;
   __Pyx_RefNannySetupContext("dump", 0);
 
-  /* "pycrfsuite/_pycrfsuite.pyx":691
+  /* "pycrfsuite/_pycrfsuite.pyx":700
  *             If None, the model is dumped to stdout.
  *         """
  *         if filename is None:             # <<<<<<<<<<<<<<
@@ -9406,24 +9406,24 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_16dump(struct __pyx
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "pycrfsuite/_pycrfsuite.pyx":692
+    /* "pycrfsuite/_pycrfsuite.pyx":701
  *         """
  *         if filename is None:
  *             self.c_tagger.dump(os.dup(sys.stdout.fileno()))             # <<<<<<<<<<<<<<
  *         else:
  *             fd = os.open(filename, os.O_CREAT | os.O_WRONLY)
  */
-    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_os); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 692, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_os); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 701, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_dup); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 692, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_dup); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 701, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_6 = __Pyx_GetModuleGlobalName(__pyx_n_s_sys); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 692, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_GetModuleGlobalName(__pyx_n_s_sys); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 701, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_stdout); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 692, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_stdout); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 701, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_fileno); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 692, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_fileno); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 701, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __pyx_t_7 = NULL;
@@ -9437,10 +9437,10 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_16dump(struct __pyx
       }
     }
     if (__pyx_t_7) {
-      __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 692, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 701, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     } else {
-      __pyx_t_4 = __Pyx_PyObject_CallNoArg(__pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 692, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_CallNoArg(__pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 701, __pyx_L1_error)
     }
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
@@ -9455,14 +9455,14 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_16dump(struct __pyx
       }
     }
     if (!__pyx_t_6) {
-      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 692, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 701, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_GOTREF(__pyx_t_3);
     } else {
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_5)) {
         PyObject *__pyx_temp[2] = {__pyx_t_6, __pyx_t_4};
-        __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 692, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 701, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -9471,35 +9471,35 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_16dump(struct __pyx
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
         PyObject *__pyx_temp[2] = {__pyx_t_6, __pyx_t_4};
-        __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 692, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 701, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       } else
       #endif
       {
-        __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 692, __pyx_L1_error)
+        __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 701, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
         __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_6); __pyx_t_6 = NULL;
         __Pyx_GIVEREF(__pyx_t_4);
         PyTuple_SET_ITEM(__pyx_t_7, 0+1, __pyx_t_4);
         __pyx_t_4 = 0;
-        __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_7, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 692, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_7, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 701, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       }
     }
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_8 = __Pyx_PyInt_As_int(__pyx_t_3); if (unlikely((__pyx_t_8 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 692, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyInt_As_int(__pyx_t_3); if (unlikely((__pyx_t_8 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 701, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     try {
       __pyx_v_self->c_tagger.dump(__pyx_t_8);
     } catch(...) {
       __Pyx_CppExn2PyErr();
-      __PYX_ERR(1, 692, __pyx_L1_error)
+      __PYX_ERR(1, 701, __pyx_L1_error)
     }
 
-    /* "pycrfsuite/_pycrfsuite.pyx":691
+    /* "pycrfsuite/_pycrfsuite.pyx":700
  *             If None, the model is dumped to stdout.
  *         """
  *         if filename is None:             # <<<<<<<<<<<<<<
@@ -9509,7 +9509,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_16dump(struct __pyx
     goto __pyx_L3;
   }
 
-  /* "pycrfsuite/_pycrfsuite.pyx":694
+  /* "pycrfsuite/_pycrfsuite.pyx":703
  *             self.c_tagger.dump(os.dup(sys.stdout.fileno()))
  *         else:
  *             fd = os.open(filename, os.O_CREAT | os.O_WRONLY)             # <<<<<<<<<<<<<<
@@ -9517,22 +9517,22 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_16dump(struct __pyx
  *                 self.c_tagger.dump(fd)
  */
   /*else*/ {
-    __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_os); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 694, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_os); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 703, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_open); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 694, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_open); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 703, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_os); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 694, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_os); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 703, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_O_CREAT); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 694, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_O_CREAT); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 703, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_os); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 694, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_os); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 703, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_O_WRONLY); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 694, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_O_WRONLY); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 703, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = PyNumber_Or(__pyx_t_4, __pyx_t_6); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 694, __pyx_L1_error)
+    __pyx_t_5 = PyNumber_Or(__pyx_t_4, __pyx_t_6); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 703, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
@@ -9551,7 +9551,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_16dump(struct __pyx
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_7)) {
       PyObject *__pyx_temp[3] = {__pyx_t_6, __pyx_v_filename, __pyx_t_5};
-      __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_7, __pyx_temp+1-__pyx_t_8, 2+__pyx_t_8); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 694, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_7, __pyx_temp+1-__pyx_t_8, 2+__pyx_t_8); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 703, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
@@ -9560,14 +9560,14 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_16dump(struct __pyx
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_7)) {
       PyObject *__pyx_temp[3] = {__pyx_t_6, __pyx_v_filename, __pyx_t_5};
-      __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_7, __pyx_temp+1-__pyx_t_8, 2+__pyx_t_8); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 694, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_7, __pyx_temp+1-__pyx_t_8, 2+__pyx_t_8); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 703, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     } else
     #endif
     {
-      __pyx_t_4 = PyTuple_New(2+__pyx_t_8); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 694, __pyx_L1_error)
+      __pyx_t_4 = PyTuple_New(2+__pyx_t_8); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 703, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       if (__pyx_t_6) {
         __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_6); __pyx_t_6 = NULL;
@@ -9578,7 +9578,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_16dump(struct __pyx
       __Pyx_GIVEREF(__pyx_t_5);
       PyTuple_SET_ITEM(__pyx_t_4, 1+__pyx_t_8, __pyx_t_5);
       __pyx_t_5 = 0;
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_4, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 694, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_4, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 703, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     }
@@ -9586,7 +9586,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_16dump(struct __pyx
     __pyx_v_fd = __pyx_t_3;
     __pyx_t_3 = 0;
 
-    /* "pycrfsuite/_pycrfsuite.pyx":695
+    /* "pycrfsuite/_pycrfsuite.pyx":704
  *         else:
  *             fd = os.open(filename, os.O_CREAT | os.O_WRONLY)
  *             try:             # <<<<<<<<<<<<<<
@@ -9595,23 +9595,23 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_16dump(struct __pyx
  */
     /*try:*/ {
 
-      /* "pycrfsuite/_pycrfsuite.pyx":696
+      /* "pycrfsuite/_pycrfsuite.pyx":705
  *             fd = os.open(filename, os.O_CREAT | os.O_WRONLY)
  *             try:
  *                 self.c_tagger.dump(fd)             # <<<<<<<<<<<<<<
  *             finally:
  *                 try:
  */
-      __pyx_t_8 = __Pyx_PyInt_As_int(__pyx_v_fd); if (unlikely((__pyx_t_8 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 696, __pyx_L5_error)
+      __pyx_t_8 = __Pyx_PyInt_As_int(__pyx_v_fd); if (unlikely((__pyx_t_8 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 705, __pyx_L5_error)
       try {
         __pyx_v_self->c_tagger.dump(__pyx_t_8);
       } catch(...) {
         __Pyx_CppExn2PyErr();
-        __PYX_ERR(1, 696, __pyx_L5_error)
+        __PYX_ERR(1, 705, __pyx_L5_error)
       }
     }
 
-    /* "pycrfsuite/_pycrfsuite.pyx":698
+    /* "pycrfsuite/_pycrfsuite.pyx":707
  *                 self.c_tagger.dump(fd)
  *             finally:
  *                 try:             # <<<<<<<<<<<<<<
@@ -9629,16 +9629,16 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_16dump(struct __pyx
           __Pyx_XGOTREF(__pyx_t_11);
           /*try:*/ {
 
-            /* "pycrfsuite/_pycrfsuite.pyx":699
+            /* "pycrfsuite/_pycrfsuite.pyx":708
  *             finally:
  *                 try:
  *                     os.close(fd)             # <<<<<<<<<<<<<<
  *                 except OSError:
  *                     pass  # already closed by Tagger::dump
  */
-            __pyx_t_7 = __Pyx_GetModuleGlobalName(__pyx_n_s_os); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 699, __pyx_L7_error)
+            __pyx_t_7 = __Pyx_GetModuleGlobalName(__pyx_n_s_os); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 708, __pyx_L7_error)
             __Pyx_GOTREF(__pyx_t_7);
-            __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_close); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 699, __pyx_L7_error)
+            __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_close); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 708, __pyx_L7_error)
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
             __pyx_t_7 = NULL;
@@ -9652,13 +9652,13 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_16dump(struct __pyx
               }
             }
             if (!__pyx_t_7) {
-              __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_v_fd); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 699, __pyx_L7_error)
+              __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_v_fd); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 708, __pyx_L7_error)
               __Pyx_GOTREF(__pyx_t_3);
             } else {
               #if CYTHON_FAST_PYCALL
               if (PyFunction_Check(__pyx_t_4)) {
                 PyObject *__pyx_temp[2] = {__pyx_t_7, __pyx_v_fd};
-                __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 699, __pyx_L7_error)
+                __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 708, __pyx_L7_error)
                 __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
                 __Pyx_GOTREF(__pyx_t_3);
               } else
@@ -9666,19 +9666,19 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_16dump(struct __pyx
               #if CYTHON_FAST_PYCCALL
               if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
                 PyObject *__pyx_temp[2] = {__pyx_t_7, __pyx_v_fd};
-                __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 699, __pyx_L7_error)
+                __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 708, __pyx_L7_error)
                 __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
                 __Pyx_GOTREF(__pyx_t_3);
               } else
               #endif
               {
-                __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 699, __pyx_L7_error)
+                __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 708, __pyx_L7_error)
                 __Pyx_GOTREF(__pyx_t_5);
                 __Pyx_GIVEREF(__pyx_t_7); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_7); __pyx_t_7 = NULL;
                 __Pyx_INCREF(__pyx_v_fd);
                 __Pyx_GIVEREF(__pyx_v_fd);
                 PyTuple_SET_ITEM(__pyx_t_5, 0+1, __pyx_v_fd);
-                __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_5, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 699, __pyx_L7_error)
+                __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_5, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 708, __pyx_L7_error)
                 __Pyx_GOTREF(__pyx_t_3);
                 __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
               }
@@ -9686,7 +9686,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_16dump(struct __pyx
             __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
             __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-            /* "pycrfsuite/_pycrfsuite.pyx":698
+            /* "pycrfsuite/_pycrfsuite.pyx":707
  *                 self.c_tagger.dump(fd)
  *             finally:
  *                 try:             # <<<<<<<<<<<<<<
@@ -9705,7 +9705,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_16dump(struct __pyx
           __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
           __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-          /* "pycrfsuite/_pycrfsuite.pyx":700
+          /* "pycrfsuite/_pycrfsuite.pyx":709
  *                 try:
  *                     os.close(fd)
  *                 except OSError:             # <<<<<<<<<<<<<<
@@ -9720,7 +9720,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_16dump(struct __pyx
           goto __pyx_L9_except_error;
           __pyx_L9_except_error:;
 
-          /* "pycrfsuite/_pycrfsuite.pyx":698
+          /* "pycrfsuite/_pycrfsuite.pyx":707
  *                 self.c_tagger.dump(fd)
  *             finally:
  *                 try:             # <<<<<<<<<<<<<<
@@ -9770,16 +9770,16 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_16dump(struct __pyx
             __Pyx_XGOTREF(__pyx_t_19);
             /*try:*/ {
 
-              /* "pycrfsuite/_pycrfsuite.pyx":699
+              /* "pycrfsuite/_pycrfsuite.pyx":708
  *             finally:
  *                 try:
  *                     os.close(fd)             # <<<<<<<<<<<<<<
  *                 except OSError:
  *                     pass  # already closed by Tagger::dump
  */
-              __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_os); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 699, __pyx_L15_error)
+              __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_os); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 708, __pyx_L15_error)
               __Pyx_GOTREF(__pyx_t_4);
-              __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_close); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 699, __pyx_L15_error)
+              __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_close); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 708, __pyx_L15_error)
               __Pyx_GOTREF(__pyx_t_5);
               __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
               __pyx_t_4 = NULL;
@@ -9793,13 +9793,13 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_16dump(struct __pyx
                 }
               }
               if (!__pyx_t_4) {
-                __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_v_fd); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 699, __pyx_L15_error)
+                __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_v_fd); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 708, __pyx_L15_error)
                 __Pyx_GOTREF(__pyx_t_3);
               } else {
                 #if CYTHON_FAST_PYCALL
                 if (PyFunction_Check(__pyx_t_5)) {
                   PyObject *__pyx_temp[2] = {__pyx_t_4, __pyx_v_fd};
-                  __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 699, __pyx_L15_error)
+                  __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 708, __pyx_L15_error)
                   __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
                   __Pyx_GOTREF(__pyx_t_3);
                 } else
@@ -9807,19 +9807,19 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_16dump(struct __pyx
                 #if CYTHON_FAST_PYCCALL
                 if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
                   PyObject *__pyx_temp[2] = {__pyx_t_4, __pyx_v_fd};
-                  __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 699, __pyx_L15_error)
+                  __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 708, __pyx_L15_error)
                   __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
                   __Pyx_GOTREF(__pyx_t_3);
                 } else
                 #endif
                 {
-                  __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 699, __pyx_L15_error)
+                  __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 708, __pyx_L15_error)
                   __Pyx_GOTREF(__pyx_t_7);
                   __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_4); __pyx_t_4 = NULL;
                   __Pyx_INCREF(__pyx_v_fd);
                   __Pyx_GIVEREF(__pyx_v_fd);
                   PyTuple_SET_ITEM(__pyx_t_7, 0+1, __pyx_v_fd);
-                  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_7, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 699, __pyx_L15_error)
+                  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_7, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 708, __pyx_L15_error)
                   __Pyx_GOTREF(__pyx_t_3);
                   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
                 }
@@ -9827,7 +9827,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_16dump(struct __pyx
               __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
               __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-              /* "pycrfsuite/_pycrfsuite.pyx":698
+              /* "pycrfsuite/_pycrfsuite.pyx":707
  *                 self.c_tagger.dump(fd)
  *             finally:
  *                 try:             # <<<<<<<<<<<<<<
@@ -9846,7 +9846,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_16dump(struct __pyx
             __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
             __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-            /* "pycrfsuite/_pycrfsuite.pyx":700
+            /* "pycrfsuite/_pycrfsuite.pyx":709
  *                 try:
  *                     os.close(fd)
  *                 except OSError:             # <<<<<<<<<<<<<<
@@ -9861,7 +9861,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_16dump(struct __pyx
             goto __pyx_L17_except_error;
             __pyx_L17_except_error:;
 
-            /* "pycrfsuite/_pycrfsuite.pyx":698
+            /* "pycrfsuite/_pycrfsuite.pyx":707
  *                 self.c_tagger.dump(fd)
  *             finally:
  *                 try:             # <<<<<<<<<<<<<<
@@ -9912,7 +9912,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_16dump(struct __pyx
   }
   __pyx_L3:;
 
-  /* "pycrfsuite/_pycrfsuite.pyx":681
+  /* "pycrfsuite/_pycrfsuite.pyx":690
  *         self.c_tagger.set(to_seq(xseq))
  * 
  *     def dump(self, filename=None):             # <<<<<<<<<<<<<<
@@ -9938,7 +9938,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_16dump(struct __pyx
   return __pyx_r;
 }
 
-/* "pycrfsuite/_pycrfsuite.pyx":703
+/* "pycrfsuite/_pycrfsuite.pyx":712
  *                     pass  # already closed by Tagger::dump
  * 
  *     def info(self):             # <<<<<<<<<<<<<<
@@ -9994,16 +9994,16 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_18info(struct __pyx
   int __pyx_t_24;
   __Pyx_RefNannySetupContext("info", 0);
 
-  /* "pycrfsuite/_pycrfsuite.pyx":707
+  /* "pycrfsuite/_pycrfsuite.pyx":716
  *         Return a :class:`~.ParsedDump` structure with model internal information.
  *         """
  *         parser = _dumpparser.CRFsuiteDumpParser()             # <<<<<<<<<<<<<<
  *         fd, name = tempfile.mkstemp()
  *         try:
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_dumpparser); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 707, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_dumpparser); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 716, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_CRFsuiteDumpParser); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 707, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_CRFsuiteDumpParser); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 716, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -10017,26 +10017,26 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_18info(struct __pyx
     }
   }
   if (__pyx_t_2) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 707, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 716, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   } else {
-    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 707, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 716, __pyx_L1_error)
   }
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_v_parser = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pycrfsuite/_pycrfsuite.pyx":708
+  /* "pycrfsuite/_pycrfsuite.pyx":717
  *         """
  *         parser = _dumpparser.CRFsuiteDumpParser()
  *         fd, name = tempfile.mkstemp()             # <<<<<<<<<<<<<<
  *         try:
  *             self.c_tagger.dump(fd)
  */
-  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_tempfile); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 708, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_tempfile); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 717, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_mkstemp); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 708, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_mkstemp); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 717, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_t_3 = NULL;
@@ -10050,10 +10050,10 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_18info(struct __pyx
     }
   }
   if (__pyx_t_3) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 708, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 717, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   } else {
-    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 708, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 717, __pyx_L1_error)
   }
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -10063,7 +10063,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_18info(struct __pyx
     if (unlikely(size != 2)) {
       if (size > 2) __Pyx_RaiseTooManyValuesError(2);
       else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-      __PYX_ERR(1, 708, __pyx_L1_error)
+      __PYX_ERR(1, 717, __pyx_L1_error)
     }
     #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
     if (likely(PyTuple_CheckExact(sequence))) {
@@ -10076,15 +10076,15 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_18info(struct __pyx
     __Pyx_INCREF(__pyx_t_2);
     __Pyx_INCREF(__pyx_t_3);
     #else
-    __pyx_t_2 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 708, __pyx_L1_error)
+    __pyx_t_2 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 717, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_3 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 708, __pyx_L1_error)
+    __pyx_t_3 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 717, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     #endif
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   } else {
     Py_ssize_t index = -1;
-    __pyx_t_4 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 708, __pyx_L1_error)
+    __pyx_t_4 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 717, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __pyx_t_5 = Py_TYPE(__pyx_t_4)->tp_iternext;
@@ -10092,7 +10092,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_18info(struct __pyx
     __Pyx_GOTREF(__pyx_t_2);
     index = 1; __pyx_t_3 = __pyx_t_5(__pyx_t_4); if (unlikely(!__pyx_t_3)) goto __pyx_L3_unpacking_failed;
     __Pyx_GOTREF(__pyx_t_3);
-    if (__Pyx_IternextUnpackEndCheck(__pyx_t_5(__pyx_t_4), 2) < 0) __PYX_ERR(1, 708, __pyx_L1_error)
+    if (__Pyx_IternextUnpackEndCheck(__pyx_t_5(__pyx_t_4), 2) < 0) __PYX_ERR(1, 717, __pyx_L1_error)
     __pyx_t_5 = NULL;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     goto __pyx_L4_unpacking_done;
@@ -10100,7 +10100,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_18info(struct __pyx
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_t_5 = NULL;
     if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-    __PYX_ERR(1, 708, __pyx_L1_error)
+    __PYX_ERR(1, 717, __pyx_L1_error)
     __pyx_L4_unpacking_done:;
   }
   __pyx_v_fd = __pyx_t_2;
@@ -10108,7 +10108,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_18info(struct __pyx
   __pyx_v_name = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "pycrfsuite/_pycrfsuite.pyx":709
+  /* "pycrfsuite/_pycrfsuite.pyx":718
  *         parser = _dumpparser.CRFsuiteDumpParser()
  *         fd, name = tempfile.mkstemp()
  *         try:             # <<<<<<<<<<<<<<
@@ -10117,22 +10117,22 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_18info(struct __pyx
  */
   /*try:*/ {
 
-    /* "pycrfsuite/_pycrfsuite.pyx":710
+    /* "pycrfsuite/_pycrfsuite.pyx":719
  *         fd, name = tempfile.mkstemp()
  *         try:
  *             self.c_tagger.dump(fd)             # <<<<<<<<<<<<<<
  *             with open(name, 'rb') as f:
  *                 for line in f:
  */
-    __pyx_t_6 = __Pyx_PyInt_As_int(__pyx_v_fd); if (unlikely((__pyx_t_6 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 710, __pyx_L6_error)
+    __pyx_t_6 = __Pyx_PyInt_As_int(__pyx_v_fd); if (unlikely((__pyx_t_6 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 719, __pyx_L6_error)
     try {
       __pyx_v_self->c_tagger.dump(__pyx_t_6);
     } catch(...) {
       __Pyx_CppExn2PyErr();
-      __PYX_ERR(1, 710, __pyx_L6_error)
+      __PYX_ERR(1, 719, __pyx_L6_error)
     }
 
-    /* "pycrfsuite/_pycrfsuite.pyx":711
+    /* "pycrfsuite/_pycrfsuite.pyx":720
  *         try:
  *             self.c_tagger.dump(fd)
  *             with open(name, 'rb') as f:             # <<<<<<<<<<<<<<
@@ -10140,7 +10140,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_18info(struct __pyx
  *                     parser.feed(line.decode('utf8'))
  */
     /*with:*/ {
-      __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 711, __pyx_L6_error)
+      __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 720, __pyx_L6_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_INCREF(__pyx_v_name);
       __Pyx_GIVEREF(__pyx_v_name);
@@ -10148,12 +10148,12 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_18info(struct __pyx
       __Pyx_INCREF(__pyx_n_s_rb);
       __Pyx_GIVEREF(__pyx_n_s_rb);
       PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_n_s_rb);
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_open, __pyx_t_1, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 711, __pyx_L6_error)
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_open, __pyx_t_1, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 720, __pyx_L6_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_7 = __Pyx_PyObject_LookupSpecial(__pyx_t_3, __pyx_n_s_exit); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 711, __pyx_L6_error)
+      __pyx_t_7 = __Pyx_PyObject_LookupSpecial(__pyx_t_3, __pyx_n_s_exit); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 720, __pyx_L6_error)
       __Pyx_GOTREF(__pyx_t_7);
-      __pyx_t_2 = __Pyx_PyObject_LookupSpecial(__pyx_t_3, __pyx_n_s_enter); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 711, __pyx_L8_error)
+      __pyx_t_2 = __Pyx_PyObject_LookupSpecial(__pyx_t_3, __pyx_n_s_enter); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 720, __pyx_L8_error)
       __Pyx_GOTREF(__pyx_t_2);
       __pyx_t_4 = NULL;
       if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -10166,10 +10166,10 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_18info(struct __pyx
         }
       }
       if (__pyx_t_4) {
-        __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 711, __pyx_L8_error)
+        __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 720, __pyx_L8_error)
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       } else {
-        __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 711, __pyx_L8_error)
+        __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 720, __pyx_L8_error)
       }
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -10188,7 +10188,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_18info(struct __pyx
             __pyx_v_f = __pyx_t_2;
             __pyx_t_2 = 0;
 
-            /* "pycrfsuite/_pycrfsuite.pyx":712
+            /* "pycrfsuite/_pycrfsuite.pyx":721
  *             self.c_tagger.dump(fd)
  *             with open(name, 'rb') as f:
  *                 for line in f:             # <<<<<<<<<<<<<<
@@ -10199,26 +10199,26 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_18info(struct __pyx
               __pyx_t_2 = __pyx_v_f; __Pyx_INCREF(__pyx_t_2); __pyx_t_11 = 0;
               __pyx_t_12 = NULL;
             } else {
-              __pyx_t_11 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_v_f); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 712, __pyx_L12_error)
+              __pyx_t_11 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_v_f); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 721, __pyx_L12_error)
               __Pyx_GOTREF(__pyx_t_2);
-              __pyx_t_12 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_12)) __PYX_ERR(1, 712, __pyx_L12_error)
+              __pyx_t_12 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_12)) __PYX_ERR(1, 721, __pyx_L12_error)
             }
             for (;;) {
               if (likely(!__pyx_t_12)) {
                 if (likely(PyList_CheckExact(__pyx_t_2))) {
                   if (__pyx_t_11 >= PyList_GET_SIZE(__pyx_t_2)) break;
                   #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-                  __pyx_t_3 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_11); __Pyx_INCREF(__pyx_t_3); __pyx_t_11++; if (unlikely(0 < 0)) __PYX_ERR(1, 712, __pyx_L12_error)
+                  __pyx_t_3 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_11); __Pyx_INCREF(__pyx_t_3); __pyx_t_11++; if (unlikely(0 < 0)) __PYX_ERR(1, 721, __pyx_L12_error)
                   #else
-                  __pyx_t_3 = PySequence_ITEM(__pyx_t_2, __pyx_t_11); __pyx_t_11++; if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 712, __pyx_L12_error)
+                  __pyx_t_3 = PySequence_ITEM(__pyx_t_2, __pyx_t_11); __pyx_t_11++; if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 721, __pyx_L12_error)
                   __Pyx_GOTREF(__pyx_t_3);
                   #endif
                 } else {
                   if (__pyx_t_11 >= PyTuple_GET_SIZE(__pyx_t_2)) break;
                   #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-                  __pyx_t_3 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_11); __Pyx_INCREF(__pyx_t_3); __pyx_t_11++; if (unlikely(0 < 0)) __PYX_ERR(1, 712, __pyx_L12_error)
+                  __pyx_t_3 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_11); __Pyx_INCREF(__pyx_t_3); __pyx_t_11++; if (unlikely(0 < 0)) __PYX_ERR(1, 721, __pyx_L12_error)
                   #else
-                  __pyx_t_3 = PySequence_ITEM(__pyx_t_2, __pyx_t_11); __pyx_t_11++; if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 712, __pyx_L12_error)
+                  __pyx_t_3 = PySequence_ITEM(__pyx_t_2, __pyx_t_11); __pyx_t_11++; if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 721, __pyx_L12_error)
                   __Pyx_GOTREF(__pyx_t_3);
                   #endif
                 }
@@ -10228,7 +10228,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_18info(struct __pyx
                   PyObject* exc_type = PyErr_Occurred();
                   if (exc_type) {
                     if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-                    else __PYX_ERR(1, 712, __pyx_L12_error)
+                    else __PYX_ERR(1, 721, __pyx_L12_error)
                   }
                   break;
                 }
@@ -10237,18 +10237,18 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_18info(struct __pyx
               __Pyx_XDECREF_SET(__pyx_v_line, __pyx_t_3);
               __pyx_t_3 = 0;
 
-              /* "pycrfsuite/_pycrfsuite.pyx":713
+              /* "pycrfsuite/_pycrfsuite.pyx":722
  *             with open(name, 'rb') as f:
  *                 for line in f:
  *                     parser.feed(line.decode('utf8'))             # <<<<<<<<<<<<<<
  *         finally:
  *             try:
  */
-              __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_parser, __pyx_n_s_feed); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 713, __pyx_L12_error)
+              __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_parser, __pyx_n_s_feed); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 722, __pyx_L12_error)
               __Pyx_GOTREF(__pyx_t_1);
-              __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_line, __pyx_n_s_decode); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 713, __pyx_L12_error)
+              __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_line, __pyx_n_s_decode); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 722, __pyx_L12_error)
               __Pyx_GOTREF(__pyx_t_4);
-              __pyx_t_13 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_tuple__7, NULL); if (unlikely(!__pyx_t_13)) __PYX_ERR(1, 713, __pyx_L12_error)
+              __pyx_t_13 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_tuple__7, NULL); if (unlikely(!__pyx_t_13)) __PYX_ERR(1, 722, __pyx_L12_error)
               __Pyx_GOTREF(__pyx_t_13);
               __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
               __pyx_t_4 = NULL;
@@ -10262,14 +10262,14 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_18info(struct __pyx
                 }
               }
               if (!__pyx_t_4) {
-                __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_13); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 713, __pyx_L12_error)
+                __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_13); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 722, __pyx_L12_error)
                 __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
                 __Pyx_GOTREF(__pyx_t_3);
               } else {
                 #if CYTHON_FAST_PYCALL
                 if (PyFunction_Check(__pyx_t_1)) {
                   PyObject *__pyx_temp[2] = {__pyx_t_4, __pyx_t_13};
-                  __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 713, __pyx_L12_error)
+                  __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 722, __pyx_L12_error)
                   __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
                   __Pyx_GOTREF(__pyx_t_3);
                   __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
@@ -10278,20 +10278,20 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_18info(struct __pyx
                 #if CYTHON_FAST_PYCCALL
                 if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
                   PyObject *__pyx_temp[2] = {__pyx_t_4, __pyx_t_13};
-                  __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 713, __pyx_L12_error)
+                  __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 722, __pyx_L12_error)
                   __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
                   __Pyx_GOTREF(__pyx_t_3);
                   __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
                 } else
                 #endif
                 {
-                  __pyx_t_14 = PyTuple_New(1+1); if (unlikely(!__pyx_t_14)) __PYX_ERR(1, 713, __pyx_L12_error)
+                  __pyx_t_14 = PyTuple_New(1+1); if (unlikely(!__pyx_t_14)) __PYX_ERR(1, 722, __pyx_L12_error)
                   __Pyx_GOTREF(__pyx_t_14);
                   __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_14, 0, __pyx_t_4); __pyx_t_4 = NULL;
                   __Pyx_GIVEREF(__pyx_t_13);
                   PyTuple_SET_ITEM(__pyx_t_14, 0+1, __pyx_t_13);
                   __pyx_t_13 = 0;
-                  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_14, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 713, __pyx_L12_error)
+                  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_14, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 722, __pyx_L12_error)
                   __Pyx_GOTREF(__pyx_t_3);
                   __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
                 }
@@ -10299,7 +10299,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_18info(struct __pyx
               __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
               __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-              /* "pycrfsuite/_pycrfsuite.pyx":712
+              /* "pycrfsuite/_pycrfsuite.pyx":721
  *             self.c_tagger.dump(fd)
  *             with open(name, 'rb') as f:
  *                 for line in f:             # <<<<<<<<<<<<<<
@@ -10309,7 +10309,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_18info(struct __pyx
             }
             __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-            /* "pycrfsuite/_pycrfsuite.pyx":711
+            /* "pycrfsuite/_pycrfsuite.pyx":720
  *         try:
  *             self.c_tagger.dump(fd)
  *             with open(name, 'rb') as f:             # <<<<<<<<<<<<<<
@@ -10330,20 +10330,20 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_18info(struct __pyx
           __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
           /*except:*/ {
             __Pyx_AddTraceback("pycrfsuite._pycrfsuite.Tagger.info", __pyx_clineno, __pyx_lineno, __pyx_filename);
-            if (__Pyx_GetException(&__pyx_t_2, &__pyx_t_3, &__pyx_t_1) < 0) __PYX_ERR(1, 711, __pyx_L14_except_error)
+            if (__Pyx_GetException(&__pyx_t_2, &__pyx_t_3, &__pyx_t_1) < 0) __PYX_ERR(1, 720, __pyx_L14_except_error)
             __Pyx_GOTREF(__pyx_t_2);
             __Pyx_GOTREF(__pyx_t_3);
             __Pyx_GOTREF(__pyx_t_1);
-            __pyx_t_14 = PyTuple_Pack(3, __pyx_t_2, __pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_14)) __PYX_ERR(1, 711, __pyx_L14_except_error)
+            __pyx_t_14 = PyTuple_Pack(3, __pyx_t_2, __pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_14)) __PYX_ERR(1, 720, __pyx_L14_except_error)
             __Pyx_GOTREF(__pyx_t_14);
             __pyx_t_15 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_14, NULL);
             __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
             __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-            if (unlikely(!__pyx_t_15)) __PYX_ERR(1, 711, __pyx_L14_except_error)
+            if (unlikely(!__pyx_t_15)) __PYX_ERR(1, 720, __pyx_L14_except_error)
             __Pyx_GOTREF(__pyx_t_15);
             __pyx_t_16 = __Pyx_PyObject_IsTrue(__pyx_t_15);
             __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
-            if (__pyx_t_16 < 0) __PYX_ERR(1, 711, __pyx_L14_except_error)
+            if (__pyx_t_16 < 0) __PYX_ERR(1, 720, __pyx_L14_except_error)
             __pyx_t_17 = ((!(__pyx_t_16 != 0)) != 0);
             if (__pyx_t_17) {
               __Pyx_GIVEREF(__pyx_t_2);
@@ -10351,7 +10351,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_18info(struct __pyx
               __Pyx_XGIVEREF(__pyx_t_1);
               __Pyx_ErrRestoreWithState(__pyx_t_2, __pyx_t_3, __pyx_t_1);
               __pyx_t_2 = 0; __pyx_t_3 = 0; __pyx_t_1 = 0; 
-              __PYX_ERR(1, 711, __pyx_L14_except_error)
+              __PYX_ERR(1, 720, __pyx_L14_except_error)
             }
             __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
             __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -10377,7 +10377,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_18info(struct __pyx
           if (__pyx_t_7) {
             __pyx_t_10 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_tuple__8, NULL);
             __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-            if (unlikely(!__pyx_t_10)) __PYX_ERR(1, 711, __pyx_L6_error)
+            if (unlikely(!__pyx_t_10)) __PYX_ERR(1, 720, __pyx_L6_error)
             __Pyx_GOTREF(__pyx_t_10);
             __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
           }
@@ -10393,7 +10393,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_18info(struct __pyx
     }
   }
 
-  /* "pycrfsuite/_pycrfsuite.pyx":715
+  /* "pycrfsuite/_pycrfsuite.pyx":724
  *                     parser.feed(line.decode('utf8'))
  *         finally:
  *             try:             # <<<<<<<<<<<<<<
@@ -10411,16 +10411,16 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_18info(struct __pyx
         __Pyx_XGOTREF(__pyx_t_9);
         /*try:*/ {
 
-          /* "pycrfsuite/_pycrfsuite.pyx":716
+          /* "pycrfsuite/_pycrfsuite.pyx":725
  *         finally:
  *             try:
  *                 os.unlink(name)             # <<<<<<<<<<<<<<
  *             except OSError:
  *                 pass
  */
-          __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_os); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 716, __pyx_L24_error)
+          __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_os); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 725, __pyx_L24_error)
           __Pyx_GOTREF(__pyx_t_3);
-          __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_unlink); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 716, __pyx_L24_error)
+          __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_unlink); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 725, __pyx_L24_error)
           __Pyx_GOTREF(__pyx_t_2);
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           __pyx_t_3 = NULL;
@@ -10434,13 +10434,13 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_18info(struct __pyx
             }
           }
           if (!__pyx_t_3) {
-            __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v_name); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 716, __pyx_L24_error)
+            __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v_name); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 725, __pyx_L24_error)
             __Pyx_GOTREF(__pyx_t_1);
           } else {
             #if CYTHON_FAST_PYCALL
             if (PyFunction_Check(__pyx_t_2)) {
               PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_v_name};
-              __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 716, __pyx_L24_error)
+              __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 725, __pyx_L24_error)
               __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
               __Pyx_GOTREF(__pyx_t_1);
             } else
@@ -10448,19 +10448,19 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_18info(struct __pyx
             #if CYTHON_FAST_PYCCALL
             if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
               PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_v_name};
-              __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 716, __pyx_L24_error)
+              __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 725, __pyx_L24_error)
               __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
               __Pyx_GOTREF(__pyx_t_1);
             } else
             #endif
             {
-              __pyx_t_14 = PyTuple_New(1+1); if (unlikely(!__pyx_t_14)) __PYX_ERR(1, 716, __pyx_L24_error)
+              __pyx_t_14 = PyTuple_New(1+1); if (unlikely(!__pyx_t_14)) __PYX_ERR(1, 725, __pyx_L24_error)
               __Pyx_GOTREF(__pyx_t_14);
               __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_14, 0, __pyx_t_3); __pyx_t_3 = NULL;
               __Pyx_INCREF(__pyx_v_name);
               __Pyx_GIVEREF(__pyx_v_name);
               PyTuple_SET_ITEM(__pyx_t_14, 0+1, __pyx_v_name);
-              __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_14, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 716, __pyx_L24_error)
+              __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_14, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 725, __pyx_L24_error)
               __Pyx_GOTREF(__pyx_t_1);
               __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
             }
@@ -10468,7 +10468,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_18info(struct __pyx
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-          /* "pycrfsuite/_pycrfsuite.pyx":715
+          /* "pycrfsuite/_pycrfsuite.pyx":724
  *                     parser.feed(line.decode('utf8'))
  *         finally:
  *             try:             # <<<<<<<<<<<<<<
@@ -10488,7 +10488,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_18info(struct __pyx
         __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
         __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-        /* "pycrfsuite/_pycrfsuite.pyx":717
+        /* "pycrfsuite/_pycrfsuite.pyx":726
  *             try:
  *                 os.unlink(name)
  *             except OSError:             # <<<<<<<<<<<<<<
@@ -10503,7 +10503,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_18info(struct __pyx
         goto __pyx_L26_except_error;
         __pyx_L26_except_error:;
 
-        /* "pycrfsuite/_pycrfsuite.pyx":715
+        /* "pycrfsuite/_pycrfsuite.pyx":724
  *                     parser.feed(line.decode('utf8'))
  *         finally:
  *             try:             # <<<<<<<<<<<<<<
@@ -10554,16 +10554,16 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_18info(struct __pyx
           __Pyx_XGOTREF(__pyx_t_23);
           /*try:*/ {
 
-            /* "pycrfsuite/_pycrfsuite.pyx":716
+            /* "pycrfsuite/_pycrfsuite.pyx":725
  *         finally:
  *             try:
  *                 os.unlink(name)             # <<<<<<<<<<<<<<
  *             except OSError:
  *                 pass
  */
-            __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_os); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 716, __pyx_L32_error)
+            __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_os); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 725, __pyx_L32_error)
             __Pyx_GOTREF(__pyx_t_2);
-            __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_unlink); if (unlikely(!__pyx_t_14)) __PYX_ERR(1, 716, __pyx_L32_error)
+            __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_unlink); if (unlikely(!__pyx_t_14)) __PYX_ERR(1, 725, __pyx_L32_error)
             __Pyx_GOTREF(__pyx_t_14);
             __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
             __pyx_t_2 = NULL;
@@ -10577,13 +10577,13 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_18info(struct __pyx
               }
             }
             if (!__pyx_t_2) {
-              __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_14, __pyx_v_name); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 716, __pyx_L32_error)
+              __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_14, __pyx_v_name); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 725, __pyx_L32_error)
               __Pyx_GOTREF(__pyx_t_1);
             } else {
               #if CYTHON_FAST_PYCALL
               if (PyFunction_Check(__pyx_t_14)) {
                 PyObject *__pyx_temp[2] = {__pyx_t_2, __pyx_v_name};
-                __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_14, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 716, __pyx_L32_error)
+                __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_14, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 725, __pyx_L32_error)
                 __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
                 __Pyx_GOTREF(__pyx_t_1);
               } else
@@ -10591,19 +10591,19 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_18info(struct __pyx
               #if CYTHON_FAST_PYCCALL
               if (__Pyx_PyFastCFunction_Check(__pyx_t_14)) {
                 PyObject *__pyx_temp[2] = {__pyx_t_2, __pyx_v_name};
-                __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_14, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 716, __pyx_L32_error)
+                __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_14, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 725, __pyx_L32_error)
                 __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
                 __Pyx_GOTREF(__pyx_t_1);
               } else
               #endif
               {
-                __pyx_t_3 = PyTuple_New(1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 716, __pyx_L32_error)
+                __pyx_t_3 = PyTuple_New(1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 725, __pyx_L32_error)
                 __Pyx_GOTREF(__pyx_t_3);
                 __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_2); __pyx_t_2 = NULL;
                 __Pyx_INCREF(__pyx_v_name);
                 __Pyx_GIVEREF(__pyx_v_name);
                 PyTuple_SET_ITEM(__pyx_t_3, 0+1, __pyx_v_name);
-                __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_14, __pyx_t_3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 716, __pyx_L32_error)
+                __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_14, __pyx_t_3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 725, __pyx_L32_error)
                 __Pyx_GOTREF(__pyx_t_1);
                 __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
               }
@@ -10611,7 +10611,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_18info(struct __pyx
             __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-            /* "pycrfsuite/_pycrfsuite.pyx":715
+            /* "pycrfsuite/_pycrfsuite.pyx":724
  *                     parser.feed(line.decode('utf8'))
  *         finally:
  *             try:             # <<<<<<<<<<<<<<
@@ -10631,7 +10631,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_18info(struct __pyx
           __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
           __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-          /* "pycrfsuite/_pycrfsuite.pyx":717
+          /* "pycrfsuite/_pycrfsuite.pyx":726
  *             try:
  *                 os.unlink(name)
  *             except OSError:             # <<<<<<<<<<<<<<
@@ -10646,7 +10646,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_18info(struct __pyx
           goto __pyx_L34_except_error;
           __pyx_L34_except_error:;
 
-          /* "pycrfsuite/_pycrfsuite.pyx":715
+          /* "pycrfsuite/_pycrfsuite.pyx":724
  *                     parser.feed(line.decode('utf8'))
  *         finally:
  *             try:             # <<<<<<<<<<<<<<
@@ -10695,7 +10695,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_18info(struct __pyx
     __pyx_L7:;
   }
 
-  /* "pycrfsuite/_pycrfsuite.pyx":719
+  /* "pycrfsuite/_pycrfsuite.pyx":728
  *             except OSError:
  *                 pass
  *         return parser.result             # <<<<<<<<<<<<<<
@@ -10703,13 +10703,13 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_18info(struct __pyx
  *     def _check_model(self, name):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_parser, __pyx_n_s_result); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 719, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_parser, __pyx_n_s_result); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 728, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pycrfsuite/_pycrfsuite.pyx":703
+  /* "pycrfsuite/_pycrfsuite.pyx":712
  *                     pass  # already closed by Tagger::dump
  * 
  *     def info(self):             # <<<<<<<<<<<<<<
@@ -10738,7 +10738,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_18info(struct __pyx
   return __pyx_r;
 }
 
-/* "pycrfsuite/_pycrfsuite.pyx":721
+/* "pycrfsuite/_pycrfsuite.pyx":730
  *         return parser.result
  * 
  *     def _check_model(self, name):             # <<<<<<<<<<<<<<
@@ -10781,7 +10781,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_20_check_model(CYTH
   int __pyx_t_13;
   __Pyx_RefNannySetupContext("_check_model", 0);
 
-  /* "pycrfsuite/_pycrfsuite.pyx":724
+  /* "pycrfsuite/_pycrfsuite.pyx":733
  *         # See https://github.com/chokkan/crfsuite/pull/24
  *         # 1. Check that the file can be opened.
  *         with open(name, 'rb') as f:             # <<<<<<<<<<<<<<
@@ -10789,7 +10789,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_20_check_model(CYTH
  *             # 2. Check that file magic is correct.
  */
   /*with:*/ {
-    __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 724, __pyx_L1_error)
+    __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 733, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_INCREF(__pyx_v_name);
     __Pyx_GIVEREF(__pyx_v_name);
@@ -10797,12 +10797,12 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_20_check_model(CYTH
     __Pyx_INCREF(__pyx_n_s_rb);
     __Pyx_GIVEREF(__pyx_n_s_rb);
     PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_n_s_rb);
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_open, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 724, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_open, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 733, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_3 = __Pyx_PyObject_LookupSpecial(__pyx_t_2, __pyx_n_s_exit); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 724, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_LookupSpecial(__pyx_t_2, __pyx_n_s_exit); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 733, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __Pyx_PyObject_LookupSpecial(__pyx_t_2, __pyx_n_s_enter); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 724, __pyx_L3_error)
+    __pyx_t_4 = __Pyx_PyObject_LookupSpecial(__pyx_t_2, __pyx_n_s_enter); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 733, __pyx_L3_error)
     __Pyx_GOTREF(__pyx_t_4);
     __pyx_t_5 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
@@ -10815,10 +10815,10 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_20_check_model(CYTH
       }
     }
     if (__pyx_t_5) {
-      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 724, __pyx_L3_error)
+      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 733, __pyx_L3_error)
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     } else {
-      __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 724, __pyx_L3_error)
+      __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 733, __pyx_L3_error)
     }
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -10837,48 +10837,48 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_20_check_model(CYTH
           __pyx_v_f = __pyx_t_4;
           __pyx_t_4 = 0;
 
-          /* "pycrfsuite/_pycrfsuite.pyx":727
+          /* "pycrfsuite/_pycrfsuite.pyx":736
  * 
  *             # 2. Check that file magic is correct.
  *             magic = f.read(4)             # <<<<<<<<<<<<<<
  *             if magic != b'lCRF':
  *                 raise ValueError("Invalid model file %r" % name)
  */
-          __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_f, __pyx_n_s_read); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 727, __pyx_L7_error)
+          __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_f, __pyx_n_s_read); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 736, __pyx_L7_error)
           __Pyx_GOTREF(__pyx_t_4);
-          __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_tuple__9, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 727, __pyx_L7_error)
+          __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_tuple__9, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 736, __pyx_L7_error)
           __Pyx_GOTREF(__pyx_t_2);
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
           __pyx_v_magic = __pyx_t_2;
           __pyx_t_2 = 0;
 
-          /* "pycrfsuite/_pycrfsuite.pyx":728
+          /* "pycrfsuite/_pycrfsuite.pyx":737
  *             # 2. Check that file magic is correct.
  *             magic = f.read(4)
  *             if magic != b'lCRF':             # <<<<<<<<<<<<<<
  *                 raise ValueError("Invalid model file %r" % name)
  * 
  */
-          __pyx_t_9 = (__Pyx_PyBytes_Equals(__pyx_v_magic, __pyx_n_b_lCRF, Py_NE)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(1, 728, __pyx_L7_error)
+          __pyx_t_9 = (__Pyx_PyBytes_Equals(__pyx_v_magic, __pyx_n_b_lCRF, Py_NE)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(1, 737, __pyx_L7_error)
           if (unlikely(__pyx_t_9)) {
 
-            /* "pycrfsuite/_pycrfsuite.pyx":729
+            /* "pycrfsuite/_pycrfsuite.pyx":738
  *             magic = f.read(4)
  *             if magic != b'lCRF':
  *                 raise ValueError("Invalid model file %r" % name)             # <<<<<<<<<<<<<<
  * 
  *             # 3. Make sure crfsuite won't read past allocated memory
  */
-            __pyx_t_2 = __Pyx_PyString_Format(__pyx_kp_s_Invalid_model_file_r, __pyx_v_name); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 729, __pyx_L7_error)
+            __pyx_t_2 = __Pyx_PyString_Format(__pyx_kp_s_Invalid_model_file_r, __pyx_v_name); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 738, __pyx_L7_error)
             __Pyx_GOTREF(__pyx_t_2);
-            __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_builtin_ValueError, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 729, __pyx_L7_error)
+            __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_builtin_ValueError, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 738, __pyx_L7_error)
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
             __Pyx_Raise(__pyx_t_4, 0, 0, 0);
             __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-            __PYX_ERR(1, 729, __pyx_L7_error)
+            __PYX_ERR(1, 738, __pyx_L7_error)
 
-            /* "pycrfsuite/_pycrfsuite.pyx":728
+            /* "pycrfsuite/_pycrfsuite.pyx":737
  *             # 2. Check that file magic is correct.
  *             magic = f.read(4)
  *             if magic != b'lCRF':             # <<<<<<<<<<<<<<
@@ -10887,18 +10887,18 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_20_check_model(CYTH
  */
           }
 
-          /* "pycrfsuite/_pycrfsuite.pyx":733
+          /* "pycrfsuite/_pycrfsuite.pyx":742
  *             # 3. Make sure crfsuite won't read past allocated memory
  *             # in case of incomplete header.
  *             f.seek(0, os.SEEK_END)             # <<<<<<<<<<<<<<
  *             size = f.tell()
  *             if size <= 48:  # header size
  */
-          __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_f, __pyx_n_s_seek); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 733, __pyx_L7_error)
+          __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_f, __pyx_n_s_seek); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 742, __pyx_L7_error)
           __Pyx_GOTREF(__pyx_t_2);
-          __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_os); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 733, __pyx_L7_error)
+          __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_os); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 742, __pyx_L7_error)
           __Pyx_GOTREF(__pyx_t_1);
-          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_SEEK_END); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 733, __pyx_L7_error)
+          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_SEEK_END); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 742, __pyx_L7_error)
           __Pyx_GOTREF(__pyx_t_5);
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
           __pyx_t_1 = NULL;
@@ -10916,7 +10916,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_20_check_model(CYTH
           #if CYTHON_FAST_PYCALL
           if (PyFunction_Check(__pyx_t_2)) {
             PyObject *__pyx_temp[3] = {__pyx_t_1, __pyx_int_0, __pyx_t_5};
-            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 733, __pyx_L7_error)
+            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 742, __pyx_L7_error)
             __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
@@ -10925,14 +10925,14 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_20_check_model(CYTH
           #if CYTHON_FAST_PYCCALL
           if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
             PyObject *__pyx_temp[3] = {__pyx_t_1, __pyx_int_0, __pyx_t_5};
-            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 733, __pyx_L7_error)
+            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_10, 2+__pyx_t_10); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 742, __pyx_L7_error)
             __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
           } else
           #endif
           {
-            __pyx_t_11 = PyTuple_New(2+__pyx_t_10); if (unlikely(!__pyx_t_11)) __PYX_ERR(1, 733, __pyx_L7_error)
+            __pyx_t_11 = PyTuple_New(2+__pyx_t_10); if (unlikely(!__pyx_t_11)) __PYX_ERR(1, 742, __pyx_L7_error)
             __Pyx_GOTREF(__pyx_t_11);
             if (__pyx_t_1) {
               __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_t_1); __pyx_t_1 = NULL;
@@ -10943,21 +10943,21 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_20_check_model(CYTH
             __Pyx_GIVEREF(__pyx_t_5);
             PyTuple_SET_ITEM(__pyx_t_11, 1+__pyx_t_10, __pyx_t_5);
             __pyx_t_5 = 0;
-            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_11, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 733, __pyx_L7_error)
+            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_11, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 742, __pyx_L7_error)
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
           }
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-          /* "pycrfsuite/_pycrfsuite.pyx":734
+          /* "pycrfsuite/_pycrfsuite.pyx":743
  *             # in case of incomplete header.
  *             f.seek(0, os.SEEK_END)
  *             size = f.tell()             # <<<<<<<<<<<<<<
  *             if size <= 48:  # header size
  *                 raise ValueError("Model file %r doesn't have a complete header" % name)
  */
-          __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_f, __pyx_n_s_tell); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 734, __pyx_L7_error)
+          __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_f, __pyx_n_s_tell); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 743, __pyx_L7_error)
           __Pyx_GOTREF(__pyx_t_2);
           __pyx_t_11 = NULL;
           if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -10970,45 +10970,45 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_20_check_model(CYTH
             }
           }
           if (__pyx_t_11) {
-            __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_11); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 734, __pyx_L7_error)
+            __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_11); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 743, __pyx_L7_error)
             __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
           } else {
-            __pyx_t_4 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 734, __pyx_L7_error)
+            __pyx_t_4 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 743, __pyx_L7_error)
           }
           __Pyx_GOTREF(__pyx_t_4);
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
           __pyx_v_size = __pyx_t_4;
           __pyx_t_4 = 0;
 
-          /* "pycrfsuite/_pycrfsuite.pyx":735
+          /* "pycrfsuite/_pycrfsuite.pyx":744
  *             f.seek(0, os.SEEK_END)
  *             size = f.tell()
  *             if size <= 48:  # header size             # <<<<<<<<<<<<<<
  *                 raise ValueError("Model file %r doesn't have a complete header" % name)
  * 
  */
-          __pyx_t_4 = PyObject_RichCompare(__pyx_v_size, __pyx_int_48, Py_LE); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 735, __pyx_L7_error)
-          __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(1, 735, __pyx_L7_error)
+          __pyx_t_4 = PyObject_RichCompare(__pyx_v_size, __pyx_int_48, Py_LE); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 744, __pyx_L7_error)
+          __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(1, 744, __pyx_L7_error)
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
           if (unlikely(__pyx_t_9)) {
 
-            /* "pycrfsuite/_pycrfsuite.pyx":736
+            /* "pycrfsuite/_pycrfsuite.pyx":745
  *             size = f.tell()
  *             if size <= 48:  # header size
  *                 raise ValueError("Model file %r doesn't have a complete header" % name)             # <<<<<<<<<<<<<<
  * 
  *     def _check_inmemory_model(self, bytes value):
  */
-            __pyx_t_4 = __Pyx_PyString_Format(__pyx_kp_s_Model_file_r_doesn_t_have_a_comp, __pyx_v_name); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 736, __pyx_L7_error)
+            __pyx_t_4 = __Pyx_PyString_Format(__pyx_kp_s_Model_file_r_doesn_t_have_a_comp, __pyx_v_name); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 745, __pyx_L7_error)
             __Pyx_GOTREF(__pyx_t_4);
-            __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_builtin_ValueError, __pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 736, __pyx_L7_error)
+            __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_builtin_ValueError, __pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 745, __pyx_L7_error)
             __Pyx_GOTREF(__pyx_t_2);
             __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
             __Pyx_Raise(__pyx_t_2, 0, 0, 0);
             __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-            __PYX_ERR(1, 736, __pyx_L7_error)
+            __PYX_ERR(1, 745, __pyx_L7_error)
 
-            /* "pycrfsuite/_pycrfsuite.pyx":735
+            /* "pycrfsuite/_pycrfsuite.pyx":744
  *             f.seek(0, os.SEEK_END)
  *             size = f.tell()
  *             if size <= 48:  # header size             # <<<<<<<<<<<<<<
@@ -11017,7 +11017,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_20_check_model(CYTH
  */
           }
 
-          /* "pycrfsuite/_pycrfsuite.pyx":724
+          /* "pycrfsuite/_pycrfsuite.pyx":733
  *         # See https://github.com/chokkan/crfsuite/pull/24
  *         # 1. Check that the file can be opened.
  *         with open(name, 'rb') as f:             # <<<<<<<<<<<<<<
@@ -11037,20 +11037,20 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_20_check_model(CYTH
         __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
         /*except:*/ {
           __Pyx_AddTraceback("pycrfsuite._pycrfsuite.Tagger._check_model", __pyx_clineno, __pyx_lineno, __pyx_filename);
-          if (__Pyx_GetException(&__pyx_t_2, &__pyx_t_4, &__pyx_t_11) < 0) __PYX_ERR(1, 724, __pyx_L9_except_error)
+          if (__Pyx_GetException(&__pyx_t_2, &__pyx_t_4, &__pyx_t_11) < 0) __PYX_ERR(1, 733, __pyx_L9_except_error)
           __Pyx_GOTREF(__pyx_t_2);
           __Pyx_GOTREF(__pyx_t_4);
           __Pyx_GOTREF(__pyx_t_11);
-          __pyx_t_5 = PyTuple_Pack(3, __pyx_t_2, __pyx_t_4, __pyx_t_11); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 724, __pyx_L9_except_error)
+          __pyx_t_5 = PyTuple_Pack(3, __pyx_t_2, __pyx_t_4, __pyx_t_11); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 733, __pyx_L9_except_error)
           __Pyx_GOTREF(__pyx_t_5);
           __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, NULL);
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-          if (unlikely(!__pyx_t_12)) __PYX_ERR(1, 724, __pyx_L9_except_error)
+          if (unlikely(!__pyx_t_12)) __PYX_ERR(1, 733, __pyx_L9_except_error)
           __Pyx_GOTREF(__pyx_t_12);
           __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_12);
           __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-          if (__pyx_t_9 < 0) __PYX_ERR(1, 724, __pyx_L9_except_error)
+          if (__pyx_t_9 < 0) __PYX_ERR(1, 733, __pyx_L9_except_error)
           __pyx_t_13 = ((!(__pyx_t_9 != 0)) != 0);
           if (__pyx_t_13) {
             __Pyx_GIVEREF(__pyx_t_2);
@@ -11058,7 +11058,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_20_check_model(CYTH
             __Pyx_XGIVEREF(__pyx_t_11);
             __Pyx_ErrRestoreWithState(__pyx_t_2, __pyx_t_4, __pyx_t_11);
             __pyx_t_2 = 0; __pyx_t_4 = 0; __pyx_t_11 = 0; 
-            __PYX_ERR(1, 724, __pyx_L9_except_error)
+            __PYX_ERR(1, 733, __pyx_L9_except_error)
           }
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -11084,7 +11084,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_20_check_model(CYTH
         if (__pyx_t_3) {
           __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_tuple__10, NULL);
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-          if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 724, __pyx_L1_error)
+          if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 733, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_8);
           __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
         }
@@ -11099,7 +11099,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_20_check_model(CYTH
     __pyx_L18:;
   }
 
-  /* "pycrfsuite/_pycrfsuite.pyx":721
+  /* "pycrfsuite/_pycrfsuite.pyx":730
  *         return parser.result
  * 
  *     def _check_model(self, name):             # <<<<<<<<<<<<<<
@@ -11127,7 +11127,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_20_check_model(CYTH
   return __pyx_r;
 }
 
-/* "pycrfsuite/_pycrfsuite.pyx":738
+/* "pycrfsuite/_pycrfsuite.pyx":747
  *                 raise ValueError("Model file %r doesn't have a complete header" % name)
  * 
  *     def _check_inmemory_model(self, bytes value):             # <<<<<<<<<<<<<<
@@ -11142,7 +11142,7 @@ static PyObject *__pyx_pw_10pycrfsuite_11_pycrfsuite_6Tagger_23_check_inmemory_m
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("_check_inmemory_model (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_value), (&PyBytes_Type), 1, "value", 1))) __PYX_ERR(1, 738, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_value), (&PyBytes_Type), 1, "value", 1))) __PYX_ERR(1, 747, __pyx_L1_error)
   __pyx_r = __pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_22_check_inmemory_model(((struct __pyx_obj_10pycrfsuite_11_pycrfsuite_Tagger *)__pyx_v_self), ((PyObject*)__pyx_v_value));
 
   /* function exit code */
@@ -11164,7 +11164,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_22_check_inmemory_m
   Py_ssize_t __pyx_t_4;
   __Pyx_RefNannySetupContext("_check_inmemory_model", 0);
 
-  /* "pycrfsuite/_pycrfsuite.pyx":739
+  /* "pycrfsuite/_pycrfsuite.pyx":748
  * 
  *     def _check_inmemory_model(self, bytes value):
  *         magic = value[:4]             # <<<<<<<<<<<<<<
@@ -11173,38 +11173,38 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_22_check_inmemory_m
  */
   if (unlikely(__pyx_v_value == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(1, 739, __pyx_L1_error)
+    __PYX_ERR(1, 748, __pyx_L1_error)
   }
-  __pyx_t_1 = PySequence_GetSlice(__pyx_v_value, 0, 4); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 739, __pyx_L1_error)
+  __pyx_t_1 = PySequence_GetSlice(__pyx_v_value, 0, 4); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 748, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_magic = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pycrfsuite/_pycrfsuite.pyx":740
+  /* "pycrfsuite/_pycrfsuite.pyx":749
  *     def _check_inmemory_model(self, bytes value):
  *         magic = value[:4]
  *         if magic != b'lCRF':             # <<<<<<<<<<<<<<
  *             raise ValueError("Invalid model")
  * 
  */
-  __pyx_t_2 = (__Pyx_PyBytes_Equals(__pyx_v_magic, __pyx_n_b_lCRF, Py_NE)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(1, 740, __pyx_L1_error)
+  __pyx_t_2 = (__Pyx_PyBytes_Equals(__pyx_v_magic, __pyx_n_b_lCRF, Py_NE)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(1, 749, __pyx_L1_error)
   __pyx_t_3 = (__pyx_t_2 != 0);
   if (unlikely(__pyx_t_3)) {
 
-    /* "pycrfsuite/_pycrfsuite.pyx":741
+    /* "pycrfsuite/_pycrfsuite.pyx":750
  *         magic = value[:4]
  *         if magic != b'lCRF':
  *             raise ValueError("Invalid model")             # <<<<<<<<<<<<<<
  * 
  *         if len(value) < 48:
  */
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__11, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 741, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__11, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 750, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_Raise(__pyx_t_1, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __PYX_ERR(1, 741, __pyx_L1_error)
+    __PYX_ERR(1, 750, __pyx_L1_error)
 
-    /* "pycrfsuite/_pycrfsuite.pyx":740
+    /* "pycrfsuite/_pycrfsuite.pyx":749
  *     def _check_inmemory_model(self, bytes value):
  *         magic = value[:4]
  *         if magic != b'lCRF':             # <<<<<<<<<<<<<<
@@ -11213,7 +11213,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_22_check_inmemory_m
  */
   }
 
-  /* "pycrfsuite/_pycrfsuite.pyx":743
+  /* "pycrfsuite/_pycrfsuite.pyx":752
  *             raise ValueError("Invalid model")
  * 
  *         if len(value) < 48:             # <<<<<<<<<<<<<<
@@ -11221,24 +11221,24 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_22_check_inmemory_m
  */
   if (unlikely(__pyx_v_value == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
-    __PYX_ERR(1, 743, __pyx_L1_error)
+    __PYX_ERR(1, 752, __pyx_L1_error)
   }
-  __pyx_t_4 = PyBytes_GET_SIZE(__pyx_v_value); if (unlikely(__pyx_t_4 == ((Py_ssize_t)-1))) __PYX_ERR(1, 743, __pyx_L1_error)
+  __pyx_t_4 = PyBytes_GET_SIZE(__pyx_v_value); if (unlikely(__pyx_t_4 == ((Py_ssize_t)-1))) __PYX_ERR(1, 752, __pyx_L1_error)
   __pyx_t_3 = ((__pyx_t_4 < 48) != 0);
   if (unlikely(__pyx_t_3)) {
 
-    /* "pycrfsuite/_pycrfsuite.pyx":744
+    /* "pycrfsuite/_pycrfsuite.pyx":753
  * 
  *         if len(value) < 48:
  *             raise ValueError("Invalid model: incomplete header")             # <<<<<<<<<<<<<<
  */
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__12, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 744, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__12, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 753, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_Raise(__pyx_t_1, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __PYX_ERR(1, 744, __pyx_L1_error)
+    __PYX_ERR(1, 753, __pyx_L1_error)
 
-    /* "pycrfsuite/_pycrfsuite.pyx":743
+    /* "pycrfsuite/_pycrfsuite.pyx":752
  *             raise ValueError("Invalid model")
  * 
  *         if len(value) < 48:             # <<<<<<<<<<<<<<
@@ -11246,7 +11246,7 @@ static PyObject *__pyx_pf_10pycrfsuite_11_pycrfsuite_6Tagger_22_check_inmemory_m
  */
   }
 
-  /* "pycrfsuite/_pycrfsuite.pyx":738
+  /* "pycrfsuite/_pycrfsuite.pyx":747
  *                 raise ValueError("Model file %r doesn't have a complete header" % name)
  * 
  *     def _check_inmemory_model(self, bytes value):             # <<<<<<<<<<<<<<
@@ -12637,8 +12637,8 @@ static int __Pyx_InitCachedBuiltins(void) {
   __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(0, 2, __pyx_L1_error)
   __pyx_builtin_print = __Pyx_GetBuiltinName(__pyx_n_s_print); if (!__pyx_builtin_print) __PYX_ERR(1, 289, __pyx_L1_error)
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(1, 335, __pyx_L1_error)
-  __pyx_builtin_OSError = __Pyx_GetBuiltinName(__pyx_n_s_OSError); if (!__pyx_builtin_OSError) __PYX_ERR(1, 700, __pyx_L1_error)
-  __pyx_builtin_open = __Pyx_GetBuiltinName(__pyx_n_s_open); if (!__pyx_builtin_open) __PYX_ERR(1, 711, __pyx_L1_error)
+  __pyx_builtin_OSError = __Pyx_GetBuiltinName(__pyx_n_s_OSError); if (!__pyx_builtin_OSError) __PYX_ERR(1, 709, __pyx_L1_error)
+  __pyx_builtin_open = __Pyx_GetBuiltinName(__pyx_n_s_open); if (!__pyx_builtin_open) __PYX_ERR(1, 720, __pyx_L1_error)
   __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 61, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
@@ -12687,78 +12687,78 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__5);
   __Pyx_GIVEREF(__pyx_tuple__5);
 
-  /* "pycrfsuite/_pycrfsuite.pyx":580
+  /* "pycrfsuite/_pycrfsuite.pyx":589
  *         cdef const char *v = value
  *         if not self.c_tagger.open(v, len(value)):
  *             raise ValueError("Error opening model")             # <<<<<<<<<<<<<<
  *         return contextlib.closing(self)
  * 
  */
-  __pyx_tuple__6 = PyTuple_Pack(1, __pyx_kp_s_Error_opening_model); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(1, 580, __pyx_L1_error)
+  __pyx_tuple__6 = PyTuple_Pack(1, __pyx_kp_s_Error_opening_model); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(1, 589, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__6);
   __Pyx_GIVEREF(__pyx_tuple__6);
 
-  /* "pycrfsuite/_pycrfsuite.pyx":713
+  /* "pycrfsuite/_pycrfsuite.pyx":722
  *             with open(name, 'rb') as f:
  *                 for line in f:
  *                     parser.feed(line.decode('utf8'))             # <<<<<<<<<<<<<<
  *         finally:
  *             try:
  */
-  __pyx_tuple__7 = PyTuple_Pack(1, __pyx_n_s_utf8); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(1, 713, __pyx_L1_error)
+  __pyx_tuple__7 = PyTuple_Pack(1, __pyx_n_s_utf8); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(1, 722, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__7);
   __Pyx_GIVEREF(__pyx_tuple__7);
 
-  /* "pycrfsuite/_pycrfsuite.pyx":711
+  /* "pycrfsuite/_pycrfsuite.pyx":720
  *         try:
  *             self.c_tagger.dump(fd)
  *             with open(name, 'rb') as f:             # <<<<<<<<<<<<<<
  *                 for line in f:
  *                     parser.feed(line.decode('utf8'))
  */
-  __pyx_tuple__8 = PyTuple_Pack(3, Py_None, Py_None, Py_None); if (unlikely(!__pyx_tuple__8)) __PYX_ERR(1, 711, __pyx_L1_error)
+  __pyx_tuple__8 = PyTuple_Pack(3, Py_None, Py_None, Py_None); if (unlikely(!__pyx_tuple__8)) __PYX_ERR(1, 720, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__8);
   __Pyx_GIVEREF(__pyx_tuple__8);
 
-  /* "pycrfsuite/_pycrfsuite.pyx":727
+  /* "pycrfsuite/_pycrfsuite.pyx":736
  * 
  *             # 2. Check that file magic is correct.
  *             magic = f.read(4)             # <<<<<<<<<<<<<<
  *             if magic != b'lCRF':
  *                 raise ValueError("Invalid model file %r" % name)
  */
-  __pyx_tuple__9 = PyTuple_Pack(1, __pyx_int_4); if (unlikely(!__pyx_tuple__9)) __PYX_ERR(1, 727, __pyx_L1_error)
+  __pyx_tuple__9 = PyTuple_Pack(1, __pyx_int_4); if (unlikely(!__pyx_tuple__9)) __PYX_ERR(1, 736, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__9);
   __Pyx_GIVEREF(__pyx_tuple__9);
 
-  /* "pycrfsuite/_pycrfsuite.pyx":724
+  /* "pycrfsuite/_pycrfsuite.pyx":733
  *         # See https://github.com/chokkan/crfsuite/pull/24
  *         # 1. Check that the file can be opened.
  *         with open(name, 'rb') as f:             # <<<<<<<<<<<<<<
  * 
  *             # 2. Check that file magic is correct.
  */
-  __pyx_tuple__10 = PyTuple_Pack(3, Py_None, Py_None, Py_None); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(1, 724, __pyx_L1_error)
+  __pyx_tuple__10 = PyTuple_Pack(3, Py_None, Py_None, Py_None); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(1, 733, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__10);
   __Pyx_GIVEREF(__pyx_tuple__10);
 
-  /* "pycrfsuite/_pycrfsuite.pyx":741
+  /* "pycrfsuite/_pycrfsuite.pyx":750
  *         magic = value[:4]
  *         if magic != b'lCRF':
  *             raise ValueError("Invalid model")             # <<<<<<<<<<<<<<
  * 
  *         if len(value) < 48:
  */
-  __pyx_tuple__11 = PyTuple_Pack(1, __pyx_kp_s_Invalid_model); if (unlikely(!__pyx_tuple__11)) __PYX_ERR(1, 741, __pyx_L1_error)
+  __pyx_tuple__11 = PyTuple_Pack(1, __pyx_kp_s_Invalid_model); if (unlikely(!__pyx_tuple__11)) __PYX_ERR(1, 750, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__11);
   __Pyx_GIVEREF(__pyx_tuple__11);
 
-  /* "pycrfsuite/_pycrfsuite.pyx":744
+  /* "pycrfsuite/_pycrfsuite.pyx":753
  * 
  *         if len(value) < 48:
  *             raise ValueError("Invalid model: incomplete header")             # <<<<<<<<<<<<<<
  */
-  __pyx_tuple__12 = PyTuple_Pack(1, __pyx_kp_s_Invalid_model_incomplete_header); if (unlikely(!__pyx_tuple__12)) __PYX_ERR(1, 744, __pyx_L1_error)
+  __pyx_tuple__12 = PyTuple_Pack(1, __pyx_kp_s_Invalid_model_incomplete_header); if (unlikely(!__pyx_tuple__12)) __PYX_ERR(1, 753, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__12);
   __Pyx_GIVEREF(__pyx_tuple__12);
 
