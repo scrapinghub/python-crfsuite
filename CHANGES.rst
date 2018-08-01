@@ -1,6 +1,15 @@
 Changes
 =======
 
+0.9.6 (2018-08-01)
+------------------
+
+* Python 3.7 support (thanks @fgregg, @danmacnaughtan and @fuhrysteve).
+* Python 3.3 support is dropped.
+* new Tagger.open_inmemory method which allows to load tagger data
+  without having a file on-disk (thanks @lucywang000).
+* license information is added to setup.py (thanks @nils-werner).
+
 0.9.5 (2017-09-05)
 ------------------
 
