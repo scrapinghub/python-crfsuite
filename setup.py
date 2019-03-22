@@ -26,9 +26,15 @@ includes = [
 class build_ext_check_gcc(build_ext):
     def build_extensions(self):
         c = self.compiler
+
+        _compile = c._compile
+
+        def c_compile(obj, src, ext, cc_args, extra_postargs, pp_opts):
+            cc_args = cc_args + ['-std=c99'] if src.endswith('.c') else cc_args
+            return _compile(obj, src, ext, cc_args, extra_postargs, pp_opts)
+
         if c.compiler_type == 'unix' and 'gcc' in c.compiler:
-            for e in self.extensions:
-                e.extra_compile_args=['-std=c99']
+            c._compile = c_compile
         elif self.compiler.compiler_type == "msvc":
             if sys.version_info[:2] < (3, 5):
                 c.include_dirs.extend(['crfsuite/win32'])
