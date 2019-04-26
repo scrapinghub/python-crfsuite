@@ -93,6 +93,8 @@ Alternatives
 * https://github.com/jakevdp/pyCRFsuite - uses C API instead of C++ API;
   allows to use scipy sparse matrices as an input. At the time of writing
   it is unmaintained.
+* https://github.com/bosondata/crfsuite-rs - uses a Rust wrapper with CFFI instead of C++ API;
+  allows to tag with GIL released for better performance.
 
 This package (python-crfsuite) wraps CRFsuite C++ API using Cython.
 It is faster than official SWIG wrapper and has a simpler codebase than
