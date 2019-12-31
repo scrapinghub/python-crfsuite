@@ -39,7 +39,7 @@ class build_ext_check_gcc(build_ext):
 ext_modules = [Extension('pycrfsuite._pycrfsuite',
     include_dirs=includes,
     language='c++',
-    sources=sources
+    sources=sorted(sources)
 )]
 
 
