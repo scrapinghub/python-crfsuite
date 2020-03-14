@@ -33,11 +33,6 @@ matrix:
       - TOXENV=py36
   - os: osx
     language: generic
-    env:
-      - PYTHON='3.5.2'
-      - TOXENV=py35
-  - os: osx
-    language: generic
     env: 
       - PYTHON='2.7.13'
       - TOXENV=py27
@@ -63,7 +58,7 @@ before_install:
     brew install openssl readline;
     brew outdated pyenv || brew upgrade pyenv;
     brew install pyenv-virtualenv;
-    CFLAGS="-I$(brew --prefix openssl)/include" LDFLAGS="-L$(brew --prefix openssl)/lib" pyenv install $PYTHON;
+    pyenv install $PYTHON;
     export PYENV_VERSION=$PYTHON;
     export PATH="/Users/travis/.pyenv/shims:${PATH}";
     pyenv-virtualenv venv;
