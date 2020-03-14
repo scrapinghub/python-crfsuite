@@ -62,15 +62,15 @@ class CRFsuiteDumpParser(object):
             getattr(self, 'parse_%s' % self.state)(line)
 
     def parse_FILEHEADER(self, line):
-        m = re.match("(\w+): (.*)", line)
+        m = re.match(r"(\w+): (.*)", line)
         self.result.header[m.group(1)] = m.group(2)
 
     def parse_LABELS(self, line):
-        m = re.match("(\d+): (.*)", line)
+        m = re.match(r"(\d+): (.*)", line)
         self.result.labels[m.group(2)] = m.group(1)
 
     def parse_ATTRIBUTES(self, line):
-        m = re.match("(\d+): (.*)", line)
+        m = re.match(r"(\d+): (.*)", line)
         self.result.attributes[m.group(2)] = m.group(1)
 
     def parse_TRANSITIONS(self, line):
