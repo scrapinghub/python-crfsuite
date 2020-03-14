@@ -6,10 +6,10 @@ set -e -x
 # Compile wheels
 for PYBIN in /opt/python/*/bin; do
     if [[ "${PYBIN}" == *"cp27"* ]] || \
-       [[ "${PYBIN}" == *"cp34"* ]] || \
        [[ "${PYBIN}" == *"cp35"* ]] || \
        [[ "${PYBIN}" == *"cp36"* ]] || \
-       [[ "${PYBIN}" == *"cp37"* ]]; 
+       [[ "${PYBIN}" == *"cp37"* ]] || \
+       [[ "${PYBIN}" == *"cp38"* ]];
     then
         "${PYBIN}/pip" install tox
         "${PYBIN}/pip" install -U cython
@@ -28,9 +28,10 @@ done
 # Install new wheels and test
 for PYBIN in /opt/python/*/bin; do
     if [[ "${PYBIN}" == *"cp27"* ]] || \
-       [[ "${PYBIN}" == *"cp34"* ]] || \
        [[ "${PYBIN}" == *"cp35"* ]] || \
-       [[ "${PYBIN}" == *"cp36"* ]];
+       [[ "${PYBIN}" == *"cp36"* ]] || \
+       [[ "${PYBIN}" == *"cp37"* ]] || \
+       [[ "${PYBIN}" == *"cp38"* ]];
     then
         "${PYBIN}/pip" uninstall -y python-crfsuite
         "${PYBIN}/pip" install python-crfsuite --no-index -f /io/wheelhouse
@@ -41,7 +42,7 @@ done
 
 # If everything works, upload wheels to PyPi
 travis=$( cat /io/.travis_tag )
-SAMPLE_PYBIN="/opt/python/cp35-cp35m/bin"
+SAMPLE_PYBIN="/opt/python/cp37-cp37m/bin"
 if [[ $travis ]]; then
     "${SAMPLE_PYBIN}/pip" install twine;
     "${SAMPLE_PYBIN}/twine" upload --config-file /io/.pypirc /io/wheelhouse/*.whl;
