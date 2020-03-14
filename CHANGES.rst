@@ -1,6 +1,15 @@
 Changes
 =======
 
+0.9.7 (2020-03-15)
+------------------
+
+* Python 3.4 is no longer supported (it may work, but CI is disabled)
+* Python 3.8 support
+* fixed installation issues on OS X (thanks @kvinwang)
+* make it easier for distributions to have a reproducible build
+  (thanks @bmwiedemann)
+
 0.9.6 (2018-08-01)
 ------------------
 
