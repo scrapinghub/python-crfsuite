@@ -171,12 +171,17 @@ def test_info(model_filename):
     with Tagger().open(model_filename) as tagger:
         res = tagger.info()
 
-        assert res.transitions[('sunny', 'sunny')] > res.transitions[('sunny', 'rainy')]
-        assert res.state_features[('walk', 'sunny')] > res.state_features[('walk', 'rainy')]
-        assert (u'солнце:не светит', u'rainy') in res.state_features
-        assert res.header['num_labels'] == '3'
-        assert set(res.labels.keys()) == set(['sunny', 'rainy', '好'])
-        assert set(res.attributes.keys()) == set(['shop', 'walk', 'clean', u'солнце:не светит', 'world'])
+        assert res.transitions[("sunny", "sunny")] > res.transitions[("sunny", "rainy")]
+        assert (
+            res.state_features[("walk", "sunny")]
+            > res.state_features[("walk", "rainy")]
+        )
+        assert ("солнце:не светит", "rainy") in res.state_features
+        assert res.header["num_labels"] == "3"
+        assert set(res.labels.keys()) == set(["sunny", "rainy", "好"])
+        assert set(res.attributes.keys()) == set(
+            ["shop", "walk", "clean", "солнце:не светит", "world"]
+        )
 
     # it shouldn't segfault on a closed tagger
     with pytest.raises(RuntimeError):
@@ -222,13 +227,13 @@ def test_append_nested_dicts(tmpdir):
     with Tagger().open(model_filename) as tagger:
         info = tagger.info()
         assert set(info.attributes.keys()) == {
-                "foo:bar:baz",
-                "foo:spam",
-                "foo:egg:x",
-                "foo:egg:y",
-                "foo:ham:x",
-                "foo:ham:y",
-                "foo:bar:ham",
+            "foo:bar:baz",
+            "foo:spam",
+            "foo:egg:x",
+            "foo:egg:y",
+            "foo:ham:x",
+            "foo:ham:y",
+            "foo:bar:ham",
         }
 
         for feat in ["foo:bar:baz", "foo:spam", "foo:egg:x", "foo:egg:y"]:

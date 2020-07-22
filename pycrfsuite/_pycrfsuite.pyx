@@ -1,6 +1,6 @@
 # cython: embedsignature=True
 # cython: c_string_type=str
-# cython: c_string_encoding=ascii
+# cython: c_string_encoding=utf-8
 # cython: profile=False
 # distutils: language=c++
 from . cimport crfsuite_api
