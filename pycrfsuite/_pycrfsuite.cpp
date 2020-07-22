@@ -629,10 +629,10 @@ static CYTHON_INLINE float __PYX_NAN() {
 typedef struct {PyObject **p; const char *s; const Py_ssize_t n; const char* encoding;
                 const char is_unicode; const char is_str; const char intern; } __Pyx_StringTabEntry;
 
-#define __PYX_DEFAULT_STRING_ENCODING_IS_ASCII 1
-#define __PYX_DEFAULT_STRING_ENCODING_IS_UTF8 0
+#define __PYX_DEFAULT_STRING_ENCODING_IS_ASCII 0
+#define __PYX_DEFAULT_STRING_ENCODING_IS_UTF8 1
 #define __PYX_DEFAULT_STRING_ENCODING_IS_DEFAULT (PY_MAJOR_VERSION >= 3 && __PYX_DEFAULT_STRING_ENCODING_IS_UTF8)
-#define __PYX_DEFAULT_STRING_ENCODING "ascii"
+#define __PYX_DEFAULT_STRING_ENCODING "utf8"
 #define __Pyx_PyObject_FromString __Pyx_PyStr_FromString
 #define __Pyx_PyObject_FromStringAndSize __Pyx_PyStr_FromStringAndSize
 #define __Pyx_uchar_cast(c) ((unsigned char)c)
@@ -13364,7 +13364,7 @@ if (!__Pyx_RefNanny) {
   /* "pycrfsuite/_pycrfsuite.pyx":1
  * # cython: embedsignature=True             # <<<<<<<<<<<<<<
  * # cython: c_string_type=str
- * # cython: c_string_encoding=ascii
+ * # cython: c_string_encoding=utf-8
  */
   __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
