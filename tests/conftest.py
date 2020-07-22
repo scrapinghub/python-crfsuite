@@ -22,7 +22,7 @@ def xseq():
 @pytest.fixture
 def yseq():
     return ['sunny', 'sunny', u'sunny', 'rainy', 'rainy', 'rainy',
-            'sunny', 'sunny', 'rainy', 'rainy', '好']
+            'sunny', 'sunny', 'rainy', 'rainy', u'好']
 
 
 @pytest.fixture
