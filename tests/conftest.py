@@ -12,25 +12,16 @@ def xseq():
         {"clean": 1, "shop": 0.1},
         {"walk": 1, "shop": 0.5},
         {},
-        {"clean": 1},
-        {"солнце": "не светит".encode(), "clean": 1},
+        {'clean': 1},
+        {u'солнце': u'не светит'.encode('utf8'), 'clean': 1},
+        {'world': 2}
     ]
 
 
 @pytest.fixture
 def yseq():
-    return [
-        "sunny",
-        "sunny",
-        "sunny",
-        "rainy",
-        "rainy",
-        "rainy",
-        "sunny",
-        "sunny",
-        "rainy",
-        "rainy",
-    ]
+    return ['sunny', 'sunny', u'sunny', 'rainy', 'rainy', 'rainy',
+            'sunny', 'sunny', 'rainy', 'rainy', '好']
 
 
 @pytest.fixture
