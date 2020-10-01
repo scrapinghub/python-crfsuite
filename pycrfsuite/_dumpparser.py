@@ -47,7 +47,7 @@ class CRFsuiteDumpParser(object):
         self.state = None
         self.result = ParsedDump()
 
-    def feed(self, line):
+    def feed(self, line: str):
         # Strip initial ws and line terminator, but allow for ws at the end of feature names.
         line = line.lstrip().rstrip('\r\n')
         if not line:
@@ -61,26 +61,26 @@ class CRFsuiteDumpParser(object):
         else:
             getattr(self, 'parse_%s' % self.state)(line)
 
-    def parse_FILEHEADER(self, line):
+    def parse_FILEHEADER(self, line: str):
         m = re.match(r"(\w+): (.*)", line)
         self.result.header[m.group(1)] = m.group(2)
 
-    def parse_LABELS(self, line):
+    def parse_LABELS(self, line: str):
         m = re.match(r"(\d+): (.*)", line)
         self.result.labels[m.group(2)] = m.group(1)
 
-    def parse_ATTRIBUTES(self, line):
+    def parse_ATTRIBUTES(self, line: str):
         m = re.match(r"(\d+): (.*)", line)
         self.result.attributes[m.group(2)] = m.group(1)
 
-    def parse_TRANSITIONS(self, line):
+    def parse_TRANSITIONS(self, line: str):
         m = re.match(r"\(\d+\) (.+) --> (.+): ([+-]?\d+\.\d+)", line)
         from_, to_ = m.group(1), m.group(2)
         assert from_ in self.result.labels
         assert to_ in self.result.labels
         self.result.transitions[(from_, to_)] = float(m.group(3))
 
-    def parse_STATE_FEATURES(self, line):
+    def parse_STATE_FEATURES(self, line: str):
         m = re.match(r"\(\d+\) (.+) --> (.+): ([+-]?\d+\.\d+)", line)
         attr, label = m.group(1), m.group(2)
         assert attr in self.result.attributes
