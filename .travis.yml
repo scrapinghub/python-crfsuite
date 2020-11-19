@@ -2,6 +2,9 @@ language: python
 matrix:
   include:
   - os: linux
+    python: 3.9
+    env: TOXENV=py39
+  - os: linux
     python: 3.8
     env: TOXENV=py38
   - os: linux
@@ -16,6 +19,11 @@ matrix:
   - os: linux
     python: 2.7
     env: TOXENV=py27
+  - os: osx
+    language: generic
+    env:
+      - PYTHON='3.9.0'
+      - TOXENV=py39
   - os: osx
     language: generic
     env:
