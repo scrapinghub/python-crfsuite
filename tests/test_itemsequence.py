@@ -3,6 +3,7 @@ from __future__ import absolute_import
 
 import pytest
 import pycrfsuite
+from pycrfsuite._float_features import FloatFeatures as FF
 
 
 def test_basic():
@@ -10,6 +11,16 @@ def test_basic():
     assert len(seq) == 0
     assert seq.items() == []
 
+
+def test_floatlists():
+    seq = pycrfsuite.ItemSequence([
+        {"w2v": FF([1., 2., 3.])},
+        {"w2v": FF([-1., 5, 4.])}
+        ])
+    assert len(seq) == 2
+    assert seq.items() == [{"w2v:0": 1., "w2v:1": 2., "w2v:2": 3.},
+            {"w2v:0": -1., "w2v:1": 5., "w2v:2": 4.}]
+    assert pycrfsuite.ItemSequence(seq.items()).items() == seq.items()
 
 def test_lists():
     seq = pycrfsuite.ItemSequence([['foo', 'bar'], ['bar', 'baz']])
