@@ -1,6 +1,66 @@
 Changes
 =======
 
+0.9.7 (2020-03-15)
+------------------
+
+* Python 3.4 is no longer supported (it may work, but CI is disabled)
+* Python 3.8 support
+* fixed installation issues on OS X (thanks @kvinwang)
+* make it easier for distributions to have a reproducible build
+  (thanks @bmwiedemann)
+
+0.9.6 (2018-08-01)
+------------------
+
+* Python 3.7 support (thanks @fgregg, @danmacnaughtan and @fuhrysteve).
+* Python 3.3 support is dropped.
+* new Tagger.open_inmemory method which allows to load tagger data
+  without having a file on-disk (thanks @lucywang000).
+* license information is added to setup.py (thanks @nils-werner).
+
+0.9.5 (2017-09-05)
+------------------
+
+* Python 3.6 wheels for Windows (thanks @fgregg).
+
+0.9.4 (2017-09-04)
+------------------
+
+* Packaging fix (thanks @fgregg).
+
+0.9.3 (2017-09-03)
+------------------
+
+* Fixed compatibility with Python 3.5+ on Windows (thanks @fgregg);
+* CRFSuite C++ library is updated to latest version, this fixes several
+  memory leaks and improves performance (thanks @fgregg);
+* extension is rebuilt with Cython 0.26.1.
+
+0.9.2 (2017-05-04)
+------------------
+
+* binary wheels for OS X and Linux (thanks @jeancochrane).
+
+0.9.1 (2016-12-19)
+------------------
+
+This is a release without changes in functionality.
+
+* Repository is moved to https://github.com/scrapinghub/python-crfsuite;
+* We're now providing Windows wheels for Python 2.7, 3.3. and 3.4.
+
+0.9 (2016-12-08)
+----------------
+
+* Python 2.6 support is dropped;
+* CRFSuite C++ library is updated to a more recent commit;
+* improved Windows support (thanks @fgregg);
+* fixed building with gcc < 5.0.0 (thanks @kantan2015);
+* extension is rebuilt with Cython 0.25.1; this improves PyPy compatibility
+  (but we're not quite there yet).
+* docs: trainer.logparser example is added to the notebook (thanks @samgalen).
+
 0.8.4 (2015-11-25)
 ------------------
 

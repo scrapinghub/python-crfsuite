@@ -58,7 +58,21 @@ def test_open_invalid_with_correct_signature(tmpdir):
         tagger.open(str(tmp))
 
 
-@pytest.mark.xfail(reason="see https://github.com/tpeng/python-crfsuite/issues/28",
+def test_open_inmemory(model_bytes, xseq, yseq):
+    with Tagger().open_inmemory(model_bytes) as tagger:
+        assert tagger.tag(xseq) == yseq
+
+
+def test_open_inmemory_invalid():
+    tagger = Tagger()
+    with pytest.raises(ValueError):
+        tagger.open_inmemory(b'')
+
+    with pytest.raises(ValueError):
+        tagger.open_inmemory(b'lCRFabc')
+
+
+@pytest.mark.xfail(reason="see https://github.com/scrapinghub/python-crfsuite/issues/28",
                    run=False)
 def test_tag_not_opened(xseq):
     tagger = Tagger()
@@ -226,5 +240,3 @@ def test_append_nested_dicts(tmpdir):
         for feat in ['foo:bar:ham', 'foo:ham:x', 'foo:ham:y']:
             assert info.state_features[(feat, 'second')] > 0
             assert info.state_features.get((feat, 'first'), 0) <= 0
-
-

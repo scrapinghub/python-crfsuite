@@ -102,13 +102,13 @@ class TrainLogParser(object):
             self.last_iteration['avg_recall'] = float(m.group(2))
             self.last_iteration['avg_f1'] = float(m.group(3))
 
-        m = re.match("Item accuracy: (\d+) / (\d+)", line)
+        m = re.match(r"Item accuracy: (\d+) / (\d+)", line)
         if m:
             acc = fractions.Fraction(int(m.group(1)), int(m.group(2)))
             self.last_iteration['item_accuracy'] = acc
             self.last_iteration['item_accuracy_float'] = float(acc)
 
-        m = re.match("Instance accuracy: (\d+) / (\d+)", line)
+        m = re.match(r"Instance accuracy: (\d+) / (\d+)", line)
         if m:
             acc = fractions.Fraction(int(m.group(1)), int(m.group(2)))
             self.last_iteration['instance_accuracy'] = acc

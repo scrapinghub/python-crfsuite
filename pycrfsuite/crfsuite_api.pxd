@@ -54,6 +54,7 @@ cdef extern from "tagger_wrapper.hpp" namespace "CRFSuiteWrapper":
     cdef cppclass Tagger:
         Tagger() except +
         int open(string) except +
+        int open(const void*, size_t) except +
         void close() except +
         StringList labels() except +
         StringList tag(ItemSequence) except +

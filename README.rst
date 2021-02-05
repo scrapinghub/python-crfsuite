@@ -2,20 +2,32 @@
 python-crfsuite
 ===============
 
-.. image:: https://travis-ci.org/tpeng/python-crfsuite.svg?branch=master
-    :target: https://travis-ci.org/tpeng/python-crfsuite
+.. image:: https://travis-ci.org/scrapinghub/python-crfsuite.svg?branch=master
+    :target: https://travis-ci.org/scrapinghub/python-crfsuite
 
-.. image:: https://ci.appveyor.com/api/projects/status/github/tpeng/python-crfsuite?branch=master&svg=true
-    :target: https://ci.appveyor.com/project/kmike/python-crfsuite
+.. image:: https://ci.appveyor.com/api/projects/status/uaq4sw8tc0oojr4v?svg=true
+    :target: https://ci.appveyor.com/project/kmike/python-crfsuite-mhi5h
+
+.. image:: https://img.shields.io/pypi/v/python-crfsuite.svg?style=flat-square
+    :target: https://pypi.python.org/pypi/python-crfsuite
+    :alt: pypi Version
+
+.. image:: https://anaconda.org/conda-forge/python-crfsuite/badges/version.svg
+    :target: https://anaconda.org/conda-forge/python-crfsuite
+    :alt: conda Version
 
 python-crfsuite is a python binding to CRFsuite_.
 
 Installation
 ============
 
-::
+Using ``pip``::
 
     pip install python-crfsuite
+
+Using ``conda``::
+
+    conda install -c conda-forge python-crfsuite
 
 Usage
 =====
@@ -23,7 +35,7 @@ Usage
 See docs_ and an example_.
 
 .. _docs: http://python-crfsuite.rtfd.org/
-.. _example: http://nbviewer.ipython.org/github/tpeng/python-crfsuite/blob/master/examples/CoNLL%202002.ipynb
+.. _example: https://github.com/scrapinghub/python-crfsuite/blob/master/examples/CoNLL%202002.ipynb
 
 See Also
 ========
@@ -36,12 +48,12 @@ API similar to scikit-learn.
 Contributing
 ============
 
-* Source code: https://github.com/tpeng/python-crfsuite
-* Issue tracker: https://github.com/tpeng/python-crfsuite/issues
+* Source code: https://github.com/scrapinghub/python-crfsuite
+* Issue tracker: https://github.com/scrapinghub/python-crfsuite/issues
 
 Feel free to submit ideas, bugs reports, pull requests or regular patches.
 
-In order to run tests, install Cython_ (> 0.20.1)  and tox_, then type
+In order to run tests, install Cython_ (> 0.24.1)  and tox_, then type
 
 ::
 
@@ -54,13 +66,16 @@ Please don't commit generated cpp files in the same commit as other files.
 .. _Cython: http://cython.org/
 .. _tox: http://tox.testrun.org
 
-Authors
-=======
+Authors and Contributors
+========================
 
-* Terry Peng <pengtaoo@gmail.com>
-* Mikhail Korobov <kmike84@gmail.com>
+Original authors are Terry Peng <pengtaoo@gmail.com> and
+Mikhail Korobov <kmike84@gmail.com>. Many other people contributed;
+some of them can be found at github Contributors_ page.
 
 Bundled CRFSuite_ C/C++ library is by Naoaki Okazaki & contributors.
+
+.. _Contributors: https://github.com/scrapinghub/python-crfsuite/graphs/contributors
 
 License
 =======
@@ -73,10 +88,13 @@ CRFsuite_ library is licensed under BSD license.
 Alternatives
 ============
 
-* https://github.com/jakevdp/pyCRFsuite - uses C API instead of C++ API;
-  allows to use scipy sparse matrices as an input.
 * https://github.com/chokkan/crfsuite/tree/master/swig/python - official
   Python wrapper, exposes C++ API using SWIG.
+* https://github.com/jakevdp/pyCRFsuite - uses C API instead of C++ API;
+  allows to use scipy sparse matrices as an input. At the time of writing
+  it is unmaintained.
+* https://github.com/bosondata/crfsuite-rs - uses a Rust wrapper with CFFI instead of C++ API;
+  allows to tag with GIL released for better performance.
 
 This package (python-crfsuite) wraps CRFsuite C++ API using Cython.
 It is faster than official SWIG wrapper and has a simpler codebase than

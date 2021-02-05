@@ -32,3 +32,9 @@ def model_filename(tmpdir, xseq, yseq):
     model_filename = str(tmpdir.join('model.crfsuite'))
     trainer.train(model_filename)
     return model_filename
+
+
+@pytest.fixture
+def model_bytes(model_filename):
+    with open(model_filename, 'rb') as f:
+        return f.read()
