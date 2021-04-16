@@ -3,9 +3,11 @@
 # Kill the build if anything errors
 set -e -x
 
+arch=$(uname -m)
+
 # Compile wheels
 for PYBIN in /opt/python/*/bin; do
-    if [[ "${PYBIN}" == *"cp27"* ]] || \
+    if [[ "${PYBIN}" == *"cp27"* && $arch != "aarch64" ]] || \
        [[ "${PYBIN}" == *"cp35"* ]] || \
        [[ "${PYBIN}" == *"cp36"* ]] || \
        [[ "${PYBIN}" == *"cp37"* ]] || \
@@ -27,7 +29,7 @@ done
 
 # Install new wheels and test
 for PYBIN in /opt/python/*/bin; do
-    if [[ "${PYBIN}" == *"cp27"* ]] || \
+    if [[ "${PYBIN}" == *"cp27"* && $arch != "aarch64" ]] || \
        [[ "${PYBIN}" == *"cp35"* ]] || \
        [[ "${PYBIN}" == *"cp36"* ]] || \
        [[ "${PYBIN}" == *"cp37"* ]] || \
