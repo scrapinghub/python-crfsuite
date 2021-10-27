@@ -38,7 +38,7 @@ class build_ext_check_gcc(build_ext):
         elif self.compiler.compiler_type == "msvc":
             if sys.version_info[:2] < (3, 5):
                 c.include_dirs.extend(['crfsuite/win32'])
-                
+
         build_ext.build_extensions(self)
 
 
@@ -73,6 +73,7 @@ setup(
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
         "Topic :: Software Development",
         "Topic :: Software Development :: Libraries :: Python Modules",
         "Topic :: Scientific/Engineering",

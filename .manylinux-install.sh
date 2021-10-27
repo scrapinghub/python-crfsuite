@@ -11,6 +11,7 @@ for PYBIN in /opt/python/*/bin; do
        [[ "${PYBIN}" == *"cp37"* ]] || \
        [[ "${PYBIN}" == *"cp38"* ]] || \
        [[ "${PYBIN}" == *"cp39"* ]];
+       [[ "${PYBIN}" == *"cp310"* ]];
     then
         "${PYBIN}/pip" install tox
         "${PYBIN}/pip" install -U cython
@@ -34,6 +35,7 @@ for PYBIN in /opt/python/*/bin; do
        [[ "${PYBIN}" == *"cp37"* ]] || \
        [[ "${PYBIN}" == *"cp38"* ]] || \
        [[ "${PYBIN}" == *"cp39"* ]];
+       [[ "${PYBIN}" == *"cp310* ]];
     then
         "${PYBIN}/pip" uninstall -y python-crfsuite
         "${PYBIN}/pip" install python-crfsuite --no-index -f /io/wheelhouse

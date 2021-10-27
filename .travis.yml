@@ -2,6 +2,9 @@ language: python
 matrix:
   include:
   - os: linux
+    python: '3.10'
+    env: TOXENV=py10
+  - os: linux
     python: 3.9
     env: TOXENV=py39
   - os: linux
@@ -22,6 +25,11 @@ matrix:
   - os: osx
     language: generic
     env:
+      - PYTHON='3.10.0'
+      - TOXENV=py310
+  - os: osx
+    language: generic
+    env:
       - PYTHON='3.9.0'
       - TOXENV=py39
   - os: osx
@@ -31,17 +39,17 @@ matrix:
       - TOXENV=py38
   - os: osx
     language: generic
-    env: 
+    env:
       - PYTHON='3.7.7'
-      - TOXENV=py37    
+      - TOXENV=py37
   - os: osx
     language: generic
-    env: 
+    env:
       - PYTHON='3.6.2'
       - TOXENV=py36
   - os: osx
     language: generic
-    env: 
+    env:
       - PYTHON='2.7.13'
       - TOXENV=py27
   - sudo: required
@@ -102,7 +110,7 @@ script:
 - tox
 
 after_success:
-- pip install wheel twine 
+- pip install wheel twine
 - if [[ $TRAVIS_TAG && "$TRAVIS_OS_NAME" == "osx" ]]; then
   python -W ignore setup.py bdist_wheel;
   twine upload dist/*;
