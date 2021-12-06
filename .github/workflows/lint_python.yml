@@ -3,9 +3,14 @@ on: [pull_request, push]
 jobs:
   lint_python:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [ '3.7', '3.9', '3.10' ]
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
       - run: pip install --upgrade pip wheel
       - run: pip install bandit black codespell flake8 flake8-2020 flake8-bugbear
                          flake8-comprehensions isort mypy pytest pyupgrade safety
@@ -16,7 +21,7 @@ jobs:
       - run: flake8 . --count --exit-zero --max-complexity=10 --max-line-length=88
                       --show-source --statistics
       - run: isort --check-only --profile black . || true
-      - run: pip install -r requirements.txt || pip install --editable . || true
+      - run: pip install --editable .
       - run: mkdir --parents --verbose .mypy_cache
       - run: mypy --ignore-missing-imports --install-types --non-interactive . || true
       - run: pytest . || true
