@@ -32,7 +32,7 @@ jobs:
           python -m pip install --upgrade cython
 
       - name: "Rebuild CPP files using Cython"
-        run: "update_cpp.sh"
+        run: "./update_cpp.sh"
 
       - name: "Run tox targets for ${{ matrix.python-version }}"
         run: "python -m tox"
