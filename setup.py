@@ -35,10 +35,11 @@ class build_ext_check_gcc(build_ext):
 
         if c.compiler_type == 'unix' and 'gcc' in c.compiler:
             c._compile = c_compile
+
         elif self.compiler.compiler_type == "msvc":
             if sys.version_info[:2] < (3, 5):
                 c.include_dirs.extend(['crfsuite/win32'])
-                
+
         build_ext.build_extensions(self)
 
 
@@ -68,10 +69,11 @@ setup(
         "Programming Language :: Python :: 2",
         "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
         "Topic :: Software Development",
         "Topic :: Software Development :: Libraries :: Python Modules",
         "Topic :: Scientific/Engineering",
@@ -81,5 +83,5 @@ setup(
     zip_safe=False,
     packages=['pycrfsuite'],
     ext_modules=ext_modules,
-    cmdclass={'build_ext': build_ext_check_gcc}
+    cmdclass={'build_ext': build_ext_check_gcc},
 )

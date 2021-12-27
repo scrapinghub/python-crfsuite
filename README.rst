@@ -2,8 +2,8 @@
 python-crfsuite
 ===============
 
-.. image:: https://travis-ci.org/scrapinghub/python-crfsuite.svg?branch=master
-    :target: https://travis-ci.org/scrapinghub/python-crfsuite
+.. image:: https://github.com/scrapinghub/python-crfsuite/actions/workflows/tests.yml/badge.svg?branch=master
+    :target: https://github.com/scrapinghub/python-crfsuite/actions/workflows/tests.yml
 
 .. image:: https://ci.appveyor.com/api/projects/status/uaq4sw8tc0oojr4v?svg=true
     :target: https://ci.appveyor.com/project/kmike/python-crfsuite-mhi5h
