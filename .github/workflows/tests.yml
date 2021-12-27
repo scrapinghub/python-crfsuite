@@ -17,6 +17,8 @@ jobs:
 
     steps:
       - uses: "actions/checkout@v2"
+        with:
+          submodules: true
       - uses: "actions/setup-python@v2"
         with:
           python-version: "${{ matrix.python-version }}"
@@ -28,8 +30,8 @@ jobs:
           python -m pip install --upgrade coverage[toml] virtualenv tox tox-gh-actions
           python -m pip install --upgrade cython
 
-#      - name: "Rebuild CPP files using Cython"
-#        run: "./update_cpp.sh"
+      - name: "Rebuild CPP files using Cython"
+        run: "./update_cpp.sh"
 
       - name: "Run tox targets for ${{ matrix.python-version }}"
         run: "python -m tox"
