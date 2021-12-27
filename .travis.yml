@@ -11,9 +11,6 @@ matrix:
     python: 3.6
     env: TOXENV=py36
   - os: linux
-    python: 3.5
-    env: TOXENV=py35
-  - os: linux
     python: 2.7
     env: TOXENV=py27
   - os: osx
