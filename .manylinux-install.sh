@@ -9,7 +9,7 @@ for PYBIN in /opt/python/*/bin; do
        [[ "${PYBIN}" == *"cp36"* ]] || \
        [[ "${PYBIN}" == *"cp37"* ]] || \
        [[ "${PYBIN}" == *"cp38"* ]] || \
-       [[ "${PYBIN}" == *"cp39"* ]];
+       [[ "${PYBIN}" == *"cp39"* ]] || \
        [[ "${PYBIN}" == *"cp310"* ]];
     then
         "${PYBIN}/pip" install tox
@@ -32,7 +32,7 @@ for PYBIN in /opt/python/*/bin; do
        [[ "${PYBIN}" == *"cp36"* ]] || \
        [[ "${PYBIN}" == *"cp37"* ]] || \
        [[ "${PYBIN}" == *"cp38"* ]] || \
-       [[ "${PYBIN}" == *"cp39"* ]];
+       [[ "${PYBIN}" == *"cp39"* ]] || \
        [[ "${PYBIN}" == *"cp310* ]];
     then
         "${PYBIN}/pip" uninstall -y python-crfsuite
