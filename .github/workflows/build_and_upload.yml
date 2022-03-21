@@ -22,7 +22,7 @@ jobs:
       - name: "Build wheels"
         uses: "pypa/cibuildwheel@v2.3.1"
         env:
-          CIBW_SKIP: "pp38-win_amd64"  # FIXME
+          CIBW_SKIP: "pp*"  # FIXME
           CIBW_BEFORE_BUILD: "pip install -U cython && ./update_cpp.sh"
           CIBW_BEFORE_BUILD_WINDOWS: "pip install -U cython && update_cpp.sh"
           CIBW_TEST_REQUIRES: "pytest"
