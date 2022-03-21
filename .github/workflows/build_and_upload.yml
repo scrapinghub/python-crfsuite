@@ -25,7 +25,8 @@ jobs:
           CIBW_SKIP: "pp38-win_amd64"  # FIXME
           CIBW_BEFORE_BUILD: "pip install -U cython && ./update_cpp.sh"
           CIBW_BEFORE_BUILD_WINDOWS: "pip install -U cython && update_cpp.sh"
-          CIBW_TEST_COMMAND: "echo Wheel installed successfully"
+          CIBW_TEST_REQUIRES: "pytest"
+          CIBW_TEST_COMMAND: "pytest {project}/tests --doctest-modules"
       - uses: "actions/upload-artifact@v3"
         with:
           path: "./wheelhouse/*.whl"
