@@ -66,3 +66,4 @@ jobs:
           password: ${{ secrets.PYPI_TOKEN }}
           print_hash: true
           verbose: true
+          skip_existing: true
