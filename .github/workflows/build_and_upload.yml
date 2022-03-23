@@ -54,7 +54,6 @@ jobs:
     needs:
       - build_wheels
       - make_sdist
-    if: github.event_name == 'release' && github.event.action == 'published'
     steps:
       - uses: "actions/download-artifact@v3"
         with:
