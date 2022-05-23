@@ -9,19 +9,27 @@ on:
 
 jobs:
   build_wheels:
-    name: "Build wheels on ${{ matrix.os }}"
+    name: "Build wheels on ${{ matrix.arch }} for ${{ matrix.os }}"
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
+        arch: [auto]
+        include:
+          - os: ubuntu-latest
+            arch: aarch64
     steps:
       - uses: "actions/checkout@v3"
         with:
           submodules: true
+      - uses: docker/setup-qemu-action@v1
+        if:  ${{ matrix.arch == 'aarch64' }}
+        name: Set up QEMU
       - name: "Build wheels"
         uses: "pypa/cibuildwheel@v2.3.1"
         env:
+          CIBW_ARCHS_LINUX: ${{ matrix.arch }}
           CIBW_SKIP: "pp*"  # FIXME
           CIBW_BEFORE_BUILD: "pip install -U cython && ./update_cpp.sh"
           CIBW_BEFORE_BUILD_WINDOWS: "pip install -U cython && update_cpp.sh"
