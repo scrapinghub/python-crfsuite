@@ -20,7 +20,7 @@ jobs:
         with:
           submodules: true
       - name: "Build wheels"
-        uses: "pypa/cibuildwheel@v2.3.1"
+        uses: "pypa/cibuildwheel@v2.12.0"
         env:
           CIBW_SKIP: "pp*"  # FIXME
           CIBW_BEFORE_BUILD: "pip install -U cython && ./update_cpp.sh"
@@ -35,7 +35,7 @@ jobs:
     name: "Build source distribution"
     runs-on: ubuntu-latest
     steps:
-      - uses: "actions/checkout@v2"
+      - uses: "actions/checkout@v3"
         with:
           submodules: true
       - name: "Install dependencies"
