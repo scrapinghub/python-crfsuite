@@ -35,7 +35,7 @@ jobs:
           python -m site
           python -m pip install --upgrade pip setuptools wheel
           python -m pip install --upgrade virtualenv tox tox-gh-actions
-          python -m pip install --upgrade cython
+          python -m pip install --upgrade "Cython==3.0a1"
 
       - name: "Rebuild CPP files using Cython"
         run: "./update_cpp.sh"
