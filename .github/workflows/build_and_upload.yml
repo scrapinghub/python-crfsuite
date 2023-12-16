@@ -16,7 +16,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
     steps:
-      - uses: "actions/checkout@v3"
+      - uses: "actions/checkout@v4"
         with:
           submodules: true
       - name: "Build wheels"
@@ -35,7 +35,7 @@ jobs:
     name: "Build source distribution"
     runs-on: ubuntu-latest
     steps:
-      - uses: "actions/checkout@v3"
+      - uses: "actions/checkout@v4"
         with:
           submodules: true
       - name: "Install dependencies"
@@ -60,7 +60,7 @@ jobs:
         with:
           name: artifact
           path: dist
-      - uses: "pypa/gh-action-pypi-publish@v1.5.0"
+      - uses: "pypa/gh-action-pypi-publish@v1.8.10"
         with:
           user: __token__
           password: ${{ secrets.PYPI_TOKEN }}
