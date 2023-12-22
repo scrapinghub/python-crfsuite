@@ -172,9 +172,9 @@ def test_info(model_filename):
         assert res.transitions[('sunny', 'sunny')] > res.transitions[('sunny', 'rainy')]
         assert res.state_features[('walk', 'sunny')] > res.state_features[('walk', 'rainy')]
         assert (u'солнце:не светит', u'rainy') in res.state_features
-        assert res.header['num_labels'] == '2'
-        assert set(res.labels.keys()) == set(['sunny', 'rainy'])
-        assert set(res.attributes.keys()) == set(['shop', 'walk', 'clean', u'солнце:не светит'])
+        assert res.header['num_labels'] == '3'
+        assert set(res.labels.keys()) == set(['sunny', 'rainy', u'好'])
+        assert set(res.attributes.keys()) == set(['shop', 'walk', 'clean', u'солнце:не светит', 'world'])
 
     # it shouldn't segfault on a closed tagger
     with pytest.raises(RuntimeError):

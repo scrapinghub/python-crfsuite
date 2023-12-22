@@ -1,6 +1,6 @@
 # cython: embedsignature=True
 # cython: c_string_type=str
-# cython: c_string_encoding=ascii
+# cython: c_string_encoding=utf-8
 # cython: profile=False
 from __future__ import print_function, absolute_import
 cimport crfsuite_api
