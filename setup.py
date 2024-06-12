@@ -33,7 +33,8 @@ class build_ext_check_gcc(build_ext):
             cc_args = cc_args + ['-std=c99'] if src.endswith('.c') else cc_args
             return _compile(obj, src, ext, cc_args, extra_postargs, pp_opts)
 
-        if c.compiler_type == 'unix' and 'gcc' in c.compiler:
+        if c.compiler_type == 'unix' and \
+           any(item == 'gcc' or item.endswith("-gcc") for item in c.compiler):
             c._compile = c_compile
 
         elif self.compiler.compiler_type == "msvc":
