@@ -1,6 +1,11 @@
 Changes
 =======
 
+0.9.9 (2023-02-01)
+------------------
+
+* Python 3.11 Support
+
 0.9.7 (2020-03-15)
 ------------------
 
@@ -117,7 +122,7 @@ This is a release without changes in functionality.
 0.5 (2014-05-27)
 ----------------
 
-* Exceptions in logging message handlers are now propogated and raised. This
+* Exceptions in logging message handlers are now propagated and raised. This
   allows, for example, to stop training earlier by pressing Ctrl-C.
 
 * It is now possible to customize :class:`pycrfsuite.Trainer` logging
@@ -159,7 +164,7 @@ This is a release without changes in functionality.
 0.3 (2014-05-14)
 ----------------
 
-python-crfsuite now detects the featue format (dict vs list of strings)
+python-crfsuite now detects the feature format (dict vs list of strings)
 automatically - it turns out the performance overhead is negligible.
 
 * ``Trainer.append_stringslists`` and ``Trainer.append_dicts`` methods

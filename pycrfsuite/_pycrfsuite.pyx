@@ -36,7 +36,7 @@ class CRFSuiteError(Exception):
 
 cdef string _SEP = b':'
 
-cdef crfsuite_api.Item to_item(x) except+:
+cdef extern crfsuite_api.Item to_item(x) except+:
     """ Convert a Python object to an Item. """
     cdef crfsuite_api.Item c_item
     cdef double c_value
@@ -93,7 +93,7 @@ cdef crfsuite_api.Item to_item(x) except+:
     return c_item
 
 
-cdef crfsuite_api.ItemSequence to_seq(pyseq) except+:
+cdef extern crfsuite_api.ItemSequence to_seq(pyseq) except+:
     """
     Convert an iterable to an ItemSequence.
     Elements of an iterable could be:
@@ -272,7 +272,7 @@ cdef class BaseTrainer(object):
         self.c_trainer.set_handler(self, <crfsuite_api.messagefunc>self._on_message)
 
         # fix segfaults, see https://github.com/chokkan/crfsuite/pull/21
-        self.c_trainer.select("lbfgs", "crf1d")
+        self.c_trainer.select("lbfgs".encode('ascii'), "crf1d".encode('ascii'))
         self.c_trainer._init_hack()
 
     cdef _on_message(self, string message):
@@ -338,7 +338,7 @@ cdef class BaseTrainer(object):
         """
         algorithm = algorithm.lower()
         algorithm = self._ALGORITHM_ALIASES.get(algorithm, algorithm)
-        if not self.c_trainer.select(algorithm, type):
+        if not self.c_trainer.select(algorithm.encode('ascii'), type.encode('ascii')):
             raise ValueError(
                 "Bad arguments: algorithm=%r, type=%r" % (algorithm, type)
             )
@@ -677,7 +677,7 @@ cdef class Tagger(object):
         """
         return self.c_tagger.marginal(y, pos)
 
-    cpdef set(self, xseq) except +:
+    cpdef extern set(self, xseq) except +:
         """
         Set an instance (item sequence) for future calls of
         :meth:`Tagger.tag`, :meth:`Tagger.probability`
