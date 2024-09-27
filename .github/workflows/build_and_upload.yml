@@ -23,8 +23,6 @@ jobs:
         uses: "pypa/cibuildwheel@v2.16.2"
         env:
           CIBW_SKIP: "pp*"  # FIXME
-          CIBW_BEFORE_BUILD: "pip install -U cython && ./update_cpp.sh"
-          CIBW_BEFORE_BUILD_WINDOWS: "pip install -U cython && update_cpp.sh"
           CIBW_TEST_REQUIRES: "pytest"
           CIBW_TEST_COMMAND: "pytest {project}/tests --doctest-modules"
       - uses: "actions/upload-artifact@v3"
@@ -38,10 +36,6 @@ jobs:
       - uses: "actions/checkout@v4"
         with:
           submodules: true
-      - name: "Install dependencies"
-        run: "python -m pip install --upgrade cython"
-      - name: "Rebuild CPP files using Cython"
-        run: "./update_cpp.sh"
       - name: "Build source distribution"
         run: "pipx run build --sdist"
       - uses: "actions/upload-artifact@v3"
