@@ -3,7 +3,7 @@
 # cython: c_string_encoding=ascii
 # cython: profile=False
 # distutils: language=c++
-cimport pycrfsuite.crfsuite_api as crfsuite_api
+from . cimport crfsuite_api
 from libcpp.string cimport string
 
 import sys

@@ -8,7 +8,7 @@ authors = [
 ]
 readme = "README.rst"
 license = {text = "MIT License", url = "http://www.opensource.org/licenses/mit-license.php"}
-requires-python = ">=3.6"
+requires-python = ">=3.8"
 classifiers = [
    "Development Status :: 4 - Beta",
    "Intended Audience :: Developers",
