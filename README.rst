@@ -50,14 +50,6 @@ Contributing
 
 Feel free to submit ideas, bugs reports, pull requests or regular patches.
 
-In order to run tests, install Cython_ (> 0.24.1)  and tox_, then type
-
-::
-
-    ./update_cpp.sh; tox
-
-from the source checkout.
-
 Please don't commit generated cpp files in the same commit as other files.
 
 .. _Cython: http://cython.org/
