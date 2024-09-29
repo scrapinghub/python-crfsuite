@@ -23,6 +23,7 @@ class TrainLogParser(object):
         self.events = []
 
     def feed(self, line):
+        # type: (str) -> None
         # if line != '\n':
         self.log.append(line)
         if self.state is None:
@@ -44,10 +45,12 @@ class TrainLogParser(object):
         return ''.join(self.log[start:end])
 
     def handle_STARTING(self, line):
+        # type: (str) -> None
         if line.startswith('Feature generation'):
             self.state = 'FEATGEN'
 
     def handle_FEATGEN(self, line):
+        # type: (str) -> str
         if line in "0123456789.10":
             self.featgen_percent += 2
             return 'featgen_progress'
@@ -63,6 +66,7 @@ class TrainLogParser(object):
             return 'featgen_end'
 
     def handle_AFTER_FEATGEN(self, line):
+        # type: (str) -> str
         if self._iteration_head(line) is not None:
             self.state = 'ITERATION'
             self.handle_ITERATION(line)
@@ -73,6 +77,7 @@ class TrainLogParser(object):
             return 'prepare_error'
 
     def handle_ITERATION(self, line):
+        # type: (str) -> None
         if self._iteration_head(line) is not None:
             self.last_iteration = {
                 'num': self._iteration_head(line),
@@ -84,6 +89,7 @@ class TrainLogParser(object):
             return 'iteration'
 
         def add_re(key, pattern, typ):
+            # type: (str,str,str) -> None
             m = re.match(pattern, line)
             if m:
                 self.last_iteration[key] = typ(m.group(1))
@@ -137,6 +143,7 @@ class TrainLogParser(object):
             })
 
     def handle_AFTER_ITERATION(self, line):
+        # type: (str) -> None
         if self._iteration_head(line) is not None:
             self.state = 'ITERATION'
             return self.handle_ITERATION(line)
@@ -150,17 +157,20 @@ class TrainLogParser(object):
             return 'optimization_end'
 
     def handle_STORING(self, line):
+        # type: (str) -> None
         if line == '\n':
             return 'end'
         elif self._seconds(line):
             self.storing_seconds = self._seconds(line)
 
     def _iteration_head(self, line):
+        # type: (str) -> None
         m = re.match(r'\*{5} (?:Iteration|Epoch) #(\d+) \*{5}\n', line)
         if m:
             return int(m.group(1))
 
     def _seconds(self, line):
+        # type: (str) -> float
         m = re.match(r'Seconds required: (\d+\.\d+)', line)
         if m:
             return float(m.group(1))
