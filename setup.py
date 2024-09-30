@@ -34,6 +34,7 @@ class build_ext_check_gcc(build_ext):
         _compile = c._compile
 
         def c_compile(obj, src, ext, cc_args, extra_postargs, pp_opts):
+            cc_args = cc_args + ["-D_POSIX_C_SOURCE=200112L"] if src.startswith("crfsuite/") else cc_args
             cc_args = cc_args + ["-std=c99"] if src.endswith(".c") else cc_args
             return _compile(obj, src, ext, cc_args, extra_postargs, pp_opts)
 
