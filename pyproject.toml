@@ -1,0 +1,61 @@
+[project]
+name = "python-crfsuite"
+version = "0.9.10"
+description = "Python binding for CRFsuite"
+authors = [
+  {name = "Terry Peng", email = "pengtaoo@gmail.com"},
+  {name = "Mikhail Korobov", email = "kmike84@gmail.com"},
+]
+readme = "README.rst"
+license = {text = "MIT License", url = "http://www.opensource.org/licenses/mit-license.php"}
+requires-python = ">=3.8"
+classifiers = [
+   "Development Status :: 4 - Beta",
+   "Intended Audience :: Developers",
+   "Intended Audience :: Science/Research",
+   "License :: OSI Approved :: MIT License",
+   "Programming Language :: Cython",
+   "Programming Language :: Python",
+   "Programming Language :: Python :: 3",
+   "Programming Language :: Python :: 3.6",
+   "Programming Language :: Python :: 3.7",
+   "Programming Language :: Python :: 3.8",
+   "Programming Language :: Python :: 3.9",
+   "Programming Language :: Python :: 3.10",
+   "Topic :: Software Development",
+   "Topic :: Software Development :: Libraries :: Python Modules",
+   "Topic :: Scientific/Engineering",
+   "Topic :: Scientific/Engineering :: Information Analysis",
+   "Topic :: Text Processing :: Linguistic",
+]  
+
+[project.urls]
+Homepage = "https://github.com/scrapinghub/python-crfsuite"
+
+[project.optional-dependencies]
+dev = ["tox",
+       "black",
+       "isort",
+       "flake8",
+]
+
+[build-system]
+requires = ["setuptools>=42", "wheel", "cython"]
+build-backend = "setuptools.build_meta"
+
+
+[tool.setuptools.packages.find]
+include = ["pycrfsuite"]
+
+
+[tool.pytest.ini_options]
+addopts = [
+    "--import-mode=importlib",
+]
+testpaths = [
+  "tests",
+  ]
+
+[tool.isort]
+profile = "black"
+src_paths = ["usaddress", "tests"]
