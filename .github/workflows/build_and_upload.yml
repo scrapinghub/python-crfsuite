@@ -23,6 +23,7 @@ jobs:
         uses: "pypa/cibuildwheel@v2.21.1"
         env:
           CIBW_SKIP: "pp*"  # FIXME
+          CIBW_ARCHS_LINUX: "auto aarch64"
           CIBW_TEST_REQUIRES: "pytest"
           CIBW_TEST_COMMAND: "pytest {project}/tests --doctest-modules"
       - uses: "actions/upload-artifact@v3"
