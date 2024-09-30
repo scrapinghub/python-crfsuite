@@ -1,9 +1,7 @@
-# -*- coding: utf-8 -*-
-from __future__ import absolute_import
 import re
 
 
-class ParsedDump(object):
+class ParsedDump:
     """
     CRFsuite model parameters. Objects of this type are returned by
     :meth:`pycrfsuite.Tagger.info()` method.
@@ -27,6 +25,7 @@ class ParsedDump(object):
         ``{name: internal_id}`` dict with known attributes
 
     """
+
     def __init__(self):
         self.header = {}
         self.labels = {}
@@ -35,7 +34,7 @@ class ParsedDump(object):
         self.state_features = {}
 
 
-class CRFsuiteDumpParser(object):
+class CRFsuiteDumpParser:
     """
     A hack: parser for `crfsuite dump` results.
 
@@ -49,17 +48,19 @@ class CRFsuiteDumpParser(object):
 
     def feed(self, line):
         # Strip initial ws and line terminator, but allow for ws at the end of feature names.
-        line = line.lstrip().rstrip('\r\n')
+        line = line.lstrip().rstrip("\r\n")
         if not line:
             return
 
-        m = re.match(r"(FILEHEADER|LABELS|ATTRIBUTES|TRANSITIONS|STATE_FEATURES) = {", line)
+        m = re.match(
+            r"(FILEHEADER|LABELS|ATTRIBUTES|TRANSITIONS|STATE_FEATURES) = {", line
+        )
         if m:
             self.state = m.group(1)
-        elif line == '}':
+        elif line == "}":
             self.state = None
         else:
-            getattr(self, 'parse_%s' % self.state)(line)
+            getattr(self, "parse_%s" % self.state)(line)
 
     def parse_FILEHEADER(self, line):
         m = re.match(r"(\w+): (.*)", line)
