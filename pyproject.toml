@@ -1,6 +1,6 @@
 [project]
 name = "python-crfsuite"
-version = "0.9.10"
+version = "0.9.11"
 description = "Python binding for CRFsuite"
 authors = [
   {name = "Terry Peng", email = "pengtaoo@gmail.com"},
