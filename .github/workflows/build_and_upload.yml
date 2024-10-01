@@ -34,6 +34,7 @@ jobs:
       - uses: "actions/upload-artifact@v4"
         with:
           path: "./wheelhouse/*.whl"
+          overwrite: true
  
   make_sdist:
     name: "Build source distribution"
@@ -47,6 +48,7 @@ jobs:
       - uses: "actions/upload-artifact@v4"
         with:
           path: "./dist/*.tar.gz"
+          overwrite: true
 
   upload_to_pypi:
     name: "Upload to PyPI"
