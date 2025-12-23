@@ -1,6 +1,6 @@
 [project]
 name = "python-crfsuite"
-version = "0.9.11"
+version = "0.9.12"
 description = "Python binding for CRFsuite"
 authors = [
   {name = "Terry Peng", email = "pengtaoo@gmail.com"},
@@ -45,7 +45,7 @@ build-backend = "setuptools.build_meta"
 
 
 [tool.bumpversion]
-current_version = "0.9.11"
+current_version = "0.9.12"
 commit = true
 tag = true
 tag_name = "{new_version}"
