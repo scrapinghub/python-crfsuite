@@ -1,6 +1,12 @@
 Changes
 =======
 
+0.9.12 (unreleased)
+-------------------
+
+* Dropped support for Python 3.6, 3.7, 3.8, 3.9.
+* Added support for Python 3.12, 3.13, 3.14.
+
 0.9.9 (2023-02-01)
 ------------------
 
