@@ -8,7 +8,7 @@ authors = [
 ]
 readme = "README.rst"
 license = {text = "MIT License", url = "http://www.opensource.org/licenses/mit-license.php"}
-requires-python = ">=3.8"
+requires-python = ">=3.10"
 classifiers = [
    "Development Status :: 4 - Beta",
    "Intended Audience :: Developers",
@@ -17,11 +17,11 @@ classifiers = [
    "Programming Language :: Cython",
    "Programming Language :: Python",
    "Programming Language :: Python :: 3",
-   "Programming Language :: Python :: 3.6",
-   "Programming Language :: Python :: 3.7",
-   "Programming Language :: Python :: 3.8",
-   "Programming Language :: Python :: 3.9",
    "Programming Language :: Python :: 3.10",
+   "Programming Language :: Python :: 3.11",
+   "Programming Language :: Python :: 3.12",
+   "Programming Language :: Python :: 3.13",
+   "Programming Language :: Python :: 3.14",
    "Topic :: Software Development",
    "Topic :: Software Development :: Libraries :: Python Modules",
    "Topic :: Scientific/Engineering",
@@ -42,6 +42,19 @@ dev = ["tox",
 [build-system]
 requires = ["setuptools>=42", "wheel", "cython"]
 build-backend = "setuptools.build_meta"
+
+
+[tool.bumpversion]
+current_version = "0.9.11"
+commit = true
+tag = true
+tag_name = "{new_version}"
+
+[[tool.bumpversion.files]]
+filename = "CHANGES.rst"
+search = "\\(unreleased\\)$"
+replace = "({now:%Y-%m-%d})"
+regex = true
 
 
 [tool.setuptools.packages.find]
