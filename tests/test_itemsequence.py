@@ -1,3 +1,6 @@
+from concurrent.futures import ThreadPoolExecutor
+from threading import Barrier
+
 import pytest
 
 import pycrfsuite
@@ -7,6 +10,25 @@ def test_basic():
     seq = pycrfsuite.ItemSequence([])
     assert len(seq) == 0
     assert seq.items() == []
+
+
+def test_concurrent_reinitialization():
+    seq = pycrfsuite.ItemSequence([])
+    items = [{"foo": 1.0}] * 80
+    barrier = Barrier(4)
+
+    def access(index):
+        barrier.wait(timeout=30)
+        for iteration in range(500):
+            if index == 0:
+                seq.__init__(items if iteration % 2 else [])
+            else:
+                assert seq.items() in ([], items)
+                assert pycrfsuite.ItemSequence(seq).items() in ([], items)
+                assert len(seq) in (0, len(items))
+
+    with ThreadPoolExecutor(max_workers=4) as pool:
+        list(pool.map(access, range(4)))
 
 
 def test_lists():

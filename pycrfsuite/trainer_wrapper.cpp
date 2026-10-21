@@ -2,6 +2,8 @@
 #include "Python.h"
 #include "trainer_wrapper.hpp"
 #include <stdexcept>
+#include <cstdlib>
+#include <mutex>
 
 namespace CRFSuiteWrapper
 {
@@ -39,3 +41,13 @@ void Trainer::_init_hack()
 
 
 }
+
+#ifdef Py_GIL_DISABLED
+// Protect libc's RNG state without changing its sequence.
+extern "C" int pycrfsuite_rand(void)
+{
+    static std::mutex mutex;
+    std::lock_guard<std::mutex> lock(mutex);
+    return std::rand();
+}
+#endif

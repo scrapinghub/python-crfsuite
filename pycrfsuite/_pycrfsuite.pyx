@@ -2,6 +2,7 @@
 # cython: c_string_type=str
 # cython: c_string_encoding=utf-8
 # cython: profile=False
+# cython: freethreading_compatible=True
 # distutils: language=c++
 from . cimport crfsuite_api
 from libcpp.string cimport string
@@ -10,6 +11,7 @@ import sys
 import os
 import contextlib
 import tempfile
+from threading import RLock
 
 from pycrfsuite import _dumpparser
 from pycrfsuite import _logparser
@@ -101,9 +103,12 @@ cdef extern crfsuite_api.ItemSequence to_seq(pyseq) except+:
       "string_prefix" s prepended to each key.
     """
     cdef crfsuite_api.ItemSequence c_seq
+    cdef ItemSequence sequence
 
     if isinstance(pyseq, ItemSequence):
-        c_seq = (<ItemSequence>pyseq).c_seq
+        sequence = pyseq
+        with sequence._lock:
+            c_seq = sequence.c_seq
     else:
         for x in pyseq:
             c_seq.push_back(to_item(x))
@@ -155,9 +160,16 @@ cdef class ItemSequence(object):
 
     """
     cdef crfsuite_api.ItemSequence c_seq
+    # Calling __init__ again can replace the contents of an existing sequence.
+    cdef object _lock
+
+    def __cinit__(self):
+        self._lock = RLock()
 
     def __init__(self, pyseq):
-        self.c_seq = to_seq(pyseq)
+        cdef crfsuite_api.ItemSequence c_seq = to_seq(pyseq)
+        with self._lock:
+            self.c_seq = c_seq
 
     def items(self):
         """
@@ -173,7 +185,7 @@ cdef class ItemSequence(object):
         cdef bytes key
         seq = []
 
-        for c_item in self.c_seq:
+        for c_item in to_seq(self):
             x = {}
             for c_attr in c_item:
                 # Always decode keys from utf-8. It means binary keys are
@@ -188,7 +200,8 @@ cdef class ItemSequence(object):
         return seq
 
     def __len__(self):
-        return self.c_seq.size()
+        with self._lock:
+            return self.c_seq.size()
 
     def __repr__(self):
         return "<ItemSequence of size %d>" % len(self)
@@ -219,6 +232,8 @@ cdef class BaseTrainer(object):
 
     """
     cdef crfsuite_api.Trainer c_trainer
+    cdef object _lock
+    cdef bint _training
 
     _PARAMETER_TYPES = {
         'feature.minfreq': float,
@@ -261,12 +276,17 @@ cdef class BaseTrainer(object):
         self.verbose = verbose
 
     def __cinit__(self):
+        self._lock = RLock()
         # setup message handler
         self.c_trainer.set_handler(self, <crfsuite_api.messagefunc>self._on_message)
 
         # fix segfaults, see https://github.com/chokkan/crfsuite/pull/21
         self.c_trainer.select("lbfgs".encode('ascii'), "crf1d".encode('ascii'))
         self.c_trainer._init_hack()
+
+    cdef _check_not_training(self):
+        if self._training:
+            raise RuntimeError("Cannot modify a trainer during training")
 
     cdef _on_message(self, string message):
         self.message(message)
@@ -309,7 +329,11 @@ cdef class BaseTrainer(object):
             The group number of the instance. Group numbers are used to
             select subset of data for heldout evaluation.
         """
-        self.c_trainer.append(to_seq(xseq), yseq, group)
+        cdef crfsuite_api.ItemSequence c_seq = to_seq(xseq)
+        cdef crfsuite_api.StringList c_labels = yseq
+        with self._lock:
+            self._check_not_training()
+            self.c_trainer.append(c_seq, c_labels, group)
 
     def select(self, algorithm, type='crf1d'):
         """
@@ -331,16 +355,24 @@ cdef class BaseTrainer(object):
         """
         algorithm = algorithm.lower()
         algorithm = self._ALGORITHM_ALIASES.get(algorithm, algorithm)
-        if not self.c_trainer.select(algorithm.encode('ascii'), type.encode('ascii')):
-            raise ValueError(
-                "Bad arguments: algorithm=%r, type=%r" % (algorithm, type)
-            )
+        cdef string c_algorithm = algorithm.encode('ascii')
+        cdef string c_type = type.encode('ascii')
+        with self._lock:
+            self._check_not_training()
+            if not self.c_trainer.select(c_algorithm, c_type):
+                raise ValueError(
+                    "Bad arguments: algorithm=%r, type=%r" % (algorithm, type)
+                )
 
     def train(self, model, int holdout=-1):
         """
         Run the training algorithm.
         This function starts the training algorithm with the data set given
         by :meth:`Trainer.append` method.
+
+        Callbacks may inspect this trainer, but changing its training data,
+        algorithm or parameters, or calling ``train()`` again, raises
+        ``RuntimeError``.
 
         Parameters
         ----------
@@ -355,10 +387,17 @@ cdef class BaseTrainer(object):
             for training, but for holdout evaluation.
             Default value is -1, meaning "use all instances for training".
         """
-        self._before_train()
-        status_code = self.c_trainer.train(model, holdout)
-        if status_code != crfsuite_api.CRFSUITE_SUCCESS:
-            raise CRFSuiteError(status_code)
+        cdef string c_model = model
+        with self._lock:
+            self._check_not_training()
+            self._training = True
+            try:
+                self._before_train()
+                status_code = self.c_trainer.train(c_model, holdout)
+                if status_code != crfsuite_api.CRFSUITE_SUCCESS:
+                    raise CRFSuiteError(status_code)
+            finally:
+                self._training = False
 
     def params(self):
         """
@@ -375,7 +414,8 @@ cdef class BaseTrainer(object):
             graphical model and training algorithm.
 
         """
-        return self.c_trainer.params()
+        with self._lock:
+            return self.c_trainer.params()
 
     def set_params(self, params):
         """
@@ -386,8 +426,9 @@ cdef class BaseTrainer(object):
         params : dict
             A dict with parameters ``{name: value}``
         """
-        for key, value in params.items():
-            self.set(key, value)
+        with self._lock:
+            for key, value in params.items():
+                self.set(key, value)
 
     def get_params(self):
         """
@@ -400,7 +441,8 @@ cdef class BaseTrainer(object):
             with all trainer parameters.
         """
         # params = self.params()
-        return dict((name, self.get(name)) for name in self.params())
+        with self._lock:
+            return dict((name, self.get(name)) for name in self.params())
 
     def set(self, name, value):
         """
@@ -418,7 +460,11 @@ cdef class BaseTrainer(object):
         """
         if isinstance(value, bool):
             value = int(value)
-        self.c_trainer.set(name, str(value))
+        cdef string c_name = name
+        cdef string c_value = str(value)
+        with self._lock:
+            self._check_not_training()
+            self.c_trainer.set(c_name, c_value)
 
     def get(self, name):
         """
@@ -431,7 +477,10 @@ cdef class BaseTrainer(object):
         name : string
             The parameter name.
         """
-        return self._cast_parameter(name, self.c_trainer.get(name))
+        cdef string c_name = name
+        with self._lock:
+            value = self.c_trainer.get(c_name)
+        return self._cast_parameter(name, value)
 
     def help(self, name):
         """
@@ -451,15 +500,19 @@ cdef class BaseTrainer(object):
             The description (help message) of the parameter.
 
         """
-        if name not in self.params():
-            # c_trainer.help(name) segfaults without this workaround;
-            # see https://github.com/chokkan/crfsuite/pull/21
-            raise ValueError("Parameter not found: %s" % name)
-        return self.c_trainer.help(name)
+        cdef string c_name = name
+        with self._lock:
+            if name not in self.params():
+                # c_trainer.help(name) segfaults without this workaround;
+                # see https://github.com/chokkan/crfsuite/pull/21
+                raise ValueError("Parameter not found: %s" % name)
+            return self.c_trainer.help(c_name)
 
     def clear(self):
         """ Remove all instances in the data set. """
-        self.c_trainer.clear()
+        with self._lock:
+            self._check_not_training()
+            self.c_trainer.clear()
 
     def _cast_parameter(self, name, value):
         if name in self._PARAMETER_TYPES:
@@ -554,6 +607,10 @@ cdef class Tagger(object):
     input sequences using a model.
     """
     cdef crfsuite_api.Tagger c_tagger
+    cdef object _lock
+
+    def __cinit__(self):
+        self._lock = RLock()
 
     def open(self, name):
         """
@@ -569,8 +626,10 @@ cdef class Tagger(object):
         # may segfault if the file is invalid.
         # See https://github.com/chokkan/crfsuite/pull/24
         self._check_model(name)
-        if not self.c_tagger.open(name):
-            raise ValueError("Error opening model file %r" % name)
+        cdef string c_name = name
+        with self._lock:
+            if not self.c_tagger.open(c_name):
+                raise ValueError("Error opening model file %r" % name)
         return contextlib.closing(self)
 
     def open_inmemory(self, bytes value):
@@ -585,15 +644,17 @@ cdef class Tagger(object):
         """
         self._check_inmemory_model(value)
         cdef const char *v = value
-        if not self.c_tagger.open(v, len(value)):
-            raise ValueError("Error opening model")
+        with self._lock:
+            if not self.c_tagger.open(v, len(value)):
+                raise ValueError("Error opening model")
         return contextlib.closing(self)
 
     def close(self):
         """
         Close the model.
         """
-        self.c_tagger.close()
+        with self._lock:
+            self.c_tagger.close()
 
     def labels(self):
         """
@@ -604,7 +665,8 @@ cdef class Tagger(object):
         list of strings
             The list of labels in the model.
         """
-        return self.c_tagger.labels()
+        with self._lock:
+            return self.c_tagger.labels()
 
     def tag(self, xseq=None):
         """
@@ -626,10 +688,10 @@ cdef class Tagger(object):
         list of strings
             The label sequence predicted.
         """
-        if xseq is not None:
-            self.set(xseq)
-
-        return self.c_tagger.viterbi()
+        with self._lock:
+            if xseq is not None:
+                self.set(xseq)
+            return self.c_tagger.viterbi()
 
     def probability(self, yseq):
         """
@@ -647,7 +709,9 @@ cdef class Tagger(object):
         float
             The probability ``P(yseq|xseq)``.
         """
-        return self.c_tagger.probability(yseq)
+        cdef crfsuite_api.StringList c_labels = yseq
+        with self._lock:
+            return self.c_tagger.probability(c_labels)
 
     def marginal(self, y, pos):
         """
@@ -668,13 +732,19 @@ cdef class Tagger(object):
         float
             The marginal probability of the label ``y`` at position ``t``.
         """
-        return self.c_tagger.marginal(y, pos)
+        cdef string c_y = y
+        cdef int c_pos = pos
+        with self._lock:
+            return self.c_tagger.marginal(c_y, c_pos)
 
     cpdef extern set(self, xseq) except +:
         """
         Set an instance (item sequence) for future calls of
         :meth:`Tagger.tag`, :meth:`Tagger.probability`
         and :meth:`Tagger.marginal` methods.
+
+        When sharing a tagger across threads, use an external lock around
+        ``set()`` and the subsequent calls that use that sequence.
 
         Parameters
         ----------
@@ -685,7 +755,9 @@ cdef class Tagger(object):
             in :class:`~ItemSequence` docs.
 
         """
-        self.c_tagger.set(to_seq(xseq))
+        cdef crfsuite_api.ItemSequence c_seq = to_seq(xseq)
+        with self._lock:
+            self.c_tagger.set(c_seq)
 
     def dump(self, filename=None):
         """
@@ -698,16 +770,14 @@ cdef class Tagger(object):
             If None, the model is dumped to stdout.
         """
         if filename is None:
-            self.c_tagger.dump(os.dup(sys.stdout.fileno()))
+            fd = os.dup(sys.stdout.fileno())
         else:
             fd = os.open(filename, os.O_CREAT | os.O_WRONLY)
-            try:
+        try:
+            with self._lock:
                 self.c_tagger.dump(fd)
-            finally:
-                try:
-                    os.close(fd)
-                except OSError:
-                    pass  # already closed by Tagger::dump
+        finally:
+            os.close(fd)
 
     def info(self):
         """
@@ -716,11 +786,13 @@ cdef class Tagger(object):
         parser = _dumpparser.CRFsuiteDumpParser()
         fd, name = tempfile.mkstemp()
         try:
-            self.c_tagger.dump(fd)
+            with self._lock:
+                self.c_tagger.dump(fd)
             with open(name, 'rb') as f:
                 for line in f:
                     parser.feed(line.decode('utf8'))
         finally:
+            os.close(fd)
             try:
                 os.unlink(name)
             except OSError:

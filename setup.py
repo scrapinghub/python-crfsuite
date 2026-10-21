@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import glob
 import sys
+import sysconfig
 from distutils.command.build_ext import build_ext
 
 from Cython.Build import cythonize
@@ -29,6 +30,14 @@ includes = [
 class build_ext_check_gcc(build_ext):
     def build_extensions(self):
         c = self.compiler
+
+        if sysconfig.get_config_var("Py_GIL_DISABLED"):
+            for extension in self.extensions:
+                extension.extra_compile_args.extend(
+                    ["/FI_crfsuite_compat.h"]
+                    if c.compiler_type == "msvc"
+                    else ["-include", "_crfsuite_compat.h"]
+                )
 
         _compile = c._compile
 
