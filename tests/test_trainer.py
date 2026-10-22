@@ -76,6 +76,34 @@ def test_training_messages_exception(tmpdir, xseq, yseq):
         trainer.train(model_filename)
 
 
+@pytest.mark.parametrize("mutation", ["append", "clear", "select", "set", "train"])
+def test_training_callback_rejects_mutation(tmpdir, xseq, yseq, mutation):
+    model_filename = str(tmpdir.join("model.crfsuite"))
+
+    class CheckingTrainer(Trainer):
+        checked = False
+
+        def message(self, message):
+            if not self.checked:
+                self.checked = True
+                assert self.get("max_iterations") == 2
+                args = {
+                    "append": (xseq, yseq),
+                    "clear": (),
+                    "select": ("lbfgs",),
+                    "set": ("max_iterations", 1),
+                    "train": (model_filename,),
+                }
+                with pytest.raises(RuntimeError, match="during training"):
+                    getattr(self, mutation)(*args[mutation])
+
+    trainer = CheckingTrainer(params={"max_iterations": 2}, verbose=False)
+    trainer.append(xseq, yseq)
+    trainer.train(model_filename)
+    assert trainer.checked
+    trainer.clear()
+
+
 def test_trainer_select_raises_error():
     trainer = Trainer()
     with pytest.raises(ValueError):

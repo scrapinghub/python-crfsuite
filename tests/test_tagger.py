@@ -1,3 +1,6 @@
+from concurrent.futures import ThreadPoolExecutor
+from threading import Barrier
+
 import pytest
 
 from pycrfsuite import ItemSequence, Tagger, Trainer
@@ -70,18 +73,31 @@ def test_open_inmemory_invalid():
         tagger.open_inmemory(b"lCRFabc")
 
 
-@pytest.mark.xfail(
-    reason="see https://github.com/scrapinghub/python-crfsuite/issues/28", run=False
-)
-def test_tag_not_opened(xseq):
+@pytest.mark.parametrize("method", ["set", "tag"])
+def test_tagger_not_opened(xseq, method):
     tagger = Tagger()
-    with pytest.raises(Exception):
-        tagger.tag(xseq)
+    with pytest.raises(ValueError, match="^The tagger is not opened$"):
+        getattr(tagger, method)(xseq)
 
 
 def test_tag(model_filename, xseq, yseq):
     with Tagger().open(model_filename) as tagger:
         assert tagger.tag(xseq) == yseq
+
+
+def test_tag_shared_between_threads(model_filename, xseq):
+    barrier = Barrier(4)
+    with Tagger().open(model_filename) as tagger:
+        sequences = [ItemSequence(xseq[:length]) for length in (1, 3, 7, 11)]
+        expected = [tagger.tag(sequence) for sequence in sequences]
+
+        def tag(index):
+            barrier.wait(timeout=30)
+            for _ in range(500):
+                assert tagger.tag(sequences[index]) == expected[index]
+
+        with ThreadPoolExecutor(max_workers=4) as pool:
+            list(pool.map(tag, range(4)))
 
 
 def test_tag_item_sequence(model_filename, xseq, yseq):
